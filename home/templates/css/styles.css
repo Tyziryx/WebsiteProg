@@ -1,0 +1,16 @@
+@import url('header.css');
+@import url('footer.css');
+@import url('home.css');
+@import url('components.css');
+@import url('var.css');
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--secondary-color-light);
+}
+
+h3 {
+    font-family: 'Felipa', sans-serif;
+    font-size: 2rem;
+}

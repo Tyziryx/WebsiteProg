@@ -1,0 +1,162 @@
+@import url('var.css');
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+main {
+    background-color: var(--main-color-light);
+}
+
+/* Hero Section */
+
+.hero {
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: white;
+    color: var(--main-black);
+}
+
+.hero-container {
+    max-width: 800px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.hero-button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--secondary-color-light);
+    background-color: var(--main-color);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.hero-button:hover {
+    background-color: #e06a00;
+    transform: scale(1.05);
+}
+
+/* SECTION FIXÉE */
+.fixed-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* Hauteur pour forcer le scroll */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    background-color: white;
+    transition: transform 0.3s ease-out;
+}
+
+/* Une classe qui active la fixation */
+.fixed-section.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+/* CONTENEUR D'IMAGE */
+.image-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+/* IMAGES SUPERPOSÉES */
+.scroll-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+/* IMAGE ACTIVE */
+.scroll-image.active {
+    opacity: 1;
+}
+
+/* CONTENEUR DE TEXTE */
+.text-container {
+    width: 50%;
+    text-align: left;
+    position: relative;
+}
+
+/* TITRES ET TEXTES SUPERPOSÉS */
+.title-content,
+.text-content {
+    position: absolute;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* ACTIVE */
+.title-content.active,
+.text-content.active {
+    opacity: 1;
+    transform: translateY(0);
+    position: static;
+}
+
+/* ESPACE POUR SIMULER LE SCROLL */
+.spacer {
+    /*à calculer en fonction du nombre de pierre réccupéré */
+    height: 1000vh;
+    background-color: white;
+}
+
+/* CONTENEUR DE L'INDEX (À GAUCHE) */
+.scroll-index {
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* BARRES DE L'INDEX */
+.index-bar {
+    width: 5px;
+    height: 30px;
+    background-color: #bbb;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+/* BARRE ACTIVE */
+.index-bar.active {
+    background-color: #333;
+    transform: scaleX(1.5);
+}
