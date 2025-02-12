@@ -9,7 +9,7 @@ body {
 }
 
 main {
-    background-color: var(--main-color-light);
+    background-color: var(--white);
 }
 
 /* Hero Section */
@@ -23,8 +23,8 @@ main {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: white;
-    color: var(--main-black);
+    background: var(--white);
+    color: var(--black);
 }
 
 .hero-container {
@@ -43,23 +43,6 @@ main {
     opacity: 0.9;
 }
 
-.hero-button {
-    display: inline-block;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--secondary-color-light);
-    background-color: var(--main-color);
-    border-radius: 10px;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.hero-button:hover {
-    background-color: #e06a00;
-    transform: scale(1.05);
-}
-
 /* SECTION FIXÉE */
 .fixed-section {
     position: relative;
@@ -70,7 +53,7 @@ main {
     align-items: center;
     justify-content: center;
     gap: 50px;
-    background-color: white;
+    background-color: var(--white);
     transition: transform 0.3s ease-out;
 }
 
@@ -128,7 +111,7 @@ main {
 .spacer {
     /*à calculer en fonction du nombre de pierre réccupéré */
     height: 1000vh;
-    background-color: white;
+    background-color: var(--white);
 }
 
 /* CONTENEUR DE L'INDEX (À GAUCHE) */
@@ -146,7 +129,7 @@ main {
 .index-bar {
     width: 5px;
     height: 30px;
-    background-color: #bbb;
+    background-color: var(--secondary-color);
     border-radius: 10px;
     transition: background-color 0.3s, transform 0.3s;
     cursor: pointer;
@@ -154,6 +137,6 @@ main {
 
 /* BARRE ACTIVE */
 .index-bar.active {
-    background-color: #333;
+    background-color: var(--main-color);
     transform: scaleX(1.5);
 }
