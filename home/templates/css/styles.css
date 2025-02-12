@@ -1,13 +1,16 @@
 @import url('header.css');
+@import url('headerbis.css');
 @import url('footer.css');
 @import url('home.css');
 @import url('components.css');
 @import url('var.css');
+@import url('contact.css');
+
 
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--secondary-color-light);
+    background-color: var(--white);
 }
 
 h3 {
