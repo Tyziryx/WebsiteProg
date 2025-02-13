@@ -81,10 +81,8 @@ main {
     letter-spacing: .5px;
     color: var(--grey);
     background-color: transparent;
-    border: none;
     outline: none;
-    transform: translateX(0);
-    transition: all .3s ease-out;
+    border: none;
 }
 
 .form-wrapper.is-active .switcher-login {
