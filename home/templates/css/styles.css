@@ -4,12 +4,27 @@
 @import url('components.css');
 @import url('var.css');
 @import url('contact.css');
+@import url('faq.css');
 
+
+
+/* Pour les navigateurs basés sur WebKit (Chrome, Edge, Safari, etc.) */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Pour Firefox */
+html {
+    scrollbar-width: none;
+}
 
 
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--white);
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+
 }
 
 h3 {
