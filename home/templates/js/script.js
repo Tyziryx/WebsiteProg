@@ -18,8 +18,7 @@ document.querySelectorAll(".index-bar").forEach(bar => {
     bar.addEventListener("click", (e) => {
         let targetIndex = parseInt(e.target.dataset.index);
         window.scrollTo({
-            top: targetIndex * 500, // Ajuste selon la hauteur de ton effet
-            behavior: "smooth"
+            top: targetIndex * 999, // 1000-1 -> X de scrollY/ X
         });
     });
 });
@@ -36,8 +35,9 @@ document.addEventListener("scroll", () => {
 });
 
 
-
 //HEADER 
+//Réccupéré sur codepen.io
+// https://codepen.io/themrsami/details/ogvedxR
 
 const navbar = document.querySelector('.navbar');
 const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
