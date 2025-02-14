@@ -8,10 +8,6 @@
 @import url('dashboard.css');
 @import url('profil.css');
 
-
-
-
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--secondary-color-light);
 }

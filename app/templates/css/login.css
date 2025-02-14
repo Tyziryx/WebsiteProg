@@ -295,14 +295,14 @@ main {
 .btn-login {
     color: var(--white);
     background: var(--main-color);
-    border: 1px solid var(---white) ;
+    border: 1px solid var(---white);
 
 }
 
 .btn-login:hover {
     background: var(--white);
     color: var(--main-color);
-    border: 1px solid var(--main-color) ;
+    border: 1px solid var(--main-color);
 }
 
 .btn-signup {
