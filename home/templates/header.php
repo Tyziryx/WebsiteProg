@@ -18,7 +18,6 @@
                     'home' => 'Accueil',
                     'contact' => 'Contact',
                     'faq' => 'FAQ',
-                    'login' => 'Geodex',
                 ];
 
                 // Parcourir les pages pour générer les liens
@@ -26,6 +25,9 @@
                     $active_class = ($current_page == $page) ? 'active' : ''; // Ajouter la classe active si c'est la page actuelle
                     echo "<li class=\"$active_class\"><a href=\"index.php?page=$page\">$label</a></li>";
                 }
+
+                // Lien spécifique pour Geodex
+                echo '<li><a href="../app/index.php">Geodex</a></li>';
                 ?>
             </ul>
         </div>
