@@ -2,6 +2,10 @@
 <?php include 'templates/header.php'; ?>
 
 <?php
+if (!isset($_GET['page'])) {
+    header("Location: app/templates/login.php");  // Redirige vers home/index.php (relatif au répertoire actuel)
+    exit;
+}
 // Récupérer la page, ou définir 'home' par défaut si la page n'est pas spécifiée
 $page = $_GET['page'] ?? 'home';
 
