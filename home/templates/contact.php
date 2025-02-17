@@ -1,7 +1,3 @@
-<?php
-include 'head.php';
-include 'header.php';
-?>
 
 <main>
     <section id="contact" class="contact-section">
@@ -31,7 +27,6 @@ include 'header.php';
     </section>
 </main>
 
-<?php include 'footer.php'; ?>
 
 <script src="../templates/js/script.js"></script>
 </body>
