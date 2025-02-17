@@ -72,7 +72,7 @@
         </div>
     </footer>
     -->
-    <script src="js/login.js"></script>
+    <script src="templates/js/login.js"></script>
 </body>
 
 </html>
