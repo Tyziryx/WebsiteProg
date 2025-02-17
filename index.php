@@ -1,7 +1,7 @@
 <?php
 // Rediriger vers /home/index.php si aucun paramètre 'page' n'est fourni
 if (!isset($_GET['page'])) {
-    header("Location: /home/index.php");  // Redirige vers /home/index.php
+    header("Location: home/index.php");  // Redirige vers home/index.php (relatif au répertoire actuel)
     exit;
 }
 
