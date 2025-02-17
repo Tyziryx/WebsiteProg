@@ -15,9 +15,9 @@
 
                 // Tableau des pages avec leurs liens
                 $pages = [
-                    'home' => 'Accueil',
-                    'contact' => 'Contact',
-                    'faq' => 'FAQ',
+                    'dashboard' => 'Dashboard',
+                    'geodex' => 'Geodex',
+                    'profil' => 'Profil',
                 ];
 
                 // Parcourir les pages pour générer les liens
@@ -26,8 +26,7 @@
                     echo "<li class=\"$active_class\"><a href=\"index.php?page=$page\">$label</a></li>";
                 }
 
-                // Lien spécifique pour Geodex
-                echo '<li><a href="../app/index.php">Geodex</a></li>';
+                
                 ?>
             </ul>
         </div>

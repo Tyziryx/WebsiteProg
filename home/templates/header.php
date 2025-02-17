@@ -27,7 +27,7 @@
                 }
 
                 // Lien spécifique pour Geodex
-                echo '<li><a href="../app/index.php">Geodex</a></li>';
+                echo '<li><a href="../app/index.php" target="_blank">Geodex</a></li>';
                 ?>
             </ul>
         </div>
