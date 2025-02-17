@@ -11,6 +11,18 @@
     --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
+.nav-links li a {
+    text-decoration: none;
+    color: var(--white);
+}
+
+.nav-links li.active a {
+    color: var(--main-color);
+    /* Changer la couleur du lien actif */
+    font-weight: bold;
+    /* Mettre en gras */
+}
+
 .navbar {
     position: fixed;
     top: 0;
@@ -234,8 +246,6 @@
         transform: translate(-50%, -5px) rotate(-45deg);
         width: 24px;
     }
-
-
 
     .overlay.active {
         opacity: 1;
