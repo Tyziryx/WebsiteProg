@@ -33,17 +33,17 @@ Le site web sera composé de deux parties principales :
   - `faq.php` : Page de questions/réponses.
 
 - **Back Office :**
-  - `admin_login.php` : Page de connexion à l'administration.
-  - `dashboard.php` : Tableau de bord de l’administrateur avec résumé des activités et accès aux différentes sections.
-  - `manage_data.php` : Page permettant de gérer les données principales (ajout/suppression).
-  - `manage_users.php` : Gestion des utilisateurs (ajouter/supprimer/modifier des comptes utilisateurs).
+  - `admin.php` : Page de connexion à l'administration.
+  - `accueil.php` : Page pour modifier la page d'accueil .
+  - `users.php` : Page pour gérer les utilisateurs ( ajouter un utilisateur , modifier , supprimer )
+  - `Geodex.php` : Page pour pouvoir modifier/supprimer/ajouter/gérer des éléments du Géodex.
   - `faq.php` : Page de gestion des questions fréquemment posées.
 
  - **GéoDex :**
   - `index.php` : Page d'accueil ( ouverture géode )
   - `GeoDex.php` : Page permettant de consulter le géodex
   - `login.php` : Page de connexion des utilisateurs.
-  - `profile.php` : Page de profil utilisateur (accessible après connexion).
+  - `profil.php` : Page de profil utilisateur (accessible après connexion).
 ---
 
 ## 3. Fonctionnalités
@@ -59,34 +59,33 @@ Le site web sera composé de deux parties principales :
    - Validation des données avant envoi.
    - Envoi de l’email via PHP mail() ou autre méthode sécurisée.
 
-3. **Page de login / Profil utilisateur (`login.php` / `profile.php`) :**
+3. **Page de login / Profil utilisateur (`login.php` / `profil.php`) :**
    - Connexion utilisateur via un formulaire de login.
    - Gestion de session pour maintenir l'utilisateur connecté.
    - Page de profil affichant les informations de l'utilisateur après connexion (modifiables).
   
 4. **Page FAQ (`faq.php`) :**
-   - Affiche les questions réponses fréquemment poser. 
+  - Affichage des questions et réponses fréquemment posées.  
+  - Aide destinée aux administrateurs pour comprendre le fonctionnement du site. 
   
-   
 
 ### Back Office
-1. **Page de login administrateur (`admin_login.php`) :**
+1. **Page de login administrateur (`admin.php`) :**
    - Connexion à l'interface d'administration via un formulaire sécurisé.
    - Gestion des erreurs et sécurité (par exemple, hachage du mot de passe avec PHP).
 
-2. **Tableau de bord administrateur (`dashboard.php`) :**
-   - Vue d’ensemble des actions récentes.
-   - Accès aux pages de gestion des données et des utilisateurs.
+2. **Page d'accueil Admin (`accueil.php`) :**  
+   - Permet de modifier directement la page d'accueil du site.  
+   - Affichage des informations de la page principale sous forme de tableau, avec possibilité de modification.  
 
-3. **Gestion des données principales (`manage_data.php`) :**
-   - Affichage des données principales stockées dans la base de données.
-   - Options pour ajouter, modifier ou supprimer des éléments dans GéoDex ou dans la page principale.
-   - Requêtes sécurisées pour éviter les injections SQL.
+3. **Gestion des données du Géodex (`geodex.php`) :**  
+   - Gestion du contenu affiché par le Géodex.  
+   - Présentation des données sous forme de tableau avec options pour ajouter, modifier ou supprimer des informations et des images.  
 
-4. **Gestion des utilisateurs (`manage_users.php`) :**
-   - Liste des utilisateurs enregistrés.
-   - Options pour ajouter, modifier ou supprimer des utilisateurs.
-   - Gestion des rôles (utilisateur/admin).
+4. **Gestion des utilisateurs (`users.php`)  :**
+   - Affichage de la liste des utilisateurs enregistrés.  
+   - Possibilité d'ajouter, modifier ou supprimer des utilisateurs.  
+   - Gestion des rôles (utilisateur/admin). 
 
 5. **Page FAQ (`faq.php`) :**
    - Interface permettant à l’administrateur d’ajouter, modifier ou supprimer des questions et réponses fréquemment posées.
