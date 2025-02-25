@@ -39,9 +39,9 @@ Le site web sera composé de deux parties principales :
   - `Geodex.php` : Page pour pouvoir modifier/supprimer/ajouter/gérer des éléments du Géodex.
   - `faq.php` : Page de gestion des questions fréquemment posées.
 
- - **GéoDex :**
-  - `index.php` : Page d'accueil ( ouverture géode )
-  - `GeoDex.php` : Page permettant de consulter le géodex
+- **GéoDex :**
+  - `index.php` : Page d'accueil ( ouverture géode ).
+  - `GeoDex.php` : Page permettant de consulter le géodex.
   - `login.php` : Page de connexion des utilisateurs.
   - `profil.php` : Page de profil utilisateur (accessible après connexion).
 ---
