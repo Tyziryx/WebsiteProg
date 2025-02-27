@@ -12,18 +12,18 @@
                 <span class="index-bar" data-index="10"></span>
             </div>
             <div class="image-container">
-                <img src="images/image1.png" alt="Image 1" class="scroll-image active">
-                <img src="images/image2.png" alt="Image 2" class="scroll-image">
-                <img src="images/image3.png" alt="Image 3" class="scroll-image">
-                <img src="images/image1.png" alt="Image 4" class="scroll-image">
-                <img src="images/image2.png" alt="Image 5" class="scroll-image">
-                <img src="images/image1.png" alt="Image 6" class="scroll-image">
-                <img src="images/image2.png" alt="Image 7" class="scroll-image">
-                <img src="images/image3.png" alt="Image 8" class="scroll-image">
-                <img src="images/image1.png" alt="Image 9" class="scroll-image">
-                <img src="images/image1.png" alt="Image 10" class="scroll-image">
-
+                <img src="<?php echo $racine_path; ?>images/image1.png" alt="Image 1" class="scroll-image active">
+                <img src="<?php echo $racine_path; ?>images/image2.png" alt="Image 2" class="scroll-image">
+                <img src="<?php echo $racine_path; ?>images/image3.png" alt="Image 3" class="scroll-image">
+                <img src="<?php echo $racine_path; ?>images/image1.png" alt="Image 4" class="scroll-image">
+                <img src="<?php echo $racine_path; ?>images/image2.png" alt="Image 5" class="scroll-image">
+                <img src="<?php echo $racine_path; ?>images/image1.png" alt="Image 6" class="scroll-image">
+                <img src="<?php echo $racine_path; ?>images/image2.png" alt="Image 7" class="scroll-image">
+                <img src="<?php echo $racine_path; ?>images/image3.png" alt="Image 8" class="scroll-image">
+                <img src="<?php echo $racine_path; ?>images/image1.png" alt="Image 9" class="scroll-image">
+                <img src="<?php echo $racine_path; ?>images/image1.png" alt="Image 10" class="scroll-image">
             </div>
+
             <div class="text-container">
                 <h3 class="title-content active">Basalte</h3>
                 <p class="text-content active">Le basalte est une roche volcanique dense et sombre formée par le

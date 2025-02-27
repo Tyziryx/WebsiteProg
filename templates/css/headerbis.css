@@ -1,26 +1,8 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 :root {
     --gradient: linear-gradient(45deg, #ff3366, #ff6b6b, #4834d4, #686de0);
     --glass-bg: rgba(255, 255, 255, 0.05);
     --border: 1px solid rgba(255, 255, 255, 0.1);
     --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-}
-
-.nav-links li a {
-    text-decoration: none;
-    color: var(--white);
-}
-
-.nav-links li.active a {
-    color: var(--main-color);
-    /* Changer la couleur du lien actif */
-    font-weight: bold;
-    /* Mettre en gras */
 }
 
 .navbar {
@@ -246,6 +228,8 @@
         transform: translate(-50%, -5px) rotate(-45deg);
         width: 24px;
     }
+
+
 
     .overlay.active {
         opacity: 1;

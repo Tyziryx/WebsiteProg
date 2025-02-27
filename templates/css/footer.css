@@ -1,0 +1,84 @@
+/* Footer */
+.footer {
+    background-color: var(--main-color);
+    color: var(--white);
+    padding: 40px 0;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Conteneur du footer */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Liens du footer */
+.footer-links {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    /* Pour que les liens s'adaptent à la largeur de l'écran */
+}
+
+.footer-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-link:hover {
+    color: var(--white);
+    /* Légère mise en valeur au survol */
+}
+
+/* Réseaux sociaux */
+.footer-socials {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer-social {
+    color: var(--white);
+    font-size: 24px;
+}
+
+.footer-social:hover {
+    color: var(--secondary-color);
+}
+
+/* Copyright */
+.footer-copy {
+    font-size: 14px;
+    color: var(--white);
+    margin-top: 20px;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .footer-copy {
+        font-size: 12px;
+    }
+
+    /* Assurer que les éléments du footer prennent plus de place en mode mobile */
+    .footer-links {
+        gap: 15px;
+    }
+
+    .footer-socials {
+        gap: 10px;
+    }
+}

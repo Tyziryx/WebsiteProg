@@ -85,4 +85,24 @@ window.addEventListener('resize', () => {
     }
 });
 
+//gère la faq
+document.addEventListener("DOMContentLoaded", function () {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    console.log(faqQuestions);  // Affiche les éléments dans la console
+
+    faqQuestions.forEach(function (question) {
+        question.addEventListener('click', function () {
+            const answer = this.nextElementSibling;
+            answer.classList.toggle('active');
+        });
+    });
+});
+
+
+
+
+
+
+
+
 

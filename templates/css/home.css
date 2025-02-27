@@ -1,16 +1,5 @@
 @import url('var.css');
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-}
-
-main {
-    background-color: var(--white);
-}
 
 /* Hero Section */
 
@@ -23,8 +12,10 @@ main {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: var(--white);
-    color: var(--black);
+    background-image: url('/AMS/images/Hero.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .hero-container {
@@ -35,12 +26,16 @@ main {
     font-size: 3rem;
     font-weight: bold;
     margin-bottom: 10px;
+    color: var(--main-color);
+
 }
 
 .hero-subtitle {
     font-size: 1.5rem;
     margin-bottom: 20px;
     opacity: 0.9;
+    color: var(--black);
+
 }
 
 /* SECTION FIXÉE */
@@ -48,7 +43,6 @@ main {
     position: relative;
     width: 100%;
     height: 100vh;
-    /* Hauteur pour forcer le scroll */
     display: flex;
     align-items: center;
     justify-content: center;
