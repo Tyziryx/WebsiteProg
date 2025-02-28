@@ -45,7 +45,6 @@
 
 .faq-question::after {
     content: "▼";
-    /* Flèche par défaut */
     position: absolute;
     right: 10px;
     font-size: 1.2rem;
@@ -54,7 +53,6 @@
 
 .faq-item.active .faq-question::after {
     transform: rotate(180deg);
-    /* Rotation de la flèche lorsqu'ouvert */
 }
 
 /* Answer */

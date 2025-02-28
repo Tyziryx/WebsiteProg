@@ -34,7 +34,6 @@ document.addEventListener("scroll", () => {
     }
 });
 
-
 //HEADER 
 //Réccupéré sur codepen.io
 // https://codepen.io/themrsami/details/ogvedxR
@@ -54,6 +53,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
+
 // Toggle mobile menu
 function toggleMenu() {
     isMenuOpen = !isMenuOpen;
@@ -64,7 +64,6 @@ function toggleMenu() {
 }
 
 mobileNavToggle.addEventListener('click', toggleMenu);
-overlay.addEventListener('click', toggleMenu);
 
 // Close mobile menu when clicking a link
 document.querySelectorAll('.nav-links a').forEach(link => {
@@ -85,15 +84,15 @@ window.addEventListener('resize', () => {
     }
 });
 
+
 //gère la faq
 document.addEventListener("DOMContentLoaded", function () {
     const faqQuestions = document.querySelectorAll('.faq-question');
-    console.log(faqQuestions);  // Affiche les éléments dans la console
 
     faqQuestions.forEach(function (question) {
         question.addEventListener('click', function () {
-            const answer = this.nextElementSibling;
-            answer.classList.toggle('active');
+            const faqItem = this.parentElement; // Récupère le parent .faq-item
+            faqItem.classList.toggle('active');
         });
     });
 });
