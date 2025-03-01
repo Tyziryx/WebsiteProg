@@ -6,3 +6,18 @@ switchers.forEach(item => {
         this.parentElement.classList.add('is-active')
     })
 })
+
+document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.querySelector(".form-login");
+    const loginButton = document.querySelector(".btn-login");
+
+    console.log("Formulaire détecté :", loginForm);
+    console.log("Bouton détecté :", loginButton);
+
+    if (loginForm && loginButton) {
+        loginForm.addEventListener("submit", function (event) {
+            console.log("Formulaire soumis !");
+        });
+    }
+});
+

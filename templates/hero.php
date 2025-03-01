@@ -1,8 +1,8 @@
 <main>
         <section class="hero">
             <div class="hero-container">
-                <h1 class="hero-title">TITRE SUPER CHOUETTE QUI CORRESPOND AU PROJET</h1>
-                <h2 class="hero-subtitle">Une phrase d'accroche inspirante pour capter l'attention.</h2>
-                <a href="/AMS/app/index.php" class="button">COMMENCER</a>
+                <h1 class="hero-title">OBTENEZ DES NFTs DE PIERRES PRÉCIEUSES !</h1>
+                <h2 class="hero-subtitle">Explorez les Géodes et collectionnez des NFTs exclusifs.</h2>
+                <a href="/AMS/app/index.php" class="button">MINTER</a>
             </div>
         </section>

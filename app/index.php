@@ -1,25 +1,33 @@
-<?php include 'templates/head.php'; ?>
-
 <?php
-// Récupérer la page, ou définir 'home' par défaut si la page n'est pas spécifiée
+// session_start();
+
 $page = $_GET['page'] ?? 'login';
 
-// Définition des routes
+// Liste des pages accessibles uniquement aux utilisateurs connectés
+$protected_pages = ['geodex', 'dashboard'];
+
+// Vérifie si l'utilisateur tente d'accéder à une page protégée sans être connecté
+if (in_array($page, $protected_pages) && !isset($_SESSION['user_id'])) {
+    header("Location: /AMS/app/control/login.php");
+    exit;
+}
+
+include 'templates/head.php';
+
 $routes = [
     'login' => 'templates/login.php',
     'geodex' => 'templates/geodex.php',
     'dashboard' => 'templates/dashboard.php',
 ];
 
-// Afficher le header uniquement si ce n'est pas la page 'login'
 if ($page != 'login') {
     include 'templates/header.php';
+    include 'templates/sidebar.php';
 }
 
-// Vérifier si la page demandée est dans les routes définies et que le fichier existe
 if (array_key_exists($page, $routes) && file_exists($routes[$page])) {
     include $routes[$page];
 } else {
-    include 'templates/404.php'; // Page 404 si la page n'est pas trouvée
+    include 'templates/404.php';
 }
 ?>

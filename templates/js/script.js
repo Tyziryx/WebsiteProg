@@ -36,7 +36,7 @@ document.addEventListener("scroll", () => {
 
 //HEADER 
 //Réccupéré sur codepen.io
-// https://codepen.io/themrsami/details/ogvedxR
+//https://codepen.io/themrsami/details/ogvedxR
 
 const navbar = document.querySelector('.navbar');
 const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
