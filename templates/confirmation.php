@@ -16,6 +16,7 @@
                 ?>
             </p>
             <a href="/AMS/control/contact.php" class="back-link">Retourner au formulaire</a>
+            <a href="/AMS/" class="back-link">Retourner à l'accueil</a>
         </div>
     </section>
 </main>
