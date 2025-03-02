@@ -1,7 +1,7 @@
 <main>
     <section class="profile-section">
         <h1>Mon Profil</h1>
-        <form action="/AMS/app/models/process_profil.php" method="POST" class="profile-form">
+        <form action="/app/models/process_profil.php" method="POST" class="profile-form">
             <div class="form-group">
                 <label for="name">Nom</label>
                 <input type="text" id="name" name="name" placeholder="Votre nom" value="John Doe">

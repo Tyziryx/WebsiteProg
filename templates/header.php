@@ -9,12 +9,12 @@
                 <span class="bar"></span>
             </button>
             <ul class="nav-links">
-                <li><a href="/AMS/index.php">Accueil</a></li>
-                <li><a href="/AMS/control/contact.php">Contact</a></li>
-                <li><a href="/AMS/control/faq.php">FAQ</a></li>
+                <li><a href="/index.php">Accueil</a></li>
+                <li><a href="/control/contact.php">Contact</a></li>
+                <li><a href="/control/faq.php">FAQ</a></li>
 
                 <!--Lien spécifique pour Geodex-->
-                <li><a href="/AMS/app/index.php" target="_blank">Geodex</a></li>
+                <li><a href="/app/index.php" target="_blank">Geodex</a></li>
             </ul>
 
         </div>
