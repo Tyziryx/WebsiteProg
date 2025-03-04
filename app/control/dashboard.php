@@ -6,9 +6,9 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$racine_path = '../';
+$racine_path = './';
 ?>
 
-<?php include $racine_path . 'app/templates/head.php'; ?>
-<?php include $racine_path . 'app/templates/sidebar.php'; ?>
-<?php include $racine_path . 'app/templates/game.php'; ?>
+<?php include $racine_path . 'templates/head.php'; ?>
+<?php include $racine_path . 'templates/sidebar.php'; ?>
+<?php include $racine_path . 'templates/game.php'; ?>
