@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$racine_path = './';
+$racine_path = '../';
 ?>
 
 <?php include $racine_path . 'app/templates/head.php'; ?>
