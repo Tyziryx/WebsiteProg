@@ -14,7 +14,7 @@
                 <li><a href="<?php echo $racine_path.'control/faq.php';?>">FAQ</a></li>
 
                 <!--Lien spécifique pour Geodex--> 
-                <li><a href="./app/index.php" target="_blank">Geodex</a></li>
+                <li><a href="<?php echo $racine_path . 'app/index.php'; ?>" target="_blank">Geodex</a></li>
             </ul>
 
         </div>

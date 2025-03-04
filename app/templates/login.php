@@ -8,7 +8,7 @@
                         Login
                         <span class="underline"></span>
                     </button>
-                    <form class="form form-login" action="/public_html/app/models/process_login.php" method="POST">
+                    <form class="form form-login" action="/app/models/process_login.php" method="POST">
                         <fieldset>
                             <legend>Please, enter your email and password for login.</legend>
                             <div class="input-block">
@@ -50,7 +50,7 @@
             </div>
         </section>
     </main>
-    <script src="/public_html/app/templates/js/login.js"></script>
+    <script src="/app/templates/js/login.js"></script>
 </body>
 
 </html>
