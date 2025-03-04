@@ -1,5 +1,5 @@
 <?php
-$racine_path = '../';
+$racine_path = './';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
