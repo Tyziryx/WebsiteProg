@@ -1,4 +1,8 @@
 <?php
+$racine_path = './';
+?>
+
+<?php
 // session_start();
 
 $page = $_GET['page'] ?? 'login';
