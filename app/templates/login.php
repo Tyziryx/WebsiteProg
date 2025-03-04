@@ -6,7 +6,7 @@
                         Login
                         <span class="underline"></span>
                     </button>
-                    <form class="form form-login" action="<?php echo $racine_path . 'app/models/process_login.php'; ?>" method="POST">
+                    <form class="form form-login" action="<?php echo $racine_path . 'models/process_login.php'; ?>" method="POST">
                         <fieldset>
                             <legend>Please, enter your email and password for login.</legend>
                             <div class="input-block">
@@ -26,7 +26,7 @@
                         Sign Up
                         <span class="underline"></span>
                     </button>
-                    <form class="form form-signup" action="<?php echo $racine_path . 'app/models/process_signup.php'; ?>" method="POST">
+                    <form class="form form-signup" action="<?php echo $racine_path . 'models/process_signup.php'; ?>" method="POST">
                         <fieldset>
                             <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                             <div class="input-block">
