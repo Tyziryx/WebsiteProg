@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: app/control/login.php");
+    header("Location: control/login.php");
     exit;
 }
 
