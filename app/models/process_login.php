@@ -36,5 +36,5 @@ session_start();
 // Désactivation temporaire de l'authentification
 $_SESSION['user_id'] = 1; // Simule un utilisateur connecté
 $_SESSION['email'] = "test@example.com";
-$racine_path = './';
+$racine_path = '../';
 header("Location: " . $racine_path . "control/dashboard.php");exit;
