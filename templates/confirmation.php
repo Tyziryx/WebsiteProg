@@ -15,12 +15,12 @@
                 }
                 ?>
             </p>
-            <a href="/control/contact.php" class="back-link">Retourner au formulaire</a>
-            <a href="/AMS/" class="back-link">Retourner à l'accueil</a>
+            <a href="/public_html/control/contact.php" class="back-link">Retourner au formulaire</a>
+            <a href="/public_html/" class="back-link">Retourner à l'accueil</a>
         </div>
     </section>
 </main>
 
-<script src="../templates/js/script.js"></script>
+<script src="/public_html/templates/js/script.js"></script>
 </body>
 </html>

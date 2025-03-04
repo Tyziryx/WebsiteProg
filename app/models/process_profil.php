@@ -4,7 +4,7 @@ session_start();
 
 // Vérifie si l'utilisateur est connecté, sinon redirige vers la page de connexion
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /AMS/app/control/login.php");
+    header("Location: /public_html/app/control/login.php");
     exit;
 }
 
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Mot de passe modifié. <br>";
         }
 
-        echo "<a href='/AMS/app/index.php?page=profile'>Retourner au profil</a>";
+        echo "<a href='/public_html/app/control/profil.php'>Retourner au profil</a>";
         exit;
     } else {
         // Afficher les erreurs

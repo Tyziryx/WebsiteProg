@@ -17,7 +17,7 @@
             </div>
         </div>
     </footer>
-    <script src="/templates/js/script.js"></script>
+    <script src="/public_html/templates/js/script.js"></script>
 </body>
 
 </html>

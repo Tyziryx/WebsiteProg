@@ -1,8 +1,8 @@
 // Tableau des images possibles
 const images = [
-    "/AMS/app/images/image1.png",
-    "/AMS/app/images/image2.png",
-    "/AMS/app/images/image3.png",
+    "/public_html//app/images/image1.png",
+    "/public_html/app/images/image2.png",
+    "/public_html/app/images/image3.png",
 ];
 
 // Sélection de l'élément

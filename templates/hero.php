@@ -3,6 +3,6 @@
             <div class="hero-container">
                 <h1 class="hero-title">OBTENEZ DES NFTs DE PIERRES PRÉCIEUSES !</h1>
                 <h2 class="hero-subtitle">Explorez les Géodes et collectionnez des NFTs exclusifs.</h2>
-                <a href="/app/index.php" class="button">MINTER</a>
+                <a href="/public_html/app/index.php" class="button">MINTER</a>
             </div>
         </section>

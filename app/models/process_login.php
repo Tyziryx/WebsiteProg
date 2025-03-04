@@ -37,5 +37,5 @@ session_start();
 $_SESSION['user_id'] = 1; // Simule un utilisateur connecté
 $_SESSION['email'] = "test@example.com";
 
-header("Location: /AMS/app/control/dashboard.php");
+header("Location: /public_html/app/control/dashboard.php");
 exit;

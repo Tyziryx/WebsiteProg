@@ -1,6 +1,6 @@
 <?php
 session_start();
 session_destroy();
-header("Location: /AMS/app/control/login.php");
+header("Location: /public_html/app/control/login.php");
 exit;
 ?>

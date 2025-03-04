@@ -2,12 +2,12 @@
         <h1>Tirage au sort</h1>
         <p>Clique sur l'image pour obtenir un résultat !</p>
         <div class="card">
-            <img id="geode" src="/app/images/geode.gif" alt="openable Geode">
+            <img id="geode" src="/public_html/app/images/geode.gif" alt="openable Geode">
         </div>
 
     </div>
 
-    <script src="/app/templates/js/geode.js"></script>
+    <script src="/public_html/app/templates/js/geode.js"></script>
 </body>
 
 </html>
