@@ -9,12 +9,12 @@
                 <span class="bar"></span>
             </button>
             <ul class="nav-links">
-                <li><a href="/public_html/index.php">Accueil</a></li>
-                <li><a href="/public_html/control/contact.php">Contact</a></li>
-                <li><a href="/public_html/control/faq.php">FAQ</a></li>
+                <li><a href="<?php echo $racine_path.'index.php';?>">Accueil</a></li>
+                <li><a href="<?php echo $racine_path.'control/contact.php';?>">Contact</a></li>
+                <li><a href="<?php echo $racine_path.'control/faq.php';?>">FAQ</a></li>
 
-                <!--Lien spécifique pour Geodex-->
-                <li><a href="/public_html/app/index.php" target="_blank">Geodex</a></li>
+                <!--Lien spécifique pour Geodex--> 
+                <li><a href="./app/index.php" target="_blank">Geodex</a></li>
             </ul>
 
         </div>
