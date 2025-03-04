@@ -1,3 +1,6 @@
+<?php
+$racine_path = '../../';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
