@@ -48,7 +48,7 @@
             </div>
         </section>
     </main>
-    <script src="<?php echo $racine_path . 'app/templates/js/login.js'; ?>"></script>
+    <script src="<?php echo $racine_path . 'templates/js/login.js'; ?>"></script>
 </body>
 
 </html>
