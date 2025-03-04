@@ -2,9 +2,12 @@
 // Démarre la session pour gérer les informations de l'utilisateur
 session_start();
 
+// Définir le chemin racine
+$racine_path = './';
+
 // Vérifie si l'utilisateur est connecté, sinon redirige vers la page de connexion
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /app/control/login.php");
+    header("Location: " . $racine_path . "app/control/login.php");
     exit;
 }
 
@@ -43,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Mot de passe modifié. <br>";
         }
 
-        echo "<a href='app/control/profil.php'>Retourner au profil</a>";
+        echo "<a href='" . $racine_path . "app/control/profil.php'>Retourner au profil</a>";
         exit;
     } else {
         // Afficher les erreurs
