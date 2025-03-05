@@ -12,7 +12,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-image: url('/public_html/images/Hero.png');
+    background-image: url('../../images/Hero.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
