@@ -1,3 +1,4 @@
+/* Global Styles */
 *,
 *::before,
 *::after {
@@ -20,6 +21,7 @@ main {
     align-items: center;
 }
 
+/* Forms Section */
 .forms-section {
     display: flex;
     flex-direction: column;
@@ -31,7 +33,6 @@ main {
     font-size: 32px;
     letter-spacing: 1px;
     color: var(--white);
-    ;
 }
 
 .forms {
@@ -42,6 +43,8 @@ main {
 
 .form-wrapper {
     animation: hideLayer .3s ease-out forwards;
+    width: 300px; /* Fixed width */
+    height: 400px; /* Fixed height */
 }
 
 .form-wrapper.is-active {
@@ -52,7 +55,6 @@ main {
     50% {
         z-index: 1;
     }
-
     100% {
         z-index: 1;
     }
@@ -62,12 +64,12 @@ main {
     0% {
         z-index: 1;
     }
-
     49.999% {
         z-index: 1;
     }
 }
 
+/* Switcher Styles */
 .switcher {
     position: relative;
     cursor: pointer;
@@ -129,6 +131,7 @@ main {
     transform: translateX(0);
 }
 
+/* Form Styles */
 .form {
     overflow: hidden;
     min-width: 260px;
@@ -154,11 +157,9 @@ main {
         background: var(--white);
         transform: translate(40%, 10px);
     }
-
     50% {
         transform: translate(0, 0);
     }
-
     100% {
         background-color: var(--white);
         transform: translate(35%, -20px);
@@ -170,11 +171,9 @@ main {
         background-color: var(--white);
         transform: translate(35%, -20px);
     }
-
     50% {
         transform: translate(0, 0);
     }
-
     100% {
         background: var(--white);
         transform: translate(40%, 10px);
@@ -194,11 +193,9 @@ main {
         background: var(--white);
         transform: translate(-40%, 10px) scaleY(.8);
     }
-
     50% {
         transform: translate(0, 0) scaleY(.8);
     }
-
     100% {
         background-color: var(--white);
         transform: translate(-35%, -20px) scaleY(1);
@@ -207,14 +204,12 @@ main {
 
 @keyframes hideSignup {
     0% {
-        background-color: var(---white);
+        background-color: var(--white);
         transform: translate(-35%, -20px) scaleY(1);
     }
-
     50% {
         transform: translate(0, 0) scaleY(.8);
     }
-
     100% {
         background: var(--white);
         transform: translate(-40%, 10px) scaleY(.8);
@@ -252,6 +247,7 @@ main {
     clip: rect(0 0 0 0);
 }
 
+/* Input Styles */
 .input-block {
     margin-bottom: 20px;
 }
@@ -275,6 +271,7 @@ main {
     border-radius: 2px;
 }
 
+/* Button Styles */
 .form [type='submit'] {
     opacity: 0;
     display: block;
@@ -289,14 +286,12 @@ main {
 
 .form-wrapper.is-active .form [type='submit'] {
     opacity: 1;
-
 }
 
 .btn-login {
     color: var(--white);
     background: var(--main-color);
-    border: 1px solid var(---white);
-
+    border: 1px solid var(--white);
 }
 
 .btn-login:hover {
@@ -308,8 +303,11 @@ main {
 .btn-signup {
     color: var(--white);
     background: var(--main-color);
+    border: 1px solid var(--white);
 }
 
 .btn-signup:hover {
-    background: var(--secondary-color);
+    background: var(--white);
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
 }

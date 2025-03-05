@@ -4,6 +4,7 @@
 /* Hero Section */
 
 .hero {
+    background-color: var(--white);    
     margin: 0;
     padding: 0;
     min-width: 100vw;
