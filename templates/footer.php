@@ -17,7 +17,6 @@
             </div>
         </div>
     </footer>
-    <script src="/templates/js/script.js"></script>
     <script src="<?php echo $racine_path.'templates/js/script.js';?>"></script>
 
 </body>
