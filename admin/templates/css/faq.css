@@ -1,0 +1,94 @@
+/* Section FAQ */
+.faq-section {
+    padding: 40px 0;
+    background-color: var(--light-gray);
+    text-align: center;
+    margin-top: 100px;
+}
+
+.faq-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--main-color);
+    margin-bottom: 10px;
+}
+
+.faq-subtitle {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+}
+
+/* Items FAQ */
+.faq-item {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 8px;
+    border: 2px solid var(--main-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Question */
+.faq-question {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: left;
+    color: var(--main-color);
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    position: relative;
+    padding-right: 30px;
+    /* Espace pour l'icône */
+}
+
+.faq-question::after {
+    content: "▼";
+    position: absolute;
+    right: 10px;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.faq-item.active .faq-question::after {
+    transform: rotate(180deg);
+}
+
+/* Answer */
+.faq-answer {
+    font-size: 1rem;
+    color: var(--black);
+    line-height: 1.6;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
+    padding: 0 15px;
+}
+
+/* Quand la classe 'active' est ajoutée à .faq-item, afficher la réponse */
+.faq-item.active .faq-answer {
+    max-height: 300px;
+    opacity: 1;
+    padding: 10px 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .faq-title {
+        font-size: 2rem;
+    }
+
+    .faq-subtitle {
+        font-size: 1rem;
+    }
+
+    .faq-item {
+        padding: 15px;
+    }
+
+    .faq-question {
+        font-size: 1.3rem;
+    }
+}

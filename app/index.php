@@ -12,7 +12,7 @@ $protected_pages = ['geodex', 'dashboard'];
 
 // Vérifie si l'utilisateur tente d'accéder à une page protégée sans être connecté
 if (in_array($page, $protected_pages) && !isset($_SESSION['user_id'])) {
-    header("Location: /public_html//app/control/login.php");
+    header("Location: /public_html/app/control/login.php");
     exit;
 }
 

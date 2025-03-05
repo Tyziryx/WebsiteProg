@@ -13,6 +13,6 @@ if (isset($_GET['id'])) {
 } else {
     include $racine_path . 'templates/head.php';
     include $racine_path . 'templates/sidebar.php';
-    include $racine_path . 'templates/geodex.php';
+    include $racine_path . 'templates/faq_users.php';
 }
 ?>
