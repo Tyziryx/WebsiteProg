@@ -1,5 +1,5 @@
 <?php
-$racine_path = '../';
+$racine_path = './';
 ?>
 
 <?php include($racine_path.'templates/head.php'); ?>
