@@ -1,6 +1,6 @@
 /* Section FAQ */
 .faq-section {
-    padding: 40px 0;
+    padding: 20px 0;
     background-color: var(--light-gray);
     text-align: center;
 }
@@ -21,7 +21,7 @@
 /* Items FAQ */
 .faq-item {
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 10px;
     background-color: var(--white);
     border-radius: 8px;
     border: 2px solid var(--main-color);
