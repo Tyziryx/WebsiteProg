@@ -45,6 +45,8 @@ Le site web sera composé de deux parties principales :
   - `login.php` : Page de connexion des utilisateurs.
   - `profile.php` : Page de profil utilisateur (accessible après connexion).
 ---
+Lien vers witheboard contenant la structure des pages du site:
+https://wbd.ms/share/v2/aHR0cHM6Ly93aGl0ZWJvYXJkLm1pY3Jvc29mdC5jb20vYXBpL3YxLjAvd2hpdGVib2FyZHMvcmVkZWVtL2ZmZDgwZTMyNmVlZjRkNDNhM2M2ZjIwN2NiMGM1YWFkX0JCQTcxNzYyLTEyRTAtNDJFMS1CMzI0LTVCMTMxRjQyNEUzRF9iZWQ4NDgyOC04NjhkLTQ1ZmItODc1NC1iMDc0MmE3ZjBjYzY=
 
 ## 3. Fonctionnalités
 
