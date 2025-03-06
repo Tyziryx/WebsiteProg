@@ -5,7 +5,7 @@
             <h2 class="contact-title">Contactez-nous</h2>
             <p class="contact-subtitle">Une question ? Remplissez ce formulaire et nous vous répondrons rapidement.</p>
 
-            <form action="/AMS/models/process_contact.php" method="POST" class="contact-form">
+            <form action="../models/process_contact.php" method="POST" class="contact-form">
                 <div class="form-group">
                     <label for="name">Nom</label>
                     <input type="text" id="name" name="name" placeholder="Votre nom" required>
