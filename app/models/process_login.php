@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include '/../../config/config.php';
+include __DIR__ . '/../../config/config.php';
 
 // Créer la connexion à la base de données
 try {
@@ -42,8 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     print_r($user);
     echo "</pre>";
 */ 
-
-
     // Vérifier le mot de passe en texte clair au lieu d'utiliser password_verify
     if ($user && $mot_de_passe === $user['mot_de_passe']) {
         // Utiliser l'email comme identifiant de session au lieu de l'ID
@@ -52,11 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $racine_path = '../';
         header("Location: " . $racine_path . "control/dashboard.php");
         exit;
-
     } else {
 
         echo "Identifiants incorrects.<br>";
 
+        echo "Mot de passe saisi: " . $mot_de_passe . "<br>";
+        echo "Mot de passe attendu: " . ($user ? $user['mot_de_passe'] : "Utilisateur non trouvé");
     }
 }
 ?>

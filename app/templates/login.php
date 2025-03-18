@@ -1,3 +1,20 @@
+
+
+<?php
+/*
+// Ajoutez ce code au début pour voir la structure des chemins
+echo "<h3>Debugging paths:</h3>";
+echo "Current file: " . __FILE__ . "<br>";
+echo "Current directory: " . __DIR__ . "<br>";
+echo "Document root: " . $_SERVER['DOCUMENT_ROOT'] . "<br>";
+echo "Script filename: " . $_SERVER['SCRIPT_FILENAME'] . "<br>";
+echo "Request URI: " . $_SERVER['REQUEST_URI'] . "<br>";
+*/
+$racine_path = './'
+?>
+
+
+
 <main>
         <section class="forms-section">
             <div class="forms">
