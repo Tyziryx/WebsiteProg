@@ -4,11 +4,12 @@
         <form action="/public_html/app/models/process_profil.php" method="POST" class="profile-form">
             <div class="form-group">
                 <label for="name">Nom</label>
-                <input type="text" id="name" name="name" placeholder="Votre nom" value="John Doe">
+                <input type="text" id="name" name="name" placeholder="Votre nom" value="<?php echo $user['email']?>">
+                
             </div>
             <div class="form-group">
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="Votre email" value="johndoe@example.com">
+                <input type="email" id="email" name="email" placeholder="Votre email" value="<?php echo $_POST['email']?>">
             </div>
             <div class="form-group">
                 <label for="password">Mot de passe</label>

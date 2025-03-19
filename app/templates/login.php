@@ -32,7 +32,7 @@ $racine_path = './'
                             </div>
                             <div class="input-block">
                                 <label for="login-password">Password</label>
-                                <input id="login-password" type="password" name="mot_de_passe" required>
+                                <input id="login-password" type="password" name="password" required>
                             </div>
                         </fieldset>
                         <button type="submit" class="btn-login">Login</button>
@@ -46,6 +46,10 @@ $racine_path = './'
                     <form class="form form-signup" action="<?php echo $racine_path . 'models/process_signup.php'; ?>" method="POST">
                         <fieldset>
                             <legend>Please, enter your email, password and password confirmation for sign up.</legend>
+                            <div class="input-block">
+                                <label for="signup-pseudo">Pseudo</label>
+                                <input id="signup-pseudo" type="pseudo" name="pseudo" required>
+                            </div>
                             <div class="input-block">
                                 <label for="signup-email">E-mail</label>
                                 <input id="signup-email" type="email" name="email" required>

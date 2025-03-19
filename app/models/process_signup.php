@@ -1,6 +1,11 @@
 <?php
 // Inclure la configuration et la connexion à la base de données
-require_once __DIR__ . '/../../config/config.php';
+include __DIR__ . '/../../config/GestionBD.php';
+
+// Créer la connexion à la base de données
+
+$db = new \bd\GestionBD();
+$pdo = $db->connexion();
 
 
 // Initialiser le tableau d'erreurs
@@ -8,12 +13,29 @@ $errors = [];
 
 // Vérifier si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // Récupérer et nettoyer les données du formulaire
+    $pseudo= $_POST['pseudo'] ?? '';
     $email = trim(htmlspecialchars($_POST['email'] ?? ''));
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
 
     // Validation des données
+
+
+    echo "<h2>Données reçues:</h2>";
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
+
+    if (empty($pseudo)) {
+        $errors[] = "Le pseudo est obligatoire.";
+    } elseif (!preg_match('/^[a-zA-Z]/', $pseudo)) {
+        $errors[] = "Le pseudo doit commencer par une lettre.";
+    } elseif (!preg_match('/^[a-zA-Z0-9]+$/', $pseudo)) {
+        $errors[] = "Le pseudo ne doit contenir que des lettres et des chiffres.";
+    }
+
 
     if (empty($email)) {
         $errors[] = "L'email est obligatoire.";
@@ -42,15 +64,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             if ($stmt->rowCount() > 0) {
                 $errors[] = "Cet email est déjà utilisé.";
-            } else {
+            } 
+
+            $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE pseudo = :pseudo");
+            $stmt->execute(['pseudo' => $pseudo]);
+            
+            if ($stmt->rowCount() > 0) {
+                $errors[] = "Ce pseudo est déjà utilisé.";
+            } 
+
+            
+            else {
                 // Hasher le mot de passe
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 
                 // Insérer le nouvel utilisateur
-                $stmt = $pdo->prepare("INSERT INTO utilisateurs ( email, password) VALUES (:email, :password)");
+                $stmt = $pdo->prepare("INSERT INTO utilisateurs ( pseudo , email, password) VALUES (:pseudo , :email, :password)");
                 $result = $stmt->execute([
+                    'pseudo' => $pseudo,
                     'email' => $email,
                     'password' => $hashed_password
+                    
                 ]);
                 
                 if ($result) {
@@ -62,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     */
                     
                     // Rediriger vers la page de connexion avec un message de succès
-                    header("Location: " . $racine_path . "app/views/profile.php?complete=1");
+                    header("Location: " . $racine_path . "../index.php");
                     exit;
                 } else {
                     $errors[] = "Erreur lors de l'inscription. Veuillez réessayer.";

@@ -1,61 +1,83 @@
 <?php
-// Démarrer la session
+
 session_start();
+include __DIR__ . '/../../config/GestionBD.php';
 
-// Inclure le fichier de configuration
-include __DIR__ . '/../../config/config.php';
+// Créer la connexion à la base de données
 
-// Se connecter à la base de données
+$db = new \bd\GestionBD();
+$pdo = $db->connexion();
+/*
+
 try {
     $dsn = "pgsql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_NAME;
     $pdo = new PDO($dsn, DB_USER, DB_PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
-    die("Erreur de connexion: " . $e->getMessage());
-}
+    die("Erreur de connexion à la base de données: " . $e->getMessage());
+} 
+*/ 
 
-// Traiter le formulaire
+
+
+// Traitement du formulaire de connexion
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'] ?? '';
-    $mot_de_passe = $_POST['mot_de_passe'] ?? '';
-    
-    // Vérifier si champs remplis
-    if (empty($email) || empty($mot_de_passe)) {
+    $password = $_POST['password'] ?? '';
+
+
+    //Debugging
+    /*
+    echo "<h2>Données reçues:</h2>";
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
+*/
+
+    // Vérifie que l'email et le mot de passe sont fournis
+    if (empty($email) || empty($password)) {
         echo "Veuillez remplir tous les champs.";
         exit;
     }
-    
-    // Chercher l'utilisateur et vérifier s'il est admin
-    $stmt = $pdo->prepare("SELECT email, mot_de_passe, admin FROM utilisateurs WHERE email = :email");
+
+    // Requête pour récupérer l'utilisateur
+    $stmt = $pdo->prepare("SELECT email, password , admin FROM utilisateurs WHERE email = :email");
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch();
-    
-    // Vérifier les identifiants et droits admin
-    if ($user && $mot_de_passe === $user['mot_de_passe'] && $user['admin'] === true) {
-        // Connexion admin réussie
-        $_SESSION['admin'] = true;
-        $_SESSION['email'] = $user['email'];
-        
-        // Correction du problème de chemin doublon
-        header("Location: ../control/manage_home.php");
-        exit;
-    } else {
-        // Messages d'erreur
-        if (!$user) {
-            echo "Email non enregistré.";
-        } elseif ($mot_de_passe !== $user['mot_de_passe']) {
-            echo "Mot de passe incorrect.";
-        } else {
-            echo "Pas de droits administrateur.";
-        }
-    }
-}
 
-// Option d'accès automatique (commentée)
+   //   Debugging 
 /*
-$_SESSION['admin'] = true;
-$_SESSION['email'] = "test@example.com";
-header("Location: ../control/manage_home.php");
-exit;
-*/
+    echo "<h3>Données de l'utilisateur trouvées:</h3>";
+    echo "<pre>";
+    print_r($user);
+    echo "</pre>";
+ */
+    // Vérifier le mot de passe en utilisant password_verify au lieu de comparaison directe
+    if ($user && password_verify($password, $user['password']) && $user['admin'] ==TRUE) {
+        // Utiliser l'email comme identifiant de session au lieu de l'ID
+        $_SESSION['email'] = $user['email'];
+
+
+        
+        $racine_path = '../';
+        header("Location: " . $racine_path . "control/dashboard.php");
+        exit;
+    }
+    elseif ($user['admin'] == FALSE){
+        echo "Vous n'avez pas les droits d'administrateur";
+    }
+    else {
+        // Message d'erreur de connexion
+        echo "Email ou mot de passe incorrect.";
+    }
+/*
+        echo "Mot de passe saisi: " . $password
+ . "<br>";
+        echo "Mot de passe attendu: " . ($user ? $user['password
+'] : "Utilisateur non trouvé");
+        */
+    }
+        
+
 ?>
