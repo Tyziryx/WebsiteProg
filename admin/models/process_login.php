@@ -54,23 +54,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "</pre>";
  */
     // Vérifier le mot de passe en utilisant password_verify au lieu de comparaison directe
-    if ($user && password_verify($password, $user['password']) && $user['admin'] ==TRUE) {
+    if ($user && password_verify($password, $user['password'])) {
         // Utiliser l'email comme identifiant de session au lieu de l'ID
-        $_SESSION['email'] = $user['email'];
-
-
-        
-        $racine_path = '../';
-        header("Location: " . $racine_path . "control/dashboard.php");
-        exit;
-    }
-    elseif ($user['admin'] == FALSE){
-        echo "Vous n'avez pas les droits d'administrateur";
-    }
-    else {
+        if ($user['admin'] == TRUE) {
+            // Utiliser l'email comme identifiant de session
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['admin'] = TRUE;
+            
+            $racine_path = '../';
+            header("Location: " . $racine_path . "control/manage_home.php");
+            exit;
+        } else {
+            // L'utilisateur est authentifié mais n'est pas admin
+            echo "Vous n'avez pas les droits d'administrateur.";
+        }
+    } else {
         // Message d'erreur de connexion
         echo "Email ou mot de passe incorrect.";
-    }
+    }   
 /*
         echo "Mot de passe saisi: " . $password
  . "<br>";
