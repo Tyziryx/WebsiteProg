@@ -15,8 +15,16 @@ $imageInfo = $images[$id % 3 + 1] ?? ["name" => "Image inconnue", "description" 
 <?php include $racine_path .'templates/head.php'; ?>
 <?php include $racine_path .'templates/sidebar.php'; ?>
 
-<h1><?php echo $imageInfo['name']; ?></h1>
-<p><?php echo $imageInfo['description']; ?></p>
-<img src="../images/image<?php echo $id % 3+1; ?>.png" alt="<?php echo $imageInfo['name']; ?>">
+<div class="image-container">
+    <h1 class="image-title"><?php echo $imageInfo['name']; ?></h1>
+    
+    <div class="image-content">
+        <div class="image-box">
+            <img src="../images/image<?php echo $id % 3+1; ?>.png" alt="<?php echo $imageInfo['name']; ?>">
+        </div>
+        <p class="image-description"><?php echo $imageInfo['description']; ?></p>
+    </div>
 
-<a href="geodex.php">Retour</a>
+    <a href="geodex.php" class="back-link">Retour</a>
+</div>
+

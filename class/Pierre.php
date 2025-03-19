@@ -14,7 +14,6 @@ class Pierre{
         $this->nom = $nom;
         $this->description = $desc;
         $this->photo = $pto;
-
     }
 
     public function getNom(){
@@ -24,9 +23,5 @@ class Pierre{
     public function setNom($val){
         $this->nom = $val;
     }
-
 }
-
-
-
 ?>
