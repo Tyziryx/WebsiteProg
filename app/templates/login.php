@@ -56,7 +56,7 @@ $racine_path = './'
                             </div>
                             <div class="input-block">
                                 <label for="signup-password-confirm">Confirm password</label>
-                                <input id="signup-password-confirm" type="password" name="password_confirm" required>
+                                <input id="signup-password-confirm" type="password" name="confirm_password" required>
                             </div>
                         </fieldset>
                         <button type="submit" class="btn-signup">Continue</button>

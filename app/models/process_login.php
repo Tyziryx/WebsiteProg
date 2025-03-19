@@ -53,9 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
 
         echo "Identifiants incorrects.<br>";
-
+/*
         echo "Mot de passe saisi: " . $mot_de_passe . "<br>";
         echo "Mot de passe attendu: " . ($user ? $user['mot_de_passe'] : "Utilisateur non trouvé");
+        */
     }
+        
 }
 ?>

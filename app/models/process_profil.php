@@ -6,15 +6,16 @@ session_start();
 $racine_path = './';
 
 // Vérifie si l'utilisateur est connecté, sinon redirige vers la page de connexion
-if (!isset($_SESSION['user_id'])) {
+/*
+if (!isset($_SESSION['users'])) {
     header("Location: " . $racine_path . "app/control/login.php");
     exit;
 }
-
+*/
 // Vérifie si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer les données du formulaire
-    $name = $_POST['name'] ?? '';
+    $name = $_POST['pseudo'] ?? '';
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm-password'] ?? '';
