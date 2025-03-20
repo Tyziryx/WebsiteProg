@@ -26,13 +26,16 @@ document.querySelectorAll(".index-bar").forEach(bar => {
 document.addEventListener("scroll", () => {
     const scrollSection = document.querySelector(".fixed-section");
     const heroHeight = document.querySelector(".hero").offsetHeight;
+    const endFixedPoint = heroHeight + document.querySelector(".spacer").offsetHeight;
 
-    if (window.scrollY >= heroHeight) {
+    if (window.scrollY >= heroHeight && window.scrollY < endFixedPoint) {
         scrollSection.classList.add("fixed");
     } else {
         scrollSection.classList.remove("fixed");
     }
 });
+
+
 
 //HEADER 
 //Réccupéré sur codepen.io
@@ -96,12 +99,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
-
-
-
-
-
-
-
-

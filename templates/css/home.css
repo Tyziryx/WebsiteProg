@@ -28,7 +28,6 @@
     font-weight: bold;
     margin-bottom: 10px;
     color: var(--main-color);
-
 }
 
 .hero-subtitle {
@@ -36,7 +35,6 @@
     margin-bottom: 20px;
     opacity: 0.9;
     color: var(--black);
-
 }
 
 /* SECTION FIXÉE */
@@ -63,75 +61,199 @@
 /* CONTENEUR D'IMAGE */
 .image-container {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 450px;  /* Augmenté à 450px pour des images encore plus grandes */
+    height: 450px; /* Augmenté à 450px pour des images encore plus grandes */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px; /* Ajoute un peu d'espace entre l'image et le texte */
 }
 
-/* IMAGES SUPERPOSÉES */
+/* IMAGES SUPERPOSÉES - Améliorations visuelles */
 .scroll-image {
     position: absolute;
     width: 100%;
     height: 100%;
+    object-fit: contain; /* Garantit que toutes les images ont la même taille */
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.6s ease-in-out, transform 0.6s ease;
+    transform: scale(0.92) translateY(10px);
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.2)); /* Ombre plus prononcée */
+    border-radius: 5px;
 }
 
-/* IMAGE ACTIVE */
+/* IMAGE ACTIVE - Animation améliorée */
 .scroll-image.active {
     opacity: 1;
+    transform: scale(1) translateY(0);
 }
 
-/* CONTENEUR DE TEXTE */
+.spacer {
+    height: 1000vh;
+    background-color: var(--white);
+    margin-top: 100vh;
+}
+
+/* CONTENEUR DE TEXTE - Amélioration de la présentation */
 .text-container {
     width: 50%;
     text-align: left;
     position: relative;
+    max-width: 550px; /* Légèrement plus large */
+    padding: 30px; /* Plus d'espace intérieur */
+    background-color: rgba(255, 255, 255, 0.8); /* Fond légèrement transparent */
+    border-radius: 15px; /* Coins arrondis */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); /* Ombre légère */
 }
 
-/* TITRES ET TEXTES SUPERPOSÉS */
-.title-content,
-.text-content {
-    position: absolute;
+/* WRAPPER POUR CONTENIR TITRE ET TEXTE - Animation améliorée */
+.content-wrapper {
     opacity: 0;
-}
-
-/* ACTIVE */
-.title-content.active,
-.text-content.active {
-    opacity: 1;
-    position: static;
-}
-
-/* ESPACE POUR SIMULER LE SCROLL */
-.spacer {
-    /*à calculer en fonction du nombre de pierre réccupéré */
-    height: 1000vh;
-    background-color: var(--white);
-}
-
-/* CONTENEUR DE L'INDEX (À GAUCHE) */
-.scroll-index {
     position: absolute;
-    left: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    width: 100%;
+    transition: opacity 0.6s ease-in-out, transform 0.5s ease;
+    transform: translateY(20px);
 }
 
-/* BARRES DE L'INDEX */
-.index-bar {
-    width: 5px;
-    height: 30px;
-    background-color: var(--secondary-color);
-    border-radius: 10px;
-    transition: background-color 0.3s, transform 0.3s;
-    cursor: pointer;
+.content-wrapper.active {
+    opacity: 1;
+    position: relative;
+    transform: translateY(0);
 }
 
-/* BARRE ACTIVE */
-.index-bar.active {
-    background-color: var(--main-color);
-    transform: scaleX(1.5);
+/* TITRES - Style plus élaboré */
+.title-content {
+    font-size: 2.8rem; /* Titre plus grand */
+    font-weight: 800; /* Plus épais */
+    color: var(--main-color);
+    margin-bottom: 1.8rem;
+    position: relative;
+    display: inline-block;
+    letter-spacing: -0.5px; /* Espacement des lettres légèrement réduit */
+    line-height: 1.2; /* Hauteur de ligne ajustée */
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 1); /* Effet subtil */
+}
+
+/* Ligne décorative sous le titre - Plus élaborée */
+.title-content::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -15px;
+    width: 100px; /* Plus large */
+    height: 5px; /* Plus épais */
+    background: linear-gradient(90deg, var(--main-color), var(--secondary-color)); /* Dégradé */
+    border-radius: 3px;
+    transition: width 0.4s ease; /* Animation de la largeur */
+}
+
+/* Hover effect pour la ligne décorative */
+.content-wrapper.active:hover .title-content::after {
+    width: 130px;
+}
+
+/* Style du texte - Amélioration de la lisibilité */
+.text-content {
+    font-size: 1.15rem; /* Légèrement plus grand */
+    line-height: 1.8; /* Plus d'espace entre les lignes */
+    color: var(--black);
+    text-align: justify;
+    margin-top: 2rem;
+    font-weight: 400;
+    position: relative;
+    padding-left: 10px; /* Léger padding à gauche */
+    border-left: 3px solid var(--secondary-color); /* Bordure décorative */
+}
+
+/* Ajout d'un style pour les premiers paragraphes */
+.text-content::first-letter {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--main-color);
+}
+
+/* NOUVEAU: Badge pour la rareté de la pierre - Plus joli */
+.pierre-rarete {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    background: linear-gradient(135deg, var(--secondary-color), var(--main-color));
+    color: white;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: -15px;
+    right: 20px;
+}
+
+/* Responsive pour écrans plus petits - Ajusté pour les nouvelles tailles */
+@media (max-width: 1200px) {
+    .fixed-section {
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+        justify-content: flex-start;
+        overflow-y: auto;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .image-container {
+        width: 400px;
+        height: 400px;
+        margin-top: 50px;
+        margin-right: 0;
+    }
+    
+    .text-container {
+        width: 90%;
+        max-width: 600px;
+    }
+    
+    .title-content {
+        font-size: 2.4rem;
+    }
+    
+    .pierre-rarete {
+        position: relative;
+        top: 0;
+        right: 0;
+        display: inline-block;
+    }
+    
+    .scroll-index {
+        position: fixed;
+        left: 10px;
+        top: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .image-container {
+        width: 320px;
+        height: 320px;
+    }
+    
+    .title-content {
+        font-size: 2rem;
+    }
+    
+    .text-content {
+        font-size: 1rem;
+        line-height: 1.6;
+        padding-left: 8px;
+    }
+    
+    .scroll-index {
+        left: 5px;
+    }
+    
+    .index-bar {
+        width: 4px;
+        height: 25px;
+    }
 }
