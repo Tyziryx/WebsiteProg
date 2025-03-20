@@ -1,8 +1,8 @@
 @import url('var.css');
 
-
-/* Hero Section */
-
+/* ============================
+   SECTION HERO 
+   ============================ */
 .hero {
     background-color: var(--white);    
     margin: 0;
@@ -37,7 +37,9 @@
     color: var(--black);
 }
 
-/* SECTION FIXÉE */
+/* ============================
+   SECTION DES PIERRES (GÉODEX)
+   ============================ */
 .fixed-section {
     position: relative;
     width: 100%;
@@ -48,9 +50,9 @@
     gap: 50px;
     background-color: var(--white);
     transition: transform 0.3s ease-out;
+    overflow: hidden;
 }
 
-/* Une classe qui active la fixation */
 .fixed-section.fixed {
     position: fixed;
     top: 0;
@@ -58,139 +60,198 @@
     width: 100%;
 }
 
-/* CONTENEUR D'IMAGE */
+/* Éléments décoratifs en arrière-plan */
+.fixed-section::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, var(--secondary-color) 0%, rgba(255,255,255,0) 70%);
+    opacity: 0.1;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.fixed-section::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--main-color) 0%, rgba(255,255,255,0) 70%);
+    opacity: 0.1;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* ============================
+   CONTENEUR D'IMAGES
+   ============================ */
 .image-container {
     position: relative;
-    width: 450px;  /* Augmenté à 450px pour des images encore plus grandes */
-    height: 450px; /* Augmenté à 450px pour des images encore plus grandes */
+    width: 480px;
+    height: 480px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 30px; /* Ajoute un peu d'espace entre l'image et le texte */
+    margin-right: 30px;
+    z-index: 2;
 }
 
-/* IMAGES SUPERPOSÉES - Améliorations visuelles */
 .scroll-image {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Garantit que toutes les images ont la même taille */
+    object-fit: contain;
     opacity: 0;
-    transition: opacity 0.6s ease-in-out, transform 0.6s ease;
+    transition: opacity 0.7s ease-in-out, transform 0.7s ease;
     transform: scale(0.92) translateY(10px);
-    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.2)); /* Ombre plus prononcée */
-    border-radius: 5px;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.3));
+    border-radius: 8px;
 }
 
-/* IMAGE ACTIVE - Animation améliorée */
 .scroll-image.active {
     opacity: 1;
     transform: scale(1) translateY(0);
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.spacer {
-    height: 1000vh;
-    background-color: var(--white);
-    margin-top: 100vh;
+.image-container:hover .scroll-image.active {
+    transform: scale(1.03);
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
 }
 
-/* CONTENEUR DE TEXTE - Amélioration de la présentation */
+/* ============================
+   CONTENEUR DE TEXTE - Version améliorée et plus élégante
+   ============================ */
 .text-container {
-    width: 50%;
+    width: 45%;  /* Légèrement réduit de 50% à 45% */
     text-align: left;
     position: relative;
-    max-width: 550px; /* Légèrement plus large */
-    padding: 30px; /* Plus d'espace intérieur */
-    background-color: rgba(255, 255, 255, 0.8); /* Fond légèrement transparent */
-    border-radius: 15px; /* Coins arrondis */
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); /* Ombre légère */
+    max-width: 500px;  /* Réduit de 550px à 500px */
+    padding: 35px;  /* Réduit de 40px à 35px */
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.97), rgba(252, 252, 252, 0.92));
+    border-radius: 16px;  /* Réduit de 20px à 16px */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06), 0 4px 8px rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    z-index: 2;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* WRAPPER POUR CONTENIR TITRE ET TEXTE - Animation améliorée */
+.text-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 5px 10px rgba(0, 0, 0, 0.04);
+}
+
 .content-wrapper {
     opacity: 0;
-    position: absolute;
-    width: 100%;
-    transition: opacity 0.6s ease-in-out, transform 0.5s ease;
-    transform: translateY(20px);
+    display: none;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .content-wrapper.active {
     opacity: 1;
-    position: relative;
-    transform: translateY(0);
+    display: block;
 }
 
-/* TITRES - Style plus élaboré */
+/* ============================
+   TITRE ET CONTENU - Plus élégant et lisible
+   ============================ */
 .title-content {
-    font-size: 2.8rem; /* Titre plus grand */
-    font-weight: 800; /* Plus épais */
+    font-size: 2.6rem;  /* Réduit de 3rem à 2.6rem */
+    font-weight: 700;  /* Réduit de 800 à 700 */
     color: var(--main-color);
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.8rem;  /* Réduit de 2rem à 1.8rem */
     position: relative;
     display: inline-block;
-    letter-spacing: -0.5px; /* Espacement des lettres légèrement réduit */
-    line-height: 1.2; /* Hauteur de ligne ajustée */
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 1); /* Effet subtil */
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
 }
 
-/* Ligne décorative sous le titre - Plus élaborée */
+/* Ligne décorative sous le titre */
 .title-content::after {
     content: "";
     position: absolute;
     left: 0;
-    bottom: -15px;
-    width: 100px; /* Plus large */
-    height: 5px; /* Plus épais */
-    background: linear-gradient(90deg, var(--main-color), var(--secondary-color)); /* Dégradé */
-    border-radius: 3px;
-    transition: width 0.4s ease; /* Animation de la largeur */
+    bottom: -12px;  /* Réduit de -15px à -12px */
+    width: 100px;  /* Réduit de 120px à 100px */
+    height: 4px;  /* Réduit de 6px à 4px */
+    background: linear-gradient(90deg, var(--main-color), var(--secondary-color), var(--main-color));
+    background-size: 200% 100%;
+    animation: gradient-shift 3s linear infinite;
+    border-radius: 2px;
+    transition: width 0.4s ease, opacity 0.4s ease;
 }
 
-/* Hover effect pour la ligne décorative */
 .content-wrapper.active:hover .title-content::after {
-    width: 130px;
+    width: 120px;  /* Réduit de 140px à 120px */
+    opacity: 0.9;
 }
 
-/* Style du texte - Amélioration de la lisibilité */
 .text-content {
-    font-size: 1.15rem; /* Légèrement plus grand */
-    line-height: 1.8; /* Plus d'espace entre les lignes */
+    font-size: 1.1rem;  /* Réduit de 1.2rem à 1.1rem */
+    line-height: 1.8;  /* Réduit de 1.9 à 1.8 */
     color: var(--black);
-    text-align: justify;
-    margin-top: 2rem;
+    text-align: left;  /* Changé de justify à left pour une meilleure lisibilité */
+    margin-top: 2rem;  /* Réduit de 2.4rem à 2rem */
     font-weight: 400;
     position: relative;
-    padding-left: 10px; /* Léger padding à gauche */
-    border-left: 3px solid var(--secondary-color); /* Bordure décorative */
+    padding-left: 15px;  /* Réduit de 18px à 15px */
+    border-left: 3px solid var(--secondary-color);  /* Réduit de 4px à 3px */
+    text-shadow: none;
 }
 
-/* Ajout d'un style pour les premiers paragraphes */
 .text-content::first-letter {
-    font-size: 1.5em;
-    font-weight: 600;
+    font-size: 1.6em;  /* Réduit de 1.8em à 1.6em */
+    font-weight: 600;  /* Réduit de 700 à 600 */
     color: var(--main-color);
+    margin-right: 2px;
 }
 
-/* NOUVEAU: Badge pour la rareté de la pierre - Plus joli */
-.pierre-rarete {
-    display: inline-block;
-    padding: 0.4rem 1.2rem;
-    background: linear-gradient(135deg, var(--secondary-color), var(--main-color));
-    color: white;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
-    margin-top: 0.5rem;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+/* ============================
+   NAVIGATION PAR INDEX
+   ============================ */
+.scroll-index {
     position: absolute;
-    top: -15px;
-    right: 20px;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 3;
 }
 
-/* Responsive pour écrans plus petits - Ajusté pour les nouvelles tailles */
+.index-bar {
+    width: 5px;
+    height: 30px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.index-bar.active {
+    background-color: var(--main-color);
+    transform: scaleX(1.5);
+}
+
+/* ============================
+   ESPACE POUR SCROLL
+   ============================ */
+.spacer {
+    height: 1000vh;
+    background-color: var(--white);
+}
+
+/* ============================
+   MEDIA QUERIES
+   ============================ */
 @media (max-width: 1200px) {
     .fixed-section {
         flex-direction: column;
@@ -210,19 +271,13 @@
     }
     
     .text-container {
-        width: 90%;
-        max-width: 600px;
+        width: 85%;  /* Modifié de 90% à 85% */
+        max-width: 550px;
+        padding: 30px;
     }
     
     .title-content {
         font-size: 2.4rem;
-    }
-    
-    .pierre-rarete {
-        position: relative;
-        top: 0;
-        right: 0;
-        display: inline-block;
     }
     
     .scroll-index {
@@ -234,8 +289,38 @@
 
 @media (max-width: 768px) {
     .image-container {
-        width: 320px;
-        height: 320px;
+        width: 340px;
+        height: 340px;
+    }
+    
+    .text-container {
+        padding: 25px;
+    }
+    
+    .title-content {
+        font-size: 2.2rem;
+    }
+    
+    .text-content {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        padding-left: 12px;
+    }
+    
+    .index-bar {
+        width: 4px;
+        height: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .image-container {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .text-container {
+        padding: 25px;
     }
     
     .title-content {
@@ -245,15 +330,6 @@
     .text-content {
         font-size: 1rem;
         line-height: 1.6;
-        padding-left: 8px;
-    }
-    
-    .scroll-index {
-        left: 5px;
-    }
-    
-    .index-bar {
-        width: 4px;
-        height: 25px;
+        padding-left: 12px;
     }
 }

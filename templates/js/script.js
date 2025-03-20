@@ -1,32 +1,45 @@
+// Version nettoyée - supprime les duplications et garde seulement les fonctionnalités essentielles
+
+// Défilement pour changer les images
 document.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
     const images = document.querySelectorAll(".scroll-image");
-    const titles = document.querySelectorAll(".title-content");
-    const texts = document.querySelectorAll(".text-content");
+    const contents = document.querySelectorAll(".content-wrapper");
     const indexBars = document.querySelectorAll(".index-bar");
 
+    if (images.length === 0) return;
+
+    // Calcul de l'index basé sur le défilement
     let index = Math.min(Math.floor(scrollY / 1000), images.length - 1);
 
+    // Activer/désactiver les éléments
     images.forEach((img, i) => img.classList.toggle("active", i === index));
-    titles.forEach((title, i) => title.classList.toggle("active", i === index));
-    texts.forEach((txt, i) => txt.classList.toggle("active", i === index));
+    contents.forEach((content, i) => content.classList.toggle("active", i === index));
     indexBars.forEach((bar, i) => bar.classList.toggle("active", i === index));
 });
 
-// CLIC SUR LES BARRES POUR CHANGER D'ÉTAPE
+// Clic sur les barres d'index
 document.querySelectorAll(".index-bar").forEach(bar => {
     bar.addEventListener("click", (e) => {
         let targetIndex = parseInt(e.target.dataset.index);
         window.scrollTo({
-            top: targetIndex * 999, // 1000-1 -> X de scrollY/ X
+            top: targetIndex * 999,
+            behavior: 'smooth'
         });
     });
 });
 
+// Section fixe au défilement
 document.addEventListener("scroll", () => {
     const scrollSection = document.querySelector(".fixed-section");
-    const heroHeight = document.querySelector(".hero").offsetHeight;
-    const endFixedPoint = heroHeight + document.querySelector(".spacer").offsetHeight;
+    if (!scrollSection) return;
+    
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
+    
+    const heroHeight = hero.offsetHeight;
+    const spacer = document.querySelector(".spacer");
+    const endFixedPoint = heroHeight + (spacer ? spacer.offsetHeight : 0);
 
     if (window.scrollY >= heroHeight && window.scrollY < endFixedPoint) {
         scrollSection.classList.add("fixed");
@@ -35,67 +48,63 @@ document.addEventListener("scroll", () => {
     }
 });
 
-
-
-//HEADER 
-//Réccupéré sur codepen.io
-//https://codepen.io/themrsami/details/ogvedxR
-
-const navbar = document.querySelector('.navbar');
-const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-const navLinks = document.querySelector('.nav-links');
-const overlay = document.querySelector('.overlay');
-let isMenuOpen = false;
-
-// Scroll effect
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
+// Navigation mobile et header
+document.addEventListener("DOMContentLoaded", function() {
+    const navbar = document.querySelector('.navbar');
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const overlay = document.querySelector('.overlay');
+    
+    if (navbar && mobileNavToggle && navLinks && overlay) {
+        let isMenuOpen = false;
+        
+        // Effet de défilement pour la navbar
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Toggle du menu mobile
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            mobileNavToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+        }
+        
+        mobileNavToggle.addEventListener('click', toggleMenu);
+        
+        // Fermer le menu mobile sur clic des liens
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMenuOpen) toggleMenu();
+            });
+        });
+        
+        // Fermer le menu avec la touche Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isMenuOpen) toggleMenu();
+        });
+        
+        // Ajustement pour le redimensionnement de l'écran
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && isMenuOpen) {
+                toggleMenu();
+            }
+        });
     }
-});
-
-
-// Toggle mobile menu
-function toggleMenu() {
-    isMenuOpen = !isMenuOpen;
-    mobileNavToggle.classList.toggle('active');
-    navLinks.classList.toggle('active');
-    overlay.classList.toggle('active');
-    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
-}
-
-mobileNavToggle.addEventListener('click', toggleMenu);
-
-// Close mobile menu when clicking a link
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        if (isMenuOpen) toggleMenu();
-    });
-});
-
-// Close menu on escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isMenuOpen) toggleMenu();
-});
-
-// Prevent scroll when menu is open
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768 && isMenuOpen) {
-        toggleMenu();
-    }
-});
-
-
-//gère la faq
-document.addEventListener("DOMContentLoaded", function () {
+    
+    // Gestion de la FAQ - garder cette animation comme demandé
     const faqQuestions = document.querySelectorAll('.faq-question');
-
-    faqQuestions.forEach(function (question) {
-        question.addEventListener('click', function () {
-            const faqItem = this.parentElement; // Récupère le parent .faq-item
+    faqQuestions.forEach(function(question) {
+        question.addEventListener('click', function() {
+            const faqItem = this.parentElement;
             faqItem.classList.toggle('active');
         });
     });
 });
+

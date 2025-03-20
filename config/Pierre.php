@@ -68,5 +68,15 @@ class Pierre {
         
         return $pierres;
     }
+
+    /**
+     * Retourne le nom de la pierre (cette méthode doit être utilisée sur un objet Pierre)
+     * 
+     * @return string Le nom de la pierre
+     */
+    public function getNom() {
+        // Retourne simplement la propriété nom_pierre de cette instance
+        return $this->nom_pierre;
+    }
 }
 ?>
