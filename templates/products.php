@@ -51,5 +51,6 @@ if (!isset($racine_path)) {
 </section>
 
 <!-- section vide pour permettre le scroll -->
-<section class="spacer"></section>
-</main>
+<section class="spacer"><div class="end-card">
+        Merci pour votre enthousiasme
+    </div></section>
