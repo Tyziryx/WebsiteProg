@@ -1,11 +1,11 @@
 <?php 
 session_start();
-/*
-if (!isset($_SESSION['user_id'])) {
+
+if (!isset($_SESSION['email'])) {
     header("Location: ./control/login.php");
     exit;
 }
-*/
+
 $racine_path = '../';
 
 if (isset($_GET['id'])) {

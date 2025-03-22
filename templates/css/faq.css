@@ -6,6 +6,12 @@
     margin-top: 100px;
 }
 
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
 .faq-title {
     font-size: 2.5rem;
     font-weight: bold;
@@ -19,7 +25,7 @@
     margin-bottom: 30px;
 }
 
-/* Items FAQ */
+/* Items FAQ - Hauteur fixe */
 .faq-item {
     margin-bottom: 20px;
     padding: 20px;
@@ -28,19 +34,27 @@
     border: 2px solid var(--main-color);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
+    cursor: pointer; /* Rend toute la carte cliquable */
+    min-height: 80px; /* Hauteur minimale pour la carte fermée */
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Assure que toutes les cartes ont la même largeur */
 }
 
-/* Question */
+/* Question - Taille fixe */
 .faq-question {
     font-size: 1.5rem;
     font-weight: bold;
     text-align: left;
     color: var(--main-color);
-    cursor: pointer;
     transition: color 0.3s ease-in-out;
     position: relative;
-    padding-right: 30px;
-    /* Espace pour l'icône */
+    padding-right: 30px; /* Espace pour l'icône */
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    margin: 0 0 10px 0;
+    pointer-events: none; /* Empêche la capture du clic pour que l'événement remonte à .faq-item */
 }
 
 .faq-question::after {
@@ -49,6 +63,11 @@
     right: 10px;
     font-size: 1.2rem;
     transition: transform 0.3s ease-in-out;
+    pointer-events: none; /* S'assure que l'icône ne capture pas les clics */
+}
+
+.faq-item.active {
+    min-height: 200px; /* Hauteur minimale pour la carte ouverte */
 }
 
 .faq-item.active .faq-question::after {
@@ -65,13 +84,22 @@
     overflow: hidden;
     transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
     padding: 0 15px;
+    flex-grow: 1;
+    text-align: left;
 }
 
 /* Quand la classe 'active' est ajoutée à .faq-item, afficher la réponse */
 .faq-item.active .faq-answer {
-    max-height: 300px;
+    max-height: 500px; /* Hauteur maximale augmentée */
     opacity: 1;
     padding: 10px 15px;
+    overflow-y: auto; /* Permet de défiler si la réponse est très longue */
+}
+
+/* Animation de survol */
+.faq-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Responsive */
@@ -86,9 +114,30 @@
 
     .faq-item {
         padding: 15px;
+        min-height: 70px;
+    }
+
+    .faq-item.active {
+        min-height: 180px;
     }
 
     .faq-question {
         font-size: 1.3rem;
+        min-height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .faq-item {
+        min-height: 60px;
+    }
+
+    .faq-item.active {
+        min-height: 160px;
+    }
+
+    .faq-question {
+        font-size: 1.1rem;
+        min-height: 30px;
     }
 }

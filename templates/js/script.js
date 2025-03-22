@@ -98,12 +98,19 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     
-    // Gestion de la FAQ - garder cette animation comme demandé
     const faqQuestions = document.querySelectorAll('.faq-question');
     faqQuestions.forEach(function(question) {
         question.addEventListener('click', function() {
             const faqItem = this.parentElement;
             faqItem.classList.toggle('active');
+        });
+    });
+
+    // Gestion de la FAQ - modifier pour que le clic fonctionne sur toute la carte
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            this.classList.toggle('active');
         });
     });
 });

@@ -78,5 +78,110 @@ class Pierre {
         // Retourne simplement la propriété nom_pierre de cette instance
         return $this->nom_pierre;
     }
+
+
+
+
+/**
+ * Récupère les FAQs où admin est false
+ * 
+ * @return array Tableau associatif des questions et réponses
+ */
+public function getFAQs() {
+    // Connexion à la bd
+    $BD = new GestionBD();
+    $BD->connexion();
+
+    $sql = "SELECT question, reponse FROM faq WHERE admin = false";
+    $stat = $BD->pdo->prepare($sql);
+    $stat->execute();
+    $faqs = $stat->fetchAll(PDO::FETCH_ASSOC);
+    $BD->deconnexion();
+    
+    return $faqs;
 }
+
+
+
+
+public function getFAQsAdmin() {
+    // Connexion à la bd
+    $BD = new GestionBD();
+    $BD->connexion();
+
+    $sql = "SELECT question, reponse FROM faq WHERE admin = true";
+    $stat = $BD->pdo->prepare($sql);
+    $stat->execute();
+    $faqs = $stat->fetchAll(PDO::FETCH_ASSOC);
+    $BD->deconnexion();
+    
+    return $faqs;
+}
+
+
+
+
+public function userHasStone($pseudo, $nom_pierre) {
+    // Connexion à la bd
+    $BD = new GestionBD();
+    $BD->connexion();
+
+    // Utiliser les noms de colonnes corrects: pseudo et nom_pierre
+    $sql = 'SELECT COUNT(*) FROM pierre WHERE pseudo = :pseudo AND nom_pierre = :nom_pierre';
+    $stat = $BD->pdo->prepare($sql);
+    $stat->bindParam(':pseudo', $pseudo);
+    $stat->bindParam(':nom_pierre', $nom_pierre);
+    $stat->execute();
+    
+    $count = $stat->fetchColumn();
+    $BD->deconnexion();
+    
+    return $count > 0;
+}
+
+public function addStoneToUser($pseudo, $nom_pierre) {
+    // Connexion à la bd
+    $BD = new GestionBD();
+    $BD->connexion();
+
+    // Utiliser les noms de colonnes corrects: pseudo et nom_pierre
+    // Retirer la colonne obtenu qui n'existe plus
+    $sql = 'INSERT INTO pierre (pseudo, nom_pierre) VALUES (:pseudo, :nom_pierre)';
+    $stat = $BD->pdo->prepare($sql);
+    $stat->bindParam(':pseudo', $pseudo);
+    $stat->bindParam(':nom_pierre', $nom_pierre);
+    
+    $result = $stat->execute();
+    $BD->deconnexion();
+    
+    return $result;
+}
+
+
+public function getUserPseudoFromEmail($email) {
+    // Connexion à la bd
+    $BD = new GestionBD();
+    $BD->connexion();
+
+    $sql = 'SELECT pseudo FROM utilisateurs WHERE email = :email';
+    $stat = $BD->pdo->prepare($sql);
+    $stat->bindParam(':email', $email);
+    $stat->execute();
+    
+    $pseudo = $stat->fetchColumn();
+    $BD->deconnexion();
+    
+    return $pseudo;
+}
+
+
+
+
+
+}
+
+
+
+
+
 ?>
