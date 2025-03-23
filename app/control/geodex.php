@@ -6,6 +6,8 @@ if (!isset($_SESSION['email'])) {
     exit;
 }
 
+require_once __DIR__ . '/../../config/Pierre.php';
+
 $racine_path = '../';
 
 if (isset($_GET['id'])) {

@@ -177,6 +177,46 @@ public function getUserPseudoFromEmail($email) {
 
 
 
+/*
+ * Récupère toutes les pierres disponibles 
+ */
+public function getAllPierres() {
+    // Connexion à la bd
+    $BD = new GestionBD();
+    $BD->connexion();
+
+    $sql = 'SELECT * FROM geodex ORDER BY nom_pierre';
+    $stat = $BD->pdo->prepare($sql);
+    $stat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'classe\Pierre');
+    $stat->execute();
+    $pierres = $stat->fetchAll();
+    $BD->deconnexion();
+    
+    return $pierres;
+}
+
+/*
+ * Récupère les pierres découvertes par un utilisateur
+*/
+public function getUserStones($pseudo) {
+    // Connexion à la bd
+    $BD = new GestionBD();
+    $BD->connexion();
+
+    $sql = 'SELECT g.* FROM geodex g 
+            JOIN pierre p ON g.nom_pierre = p.nom_pierre 
+            WHERE p.pseudo = :pseudo';
+    $stat = $BD->pdo->prepare($sql);
+    $stat->bindParam(':pseudo', $pseudo);
+    $stat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'classe\Pierre');
+    $stat->execute();
+    $pierres = $stat->fetchAll();
+    $BD->deconnexion();
+    
+    return $pierres;
+}
+
+
 
 }
 
