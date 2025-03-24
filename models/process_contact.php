@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Envoyer l'e-mail
     if (mail($email_dest, $subject, $email_body, $headers)) {
-        header("Location: /AMS/control/confirmation.php?success=" . urlencode("Merci pour votre message. Nous vous répondrons rapidement."));
+        header("Location: /AMS/control/confirmation.php");
         exit;
     } else {
         header("Location: /AMS/control/contact.php?error=" . urlencode("Erreur lors de l'envoi du message. Veuillez réessayer plus tard."));

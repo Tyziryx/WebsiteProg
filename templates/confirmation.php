@@ -1,3 +1,7 @@
+<?php
+// Récupérer le message de succès passé en paramètre GET
+$success_message = isset($_GET['success']) ? htmlspecialchars($_GET['success']) : '';
+?>
 
 <main>
     <section class="confirmation-section">
@@ -5,18 +9,15 @@
             <h2 class="confirmation-title">Merci pour votre message</h2>
             <p class="confirmation-message">
                 <?php
-                // Afficher le message de succès ou d'erreur
-                if (isset($_SESSION['success'])) {
-                    echo $_SESSION['success'];
-                    unset($_SESSION['success']);
-                } elseif (isset($_SESSION['error'])) {
-                    echo $_SESSION['error'];
-                    unset($_SESSION['error']);
+                if (!empty($success_message)) {
+                    echo '<span class="success-message">' . $success_message . '</span>';
                 }
                 ?>
             </p>
-            <a href="/public_html/control/contact.php" class="back-link">Retourner au formulaire</a>
-            <a href="/public_html/" class="back-link">Retourner à l'accueil</a>
+            <div class="confirmation-links">
+                <a href="/public_html/control/contact.php" class="back-link">Retourner au formulaire</a>
+                <a href="/public_html/" class="back-link">Retourner à l'accueil</a>
+            </div>
         </div>
     </section>
 </main>
