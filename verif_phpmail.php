@@ -1,55 +1,77 @@
 <?php
-// filepath: c:\xampp\htdocs\WebsiteProg\models\process_contact.php
+// filepath: c:\xampp\htdocs\WebsiteProg\check_phpmailer.php
 
-// Vérifier si le formulaire a été soumis
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Récupérer les données du formulaire
-    $name = $_POST['name'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $message = $_POST['message'] ?? '';
+echo "<h1>Vérification de PHPMailer</h1>";
 
-    // Validation simple des données
-    if (empty($name) || empty($email) || empty($message)) {
-        $error_message = "Tous les champs sont requis.";
-        header("Location: ../control/contact.php?error=" . urlencode($error_message));
-        exit;
+// Méthode 1: Vérifier si l'autoload de Composer est présent
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    echo "<p style='color: green;'>✓ L'autoloader de Composer est présent.</p>";
+    
+    // Essayer de charger l'autoloader
+    try {
+        require_once __DIR__ . '/vendor/autoload.php';
+        echo "<p style='color: green;'>✓ L'autoloader de Composer a été chargé avec succès.</p>";
+    } catch (Exception $e) {
+        echo "<p style='color: red;'>✗ Erreur lors du chargement de l'autoloader: " . $e->getMessage() . "</p>";
     }
     
-    // Vérification de l'email
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error_message = "Format d'email invalide.";
-        header("Location: ../control/contact.php?error=" . urlencode($error_message));
-        exit;
-    }
-
-    // Destinataire
-    $to = 'geodex.contact@gmail.com';
-    
-    // Sujet
-    $subject = 'Nouveau message de contact de ' . $name;
-    
-    // Corps du message
-    $message_body = "Nom: " . $name . "\n";
-    $message_body .= "Email: " . $email . "\n\n";
-    $message_body .= "Message:\n" . $message;
-    
-    // En-têtes
-    $headers = "From: " . $email . "\r\n";
-    $headers .= "Reply-To: " . $email . "\r\n";
-    
-    // Tentative d'envoi du mail
-    if(mail($to, $subject, $message_body, $headers)) {
-        // Rediriger avec un message de succès
-        header("Location: ../control/confirmation.php?success=" . urlencode("Votre message a été envoyé avec succès. Nous vous contacterons bientôt."));
-        exit;
+    // Vérifier si les classes PHPMailer sont disponibles
+    if (class_exists('PHPMailer\PHPMailer\PHPMailer')) {
+        echo "<p style='color: green;'>✓ La classe PHPMailer est disponible.</p>";
     } else {
-        // En cas d'erreur, rediriger avec un message d'erreur
-        header("Location: ../control/contact.php?error=" . urlencode("Une erreur est survenue lors de l'envoi du message. Veuillez réessayer."));
-        exit;
+        echo "<p style='color: red;'>✗ La classe PHPMailer n'est pas disponible.</p>";
     }
 } else {
-    // Rediriger vers la page de contact si l'accès au script est direct
-    header("Location: ../control/contact.php");
-    exit;
+    echo "<p style='color: red;'>✗ L'autoloader de Composer n'est pas présent.</p>";
+}
+
+// Méthode 2: Vérifier si PHPMailer est directement dans le répertoire
+$phpmailer_paths = [
+    __DIR__ . '/PHPMailer/',
+    __DIR__ . '/vendor/phpmailer/phpmailer/src/',
+    __DIR__ . '/lib/PHPMailer/'
+];
+
+foreach ($phpmailer_paths as $path) {
+    if (file_exists($path . 'PHPMailer.php')) {
+        echo "<p style='color: green;'>✓ PHPMailer trouvé dans: $path</p>";
+    }
+}
+
+echo "<h2>Instructions d'installation si PHPMailer n'est pas présent:</h2>";
+echo "<p>Pour installer PHPMailer via Composer:</p>";
+echo "<pre>
+composer require phpmailer/phpmailer
+</pre>";
+
+echo "<p>OU télécharger manuellement depuis GitHub:</p>";
+echo "<pre>
+1. Télécharger depuis: https://github.com/PHPMailer/PHPMailer/archive/master.zip
+2. Extraire le fichier ZIP
+3. Copier le dossier 'src' dans votre projet et le renommer en 'PHPMailer'
+</pre>";
+
+// Aide au débogage courant
+echo "<h2>Informations serveur:</h2>";
+echo "<p>Version PHP: " . phpversion() . "</p>";
+echo "<p>Extensions chargées: </p>";
+echo "<pre>";
+$extensions = get_loaded_extensions();
+sort($extensions);
+echo implode(", ", $extensions);
+echo "</pre>";
+
+// Vérifier les fonctions mail pertinentes
+echo "<h2>Fonctions mail:</h2>";
+if (function_exists('mail')) {
+    echo "<p style='color: green;'>✓ La fonction mail() est disponible.</p>";
+} else {
+    echo "<p style='color: red;'>✗ La fonction mail() n'est pas disponible.</p>";
+}
+
+if (extension_loaded('openssl')) {
+    echo "<p style='color: green;'>✓ L'extension OpenSSL est chargée (nécessaire pour SMTP sécurisé).</p>";
+} else {
+    echo "<p style='color: red;'>✗ L'extension OpenSSL n'est pas chargée.</p>";
 }
 ?>
