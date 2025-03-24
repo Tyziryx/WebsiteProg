@@ -34,11 +34,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $message_body .= "Message:\n" . $message;
     
     // En-têtes
-    $headers = "From: " . $email . "\r\n";
+    $headers = "From: noreply@geodex.fr\r\n"; // Adresse neutre pour éviter les problèmes de spoofing
     $headers .= "Reply-To: " . $email . "\r\n";
     
-    // Tentative d'envoi du mail
-    if(mail($to, $subject, $message_body, $headers)) {
+    // Tenter d'envoyer le mail, mais aussi l'enregistrer dans un fichier
+    $mail_sent = mail($to, $subject, $message_body, $headers);
+    
+    // Enregistrer le message dans un fichier log
+    $log_dir = __DIR__ . '/../logs';
+    if (!file_exists($log_dir)) {
+        if (!mkdir($log_dir, 0755, true)) {
+            // Si impossible de créer le dossier logs
+            header("Location: ../control/contact.php?error=" . urlencode("Une erreur est survenue lors de l'enregistrement du message."));
+            exit;
+        }
+    }
+    
+    $log_file = $log_dir . '/contact_messages.log';
+    $timestamp = date('Y-m-d H:i:s');
+    $log_message = "==========\nDate: $timestamp\nNom: $name\nEmail: $email\nMessage:\n$message\n==========\n\n";
+    
+    $saved = file_put_contents($log_file, $log_message, FILE_APPEND);
+    
+    // Si le mail est envoyé OU si le message est enregistré, rediriger vers la confirmation
+    if ($mail_sent || $saved) {
         // Rediriger avec un message de succès
         header("Location: ../control/confirmation.php?success=" . urlencode("Votre message a été envoyé avec succès. Nous vous contacterons bientôt."));
         exit;
