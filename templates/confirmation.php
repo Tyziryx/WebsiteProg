@@ -16,7 +16,7 @@ $success_message = isset($_GET['success']) ? htmlspecialchars($_GET['success']) 
             </p>
             <div class="confirmation-links">
                 <a href="contact.php" class="back-link">Retourner au formulaire</a>
-                <a href="../../" class="back-link">Retourner à l'accueil</a>
+                <a href="../" class="back-link">Retourner à l'accueil</a>
             </div>
         </div>
     </section>
