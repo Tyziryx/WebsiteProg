@@ -46,6 +46,36 @@ class Pierre {
         
         return $pierre;
     }
+
+    public function getPierreByNom($nom_pierre) {
+        // Connexion à la base de données
+        $BD = new GestionBD();
+        $BD->connexion();
+    
+        // Vérifie si les données existent dans la table correcte
+        $sql = 'SELECT nom_pierre, description, rarete, image FROM geodex WHERE nom_pierre = :nom_pierre;';
+        $stat = $BD->pdo->prepare($sql);
+        $stat->bindParam(':nom_pierre', $nom_pierre, PDO::PARAM_STR);
+        $stat->setFetchMode(PDO::FETCH_ASSOC);  // Changer FETCH_CLASS en FETCH_ASSOC pour tester
+        $stat->execute();
+        $pierreData = $stat->fetch();
+    
+        $BD->deconnexion();
+    
+        if (!$pierreData) {
+            return null;
+        }
+    
+        // Instancier un objet Pierre en remplissant ses propriétés
+        return new \classe\Pierre(
+            $pierreData['nom_pierre'],
+            $pierreData['description'],
+            $pierreData['image'],
+            $pierreData['rarete']
+        );
+    }
+    
+    
     
     /**
      * Récupère les pierres par rareté

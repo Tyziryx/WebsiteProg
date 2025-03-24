@@ -1,14 +1,20 @@
 <?php 
-$id = isset($_GET['id']) ? intval($_GET['id']) : 1; // Récupération sécurisée de l'ID
+require_once __DIR__ . '/../../config/Pierre.php';
+$pierreModel = new \bd\Pierre();
+$nom_pierre = isset($_GET['id']) ? $_GET['id'] : '';
 
-// Données factices (à remplacer par une base de données)
-$images = [
-    1 => ["name" => "Image 1", "description" => "Description de l'image 1"],
-    2 => ["name" => "Image 2", "description" => "Description de l'image 2"],
-    3 => ["name" => "Image 3", "description" => "Description de l'image 3"],
-];
+if (!$nom_pierre) {
+    echo '<div class="error-message">Nom de pierre invalide.</div>';
+    exit;
+}
 
-$imageInfo = $images[$id % 3 + 1] ?? ["name" => "Image inconnue", "description" => "Aucune information disponible."];
+$stone = $pierreModel->getPierreByNom($nom_pierre);
+
+
+if (!$stone) {
+    echo '<div class="error-message">Pierre introuvable.</div>';
+    exit;
+}
 
 ?>
 
@@ -16,15 +22,15 @@ $imageInfo = $images[$id % 3 + 1] ?? ["name" => "Image inconnue", "description" 
 <?php include $racine_path .'templates/sidebar.php'; ?>
 
 <div class="image-container">
-    <h1 class="image-title"><?php echo $imageInfo['name']; ?></h1>
+    <h1 class="image-title"><?php echo htmlspecialchars($stone->nom_pierre); ?></h1>
     
     <div class="image-content">
         <div class="image-box">
-            <img src="../images/image<?php echo $id % 3+1; ?>.png" alt="<?php echo $imageInfo['name']; ?>">
+        <img src="../../images/<?php echo htmlspecialchars($stone->image); ?>" alt="<?php echo htmlspecialchars($stone->nom_pierre); ?>">
         </div>
-        <p class="image-description"><?php echo $imageInfo['description']; ?></p>
+        <p class="image-description">Rareté : <?php echo htmlspecialchars($stone->rarete); ?></p>
+        <p class="image-description">Description : <?php echo nl2br(htmlspecialchars($stone->description)); ?></p>
     </div>
 
     <a href="geodex.php" class="back-link">Retour</a>
 </div>
-

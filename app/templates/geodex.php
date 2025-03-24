@@ -48,9 +48,14 @@ require_once __DIR__ . '/../../config/Pierre.php';
                         echo '<div class="' . $cardClass . '">';
                         echo '  <div class="stone-image-container">';
                         // Utiliser l'image réelle pour toutes les pierres, mais appliquer un style CSS pour les non-découvertes
-                        echo '    <img src="../../images/' . $stone->image . '" alt="' . 
+                        if ($discovered) {
+                            echo '    <a href="geodex.php?id=' . $stone->nom_pierre . '">';
+                        }
+                        echo '      <img src="../../images/' . $stone->image . '" alt="' . 
                              ($discovered ? $stone->nom_pierre : 'Pierre non découverte') . '" class="stone-image">';
-                        echo '  </div>';
+                        if ($discovered) {
+                            echo '    </a>';
+                        }                        echo '  </div>';
                         echo '  <div class="stone-info">';
                         echo '    <div class="stone-number">' . $formattedNumber . '</div>';
                         if ($discovered) {
