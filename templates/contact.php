@@ -1,9 +1,17 @@
-
 <main>
     <section id="contact" class="contact-section">
         <div class="container">
             <h2 class="contact-title">Contactez-nous</h2>
             <p class="contact-subtitle">Une question ? Remplissez ce formulaire et nous vous répondrons rapidement.</p>
+
+            <!-- Affichage des messages d'erreur ou de succès -->
+            <?php if (isset($_GET['error'])): ?>
+                <div class="error-message"><?php echo htmlspecialchars($_GET['error']); ?></div>
+            <?php endif; ?>
+
+            <?php if (isset($_GET['success'])): ?>
+                <div class="success-message"><?php echo htmlspecialchars($_GET['success']); ?></div>
+            <?php endif; ?>
 
             <form action="../models/process_contact.php" method="POST" class="contact-form">
                 <div class="form-group">
@@ -26,7 +34,6 @@
         </div>
     </section>
 </main>
-
 
 <script src="../templates/js/script.js"></script>
 </body>

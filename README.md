@@ -131,6 +131,5 @@ https://wbd.ms/share/v2/aHR0cHM6Ly93aGl0ZWJvYXJkLm1pY3Jvc29mdC5jb20vYXBpL3YxLjAv
 à faire : 
 - contact fonctionnel
 - modif profil geodex (un bouton modifier par ligne)
-- requêtes get geodex
 - tout le côté admin fonctionnel (affichage + requêtes modif suppression ajout)
 - finir accueil (footer + dernière section)
