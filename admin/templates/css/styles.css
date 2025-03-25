@@ -2,12 +2,11 @@
 @import url('components.css');
 @import url('var.css');
 @import url('login.css');
-@import url('geodex.css');
 @import url('home.css');
 @import url('faq.css');
 @import url('sidebar.css');
 @import url('modal.css');
-
+@import url('notifications.css');
 
 
 body {

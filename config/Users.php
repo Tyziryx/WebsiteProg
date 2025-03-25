@@ -17,7 +17,7 @@ class User {
         // La requête SQL pour récupérer tous les utilisateurs
         $sql = 'SELECT * FROM utilisateurs';
         $stat = $BD->pdo->prepare($sql);
-        $stat->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'bd\User');
+        $stat->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'classe\User');
         $stat->execute();
 
         // Récupérer tous les utilisateurs sous forme d'objets User
@@ -37,7 +37,7 @@ class User {
         $sql = 'SELECT * FROM utilisateurs WHERE pseudo = :pseudo';
         $stat = $BD->pdo->prepare($sql);
         $stat->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
-        $stat->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'bd\User');
+        $stat->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Classe\User');
         $stat->execute();
 
         // Récupérer l'utilisateur sous forme d'objet
@@ -65,6 +65,68 @@ class User {
         $BD->deconnexion();
     
         return $user;
+    }
+
+    // Ajouter un utilisateur (NOUVELLE MÉTHODE)
+    public function ajouterUtilisateur($pseudo, $email, $password, $admin = 0) {
+        $BD = new GestionBD();
+        $BD->connexion();
+        
+        $sql = 'INSERT INTO utilisateurs (pseudo, email, password, admin) VALUES (:pseudo, :email, :password, :admin)';
+        $stat = $BD->pdo->prepare($sql);
+        $stat->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
+        $stat->bindParam(':email', $email, PDO::PARAM_STR);
+        $stat->bindParam(':password', $password, PDO::PARAM_STR);
+        $stat->bindParam(':admin', $admin, PDO::PARAM_INT);
+        
+        $result = $stat->execute();
+        $BD->deconnexion();
+        
+        return $result;
+    }
+
+    // Modifier un utilisateur (NOUVELLE MÉTHODE COMPLÈTE)
+    public function modifierUtilisateur($originalPseudo, $userData) {
+        $BD = new GestionBD();
+        $BD->connexion();
+        
+        try {
+            // Ignorer toute tentative de modification du pseudo
+            if (isset($userData['pseudo'])) {
+                unset($userData['pseudo']);
+            }
+            
+            // Si aucune donnée à mettre à jour, retourner true
+            if (empty($userData)) {
+                return true;
+            }
+            
+            // Construire la requête SQL pour la mise à jour
+            $sql = 'UPDATE utilisateurs SET ';
+            $params = [];
+            
+            foreach ($userData as $key => $value) {
+                $sql .= "$key = :$key, ";
+                $params[":$key"] = $value;
+            }
+            
+            // Supprimer la virgule finale et l'espace
+            $sql = rtrim($sql, ', ');
+            
+            // Ajouter la condition WHERE
+            $sql .= ' WHERE pseudo = :originalPseudo';
+            $params[':originalPseudo'] = $originalPseudo;
+            
+            // Exécuter la requête pour l'utilisateur
+            $stat = $BD->pdo->prepare($sql);
+            $result = $stat->execute($params);
+            
+            $BD->deconnexion();
+            return $result;
+        } catch (Exception $e) {
+            $BD->deconnexion();
+            throw $e;
+        }
     }
 
     // Modifier un utilisateur (email et mot de passe)
@@ -101,6 +163,11 @@ class User {
         return $result;
     }
 
+    // Supprimer un utilisateur (RENOMMER LA MÉTHODE)
+    public function supprimerUtilisateur($pseudo) {
+        return $this->deleteUser($pseudo);
+    }
+
     // Supprimer un utilisateur
     public function deleteUser($pseudo) {
         // Connexion à la base de données
@@ -119,8 +186,27 @@ class User {
         return $result;
     }
 
-    // Passer un utilisateur au rôle admin / non-admin
-    public function toggleAdmin($pseudo) {
+    // Mettre à jour le statut admin (NOUVELLE MÉTHODE)
+    public function toggleAdmin($pseudo, $adminStatus) {
+        // Connexion à la base de données
+        $BD = new GestionBD();
+        $BD->connexion();
+
+        // Requête SQL pour définir le statut admin
+        $sql = 'UPDATE utilisateurs SET admin = :admin WHERE pseudo = :pseudo';
+        $stat = $BD->pdo->prepare($sql);
+        $stat->bindParam(':admin', $adminStatus, PDO::PARAM_INT);
+        $stat->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
+
+        // Exécuter la requête
+        $result = $stat->execute();
+        $BD->deconnexion();
+
+        return $result;
+    }
+
+    // Passer un utilisateur au rôle admin / non-admin (basculer)
+    public function toggleAdminSwitch($pseudo) {
         // Connexion à la base de données
         $BD = new GestionBD();
         $BD->connexion();
