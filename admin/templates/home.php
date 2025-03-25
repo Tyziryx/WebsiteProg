@@ -17,7 +17,26 @@ if (empty($allStones)) {
 
 <div class="container">
     <h2>Liste des Pierres</h2>
-    <button class="add">Ajouter une pierre</button>
+    <button class="add"  id="openModal">Ajouter une pierre</button>
+    <!-- Modal d'ajout -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Ajouter une pierre</h2>
+            
+            <!-- Formulaire d'ajout -->
+            <form id="addStoneForm" method="post" action="../models/ajouter_pierre.php">
+                <label for="nom">Nom de la pierre :</label>
+                <input type="text" id="nom" name="nom" required>
+
+                <label for="description">Description :</label>
+                <textarea id="description" name="description" required></textarea>
+
+                <button type="submit" class="btn-submit">Ajouter</button>
+            </form>
+        </div>
+    </div>
+    <p id="message" style="display:none; color: green;">Pierre ajoutée avec succès !</p>
     <table>
         <thead>
             <tr>

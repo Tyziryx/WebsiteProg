@@ -245,5 +245,31 @@ class Pierre {
         
         return $pierres;
     }
+
+
+    /**
+     * Ajoute une pierre avec un nom, une description et une rareté.
+     * 
+     * @param string $nom Nom de la pierre
+     * @param string $description Description de la pierre
+     * @param string $rarete Rareté de la pierre
+     * @return bool Retourne true si l'ajout a réussi, false sinon
+     */
+    public function ajouterPierreAvecRarete($nom, $description, $rarete) {
+        // Connexion à la base de données
+        $BD = new GestionBD();
+        $BD->connexion();
+
+        $sql = 'INSERT INTO geodex (nom_pierre, description, rarete) VALUES (:nom, :description, :rarete)';
+        $stat = $BD->pdo->prepare($sql);
+        $stat->bindParam(':nom', $nom, PDO::PARAM_STR);
+        $stat->bindParam(':description', $description, PDO::PARAM_STR);
+        $stat->bindParam(':rarete', $rarete, PDO::PARAM_STR);
+
+        $result = $stat->execute();
+        $BD->deconnexion();
+
+        return $result;
+    }
 }
 ?>
