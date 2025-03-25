@@ -18,7 +18,7 @@ if (empty($_POST['nom']) || empty($_POST['description'])) {
 
 $nom = htmlspecialchars(trim($_POST['nom']));
 $description = htmlspecialchars(trim($_POST['description']));
-$rarete = 'commune';
+$rarete = isset($_POST['rarete']) ? htmlspecialchars(trim($_POST['rarete'])) : 'commune';
 
 try {
     $pierre = new \bd\Pierre();
