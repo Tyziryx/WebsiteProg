@@ -62,14 +62,8 @@ require_once __DIR__ . '/../../config/Pierre.php';
                         if ($discovered) {
                             echo '    <a href="geodex.php?id=' . $stone->nom_pierre . '">';
                         }
-                        $nom_fichier = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $stone->nom_pierre)); 
-                        $nom_fichier = str_replace('_', '', $nom_fichier); // Supprime tous les underscores existants
-                        $nom_fichier = str_replace('\'', '', $nom_fichier); // Supprime tous les underscores existants
-                        $nom_fichier = str_replace('-', '_', $nom_fichier); // Remplace les tirets par des underscores
-
-                        echo '      <img src="../../images/' . htmlspecialchars($nom_fichier) . '.png" alt="' . 
-                            htmlspecialchars($discovered ? $stone->nom_pierre : 'Pierre non découverte') . '" class="stone-image">';
-                        
+                        echo '      <img src="../../images/' . $stone->image . '" alt="' . 
+                             ($discovered ? $stone->nom_pierre : 'Pierre non découverte') . '" class="stone-image">';
                         if ($discovered) {
                             echo '    </a>';
                         }                        echo '  </div>';
