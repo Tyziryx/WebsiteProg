@@ -44,6 +44,34 @@ if (empty($allStones)) {
             </form>
         </div>
     </div>
+    <!-- Modal de modification -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeEditModal">&times;</span>
+            <h2>Modifier une pierre</h2>
+            
+            <!-- Formulaire de modification -->
+            <form id="editStoneForm" method="post" action="../models/modifier_pierre.php">
+                <input type="hidden" id="editNom" name="nom_pierre">
+                
+                <label for="editNomInput">Nom de la pierre :</label>
+                <input type="text" id="editNomInput" name="nom" required readonly>
+
+                <label for="editDescriptionInput">Description :</label>
+                <textarea id="editDescriptionInput" name="description" required></textarea>
+                
+                <label for="rarete">Rareté :</label>
+                <select id="editRarete" name="rarete">
+                    <option value="commune">Commune</option>
+                    <option value="rare">Rare</option>
+                    <option value="epique">Épique</option>
+                    <option value="legendaire">Légendaire</option>
+                </select>
+
+                <button type="submit" class="btn-submit">Modifier</button>
+            </form>
+        </div>
+    </div>
     <p id="message" style="display:none; color: green;">Pierre ajoutée avec succès !</p>
 
     <table>
@@ -60,8 +88,12 @@ if (empty($allStones)) {
                     <td><?php echo htmlspecialchars($stone->nom_pierre); ?></td>
                     <td><?php echo htmlspecialchars($stone->description); ?></td>
                     <td>
-                        <button class="edit" onclick="window.location.href='edit_pierre.php?id=<?php echo urlencode($stone->nom_pierre); ?>'">Modifier</button>
-                        <button class="delete" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cette pierre?')) window.location.href='delete_pierre.php?id=<?php echo urlencode($stone->nom_pierre); ?>'">Supprimer</button>
+                        <button class="edit" id="editBtn-<?php echo urlencode($stone->nom_pierre); ?>" 
+                            data-nom="<?php echo htmlspecialchars($stone->nom_pierre); ?>" 
+                            data-description="<?php echo htmlspecialchars($stone->description); ?>">
+                            Modifier
+                        </button>
+                        <button class="delete" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cette pierre?')) window.location.href='../models/supprimer_pierre.php?nom_pierre=<?php echo urlencode($stone->nom_pierre); ?>'">Supprimer</button>
                     </td>
                 </tr>
             <?php endforeach; ?>

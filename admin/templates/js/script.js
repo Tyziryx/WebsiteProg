@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-//MODAL
+//MODAL AJOUT
 document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("addModal");
     const openModal = document.getElementById("openModal");
@@ -47,6 +47,42 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Fermer si on clique en dehors du modal
+    window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("editModal");
+
+    // Parcourir tous les boutons Modifier
+    const editButtons = document.querySelectorAll('.edit');
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const nom_pierre = this.getAttribute('data-nom');
+            const description = this.getAttribute('data-description');
+
+            openEditModal(nom_pierre, description);
+        });
+    });
+
+    // Fonction pour ouvrir le modal de modification et pré-remplir les champs
+    function openEditModal(nom_pierre, description) {
+        modal.style.display = "block";
+        document.getElementById("editNomInput").value = nom_pierre;
+        document.getElementById("editDescriptionInput").value = description;
+        document.getElementById("editNom").value = nom_pierre;
+    }
+
+    // Fermer le modal de modification
+    document.getElementById("closeEditModal").addEventListener('click', function () {
+        modal.style.display = "none";
+    });
+
+    // Fermer le modal si on clique en dehors
     window.addEventListener("click", function (event) {
         if (event.target === modal) {
             modal.style.display = "none";

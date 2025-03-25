@@ -271,5 +271,25 @@ class Pierre {
 
         return $result;
     }
+
+    public function supprimerPierre($nom_pierre) {
+        // Connexion à la base de données
+        $BD = new GestionBD();
+        $BD->connexion();
+    
+        // Requête SQL pour supprimer la pierre
+        $sql = 'DELETE FROM geodex WHERE nom_pierre = :nom_pierre';
+        $stat = $BD->pdo->prepare($sql);
+        $stat->bindParam(':nom_pierre', $nom_pierre, PDO::PARAM_STR);
+    
+        // Exécution de la requête
+        $result = $stat->execute();
+    
+        // Déconnexion de la base de données
+        $BD->deconnexion();
+    
+        // Retourne le résultat de l'exécution de la requête
+        return $result;
+    }
 }
 ?>
