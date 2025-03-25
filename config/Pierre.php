@@ -131,6 +131,63 @@ class Pierre {
         return $faqs;
     }
 
+        /**
+     * Ajoute une FAQ à la base de données.
+     *
+     * @param string $question La question à ajouter
+     * @param string $reponse La réponse associée
+     * @param bool $admin Indique si la FAQ est réservée aux admins (par défaut : false)
+     * @return bool Retourne true si l'ajout a réussi, sinon false
+     */
+    public function ajouterFaq($question, $reponse, $admin = false) {
+        // Connexion à la bd
+        $BD = new GestionBD();
+        $BD->connexion();
+
+        $sql = "INSERT INTO faq (question, reponse, admin) VALUES (:question, :reponse, :admin)";
+        $stat = $BD->pdo->prepare($sql);
+        $result = $stat->execute([
+            ':question' => $question,
+            ':reponse' => $reponse,
+            ':admin' => $admin ? 1 : 0  // Conversion en booléen SQL
+        ]);
+
+        $BD->deconnexion();
+        return $result;
+    }
+
+    /**
+     * Supprime une FAQ de la base de données en fonction de la question.
+     *
+     * @param string $question La question à supprimer
+     * @return bool Retourne true si la suppression a réussi, sinon false
+     */
+    public function supprimerFaq($question) {
+        // Connexion à la base de données
+        $BD = new GestionBD();
+        $BD->connexion();
+    
+        // Préparer la requête
+        $sql = "DELETE FROM faq WHERE question = :question";
+        $stat = $BD->pdo->prepare($sql);
+    
+        // Lier la question à la requête
+        $stat->bindValue(':question', $question, PDO::PARAM_STR);
+    
+        // Exécuter la requête
+        $stat->execute();
+    
+        // Vérifier si une ligne a été supprimée
+        if ($stat->rowCount() > 0) {
+            $BD->deconnexion();
+            return true; // FAQ supprimée avec succès
+        } else {
+            $BD->deconnexion();
+            return false; // Aucune FAQ supprimée, peut-être que la question n'existe pas
+        }
+    }
+    
+    
 
 
 

@@ -11,8 +11,26 @@ $faqs = $pierreModel->getFAQs();
 
         <div class="container">
             <h2 class="faq-title">Modifier FAQ utilisateurs</h2>
-            <button class="add">Ajouter une FAQ</button>
+            <button class="add"  id="openModal">Ajouter une question</button>
+            <!-- Modal d'ajout -->
+            <div id="addModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeModal">&times;</span>
+                    <h2>Ajouter une question/réponse</h2>
+                    
+                    <!-- Formulaire d'ajout -->
+                    <form id="addStoneForm" method="POST" action="../models/ajouter_faq.php">
+                        <label for="question">Question :</label>
+                        <input type="text" id="question" name="question" required>
 
+                        <label for="reponse">Réponse :</label>
+                        <textarea id="reponse" name="reponse" required></textarea>
+
+                        <button type="submit" class="btn-submit">Ajouter</button>
+                    </form>
+                </div>
+            </div>
+            <p id="message" style="display:none; color: green;">Question ajoutée avec succès !</p>
             <!-- Tableaux des FAQ -->
             <table class="faq-table">
                 <thead>
@@ -33,12 +51,9 @@ $faqs = $pierreModel->getFAQs();
                                 <td><?php echo htmlspecialchars($faq['question']); ?></td>
                                 <td><?php echo htmlspecialchars($faq['reponse']); ?></td>
                                 <td>
-                                    <!-- Boutons pour modifier et supprimer -->
-                                    <a href="modifier_faq.php?id=<?php echo $faq['id']; ?>" class="edit">Modifier</a>
-                                    <a href="supprimer_faq.php?id=<?php echo $faq['id']; ?>" class="delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette FAQ ?');">Supprimer</a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
+                                <?php $prepQestion = str_replace("'", "!", $faq['question']); ?>
+                                <a href="../models/supprimer_faq.php?question=<?php echo urlencode($prepQestion); ?>" class="delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette FAQ ?');">Supprimer</a>
+                                <?php endforeach; ?>
                     <?php endif; ?>
                 </tbody>
             </table>
