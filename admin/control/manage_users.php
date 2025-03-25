@@ -21,16 +21,21 @@ if (isset($_GET['id'])) {
     if (isset($_GET['status']) && isset($_GET['message'])) {
         $status = $_GET['status'] === 'success' ? 'success' : 'error';
         $message = htmlspecialchars($_GET['message']);
-        echo "<div class='notification notification-$status'>$message</div>";
+        echo "<div class='notification {$status}' id='notification'>{$message}</div>";
         
         // Ajouter un script pour faire disparaître la notification après 5 secondes
         echo "<script>
-            setTimeout(function() {
-                const notification = document.querySelector('.notification');
+            document.addEventListener('DOMContentLoaded', function() {
+                const notification = document.getElementById('notification');
                 if (notification) {
-                    notification.style.display = 'none';
+                    setTimeout(function() {
+                        notification.classList.add('fade-out');
+                        setTimeout(function() {
+                            notification.style.display = 'none';
+                        }, 500);
+                    }, 5000);
                 }
-            }, 5000);
+            });
         </script>";
     }
 
