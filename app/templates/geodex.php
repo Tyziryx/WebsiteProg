@@ -62,8 +62,7 @@ require_once __DIR__ . '/../../config/Pierre.php';
                         if ($discovered) {
                             echo '    <a href="geodex.php?id=' . $stone->nom_pierre . '">';
                         }
-                        echo '      <img src="../../images/' . $stone->image . '" alt="' . 
-                             ($discovered ? $stone->nom_pierre : 'Pierre non découverte') . '" class="stone-image">';
+                        echo '      <img src="../../images/' . htmlspecialchars($stone->nom_pierre) . '.png" alt="' . htmlspecialchars($stone->nom_pierre) . '">';                             ($discovered ? $stone->nom_pierre : 'Pierre non découverte') . '" class="stone-image">';
                         if ($discovered) {
                             echo '    </a>';
                         }                        echo '  </div>';
