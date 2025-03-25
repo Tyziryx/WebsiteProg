@@ -1,6 +1,4 @@
 <?php
-// filepath: c:\xampp\htdocs\WebsiteProg\models\process_contact.php
-
 // Fonction pour journaliser les messages
 function logMessage($status, $name, $email, $message) {
     $log_dir = __DIR__ . '/../logs';
@@ -38,19 +36,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
 
-    // Destinataire
-    $to = 'geodex.contact@gmail.com';
+    // Destinataire - adresse alumni qui fonctionne
+    $to = 'alexi.miaille@alumni.univ-avignon.fr';
     
-    // Sujet
-    $subject = 'Nouveau message de contact de ' . $name;
+    // Identifiant unique pour ce message
+    $message_id = date('YmdHis') . '_' . substr(md5($email . time()), 0, 6);
     
-    // Corps du message
+    // Sujet avec indication pour transfert vers Gmail
+    $subject = 'Message Geodex pour transfert vers Gmail - ' . $name . ' - ' . $message_id;
+    
+    // Corps du message sans la note pour transfert
     $message_body = "Nom: " . $name . "\n";
     $message_body .= "Email: " . $email . "\n\n";
     $message_body .= "Message:\n" . $message;
     
-    // En-têtes modifiés pour améliorer la délivrabilité
-    $headers = "From: noreply@geodex.fr\r\n"; // Adresse d'envoi neutre
+    // En-têtes optimisés
+    $sender_email = "uapv2401411@etud.univ-avignon.fr";
+    
+    $headers = "From: $sender_email\r\n";
     $headers .= "Reply-To: " . $email . "\r\n";
     $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
@@ -59,9 +62,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Tentative d'envoi du mail
     $mail_result = mail($to, $subject, $message_body, $headers);
     
-    // Journaliser le message (que l'envoi ait réussi ou échoué)
+    // Débogage avancé
+    $debug_info = "Mail function returned: " . ($mail_result ? "true" : "false") . "\n";
+    $debug_info .= "PHP version: " . phpversion() . "\n";
+    $debug_info .= "Sendmail path: " . ini_get('sendmail_path') . "\n";
+    $debug_info .= "SMTP setting: " . ini_get('SMTP') . "\n";
+    $debug_info .= "smtp_port: " . ini_get('smtp_port') . "\n";
+    $debug_info .= "Headers:\n" . $headers . "\n";
+    $debug_info .= "To: " . $to . "\n";
+    $debug_info .= "Subject: " . $subject . "\n";
+    $debug_info .= "Message ID: " . $message_id . "\n";
+    
+    // Journaliser le message avec infos de débogage
     $status = $mail_result ? "Email envoyé (selon PHP)" : "Échec d'envoi";
-    logMessage($status, $name, $email, $message);
+    logMessage($status . "\n" . $debug_info, $name, $email, $message);
+
+    // Créer une copie du message dans un fichier séparé pour chaque tentative
+    $message_dir = __DIR__ . '/../messages';
+    if (!file_exists($message_dir) && !mkdir($message_dir, 0755, true)) {
+        // Continuer même si le dossier ne peut pas être créé
+    } else {
+        $message_file = $message_dir . '/msg_' . $message_id . '.txt';
+        file_put_contents($message_file, 
+            "ID: $message_id\nTo: $to\nFrom: $email\nName: $name\nSubject: $subject\n\n$message_body"
+        );
+    }
 
     if($mail_result) {
         // Rediriger avec un message de succès

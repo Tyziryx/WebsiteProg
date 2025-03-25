@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -10,6 +9,12 @@
     <meta name="author" content="Votre Nom">
     <link rel="icon" type="image/png" href="<?php echo $racine_path.'../public/images/favicon.png';?>">
     <link rel="stylesheet" href="<?php echo $racine_path.'templates/css/styles.css';?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <?php if (isset($_GET['page']) && $_GET['page'] === 'edit_profil'): ?>
+    <!-- CSS spécifique pour la page de profil -->
+    <link rel="stylesheet" href="<?php echo $racine_path.'templates/css/profil.css';?>">
+    <?php endif; ?>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

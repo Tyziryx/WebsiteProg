@@ -41,5 +41,13 @@ class User {
     public function setAdmin($val) {
         $this->admin = $val;
     }
+
+
+
+
 }
+
+
+
+
 ?>

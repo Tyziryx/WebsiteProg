@@ -1,25 +1,22 @@
-<?php 
-session_start();
-
+<?php
+// La session est déjà démarrée dans index.php
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['email'])) {
-    header("Location: ../index.php?page=login");
+    header("Location: templates/login.php");
     exit;
 }
 
-$racine_path = '../';
-
 // Inclure les fichiers nécessaires
-require_once __DIR__ . '/../../config/Users.php';
+require_once __DIR__ . '/../../class/Users.php';
 
 // Créer une instance de la classe User
-$userModel = new \bd\User();
+$userModel = new \classe\User();
 
 // Récupérer les informations de l'utilisateur par son email
 $user = $userModel->getUserByEmail($_SESSION['email']);
 
 if (!$user) {
-    header("Location: ../index.php?page=login");
+    header("Location: templates/login.php");
     exit;
 }
 
@@ -31,8 +28,6 @@ $success_message = isset($_SESSION['success_message']) ? $_SESSION['success_mess
 unset($_SESSION['profile_errors']);
 unset($_SESSION['success_message']);
 
-// Inclure les templates pour l'affichage
-include $racine_path . 'templates/head.php';
-include $racine_path . 'templates/sidebar.php';
-include $racine_path . 'templates/profil.php';
+// Inclure le template
+include __DIR__ . '/../templates/profil.php';
 ?>

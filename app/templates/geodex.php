@@ -5,6 +5,17 @@ require_once __DIR__ . '/../../config/Pierre.php';
 <div class="geodex-container">
     <h1 class="geodex-title">Géodex</h1>
     
+    <!-- Ajouter cette section pour montrer les pourcentages de rareté -->
+    <div class="rarity-info">
+        <h3>Chances de découverte :</h3>
+        <ul>
+            <li><span class="rarity commune">Commune</span> - 70%</li>
+            <li><span class="rarity rare">Rare</span> - 20%</li>
+            <li><span class="rarity epique">Épique</span> - 8%</li>
+            <li><span class="rarity legendaire">Légendaire</span> - 2%</li>
+        </ul>
+    </div>
+    
     <div class="geodex-grid">
         <?php
         // Vérifier si l'utilisateur est connecté

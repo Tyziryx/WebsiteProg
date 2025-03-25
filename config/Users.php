@@ -3,10 +3,12 @@ namespace bd;
 
 use PDO;
 use bd\GestionBD;
+require_once __DIR__ . '/GestionBD.php';
+require_once __DIR__ . '/../class/Users.php';
+
 
 class User {
 
-    // Récupérer tous les utilisateurs
     public function getAllUsers() {
         // Connexion à la base de données
         $BD = new GestionBD();
@@ -45,23 +47,57 @@ class User {
         return $user;
     }
 
-    // Modifier un utilisateur (Nom, email, mot de passe)
-    public function updateUser($pseudo, $email, $mot_de_passe) {
+    // Récupérer un utilisateur par email
+    public function getUserByEmail($email) {
         // Connexion à la base de données
         $BD = new GestionBD();
         $BD->connexion();
-
-        // Requête SQL pour modifier un utilisateur
-        $sql = 'UPDATE utilisateurs SET email = :email, mot_de_passe = :mot_de_passe WHERE pseudo = :pseudo';
+    
+        // Requête SQL pour récupérer un utilisateur par email
+        $sql = 'SELECT * FROM utilisateurs WHERE email = :email';
         $stat = $BD->pdo->prepare($sql);
-        $stat->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
         $stat->bindParam(':email', $email, PDO::PARAM_STR);
-        $stat->bindParam(':mot_de_passe', $mot_de_passe, PDO::PARAM_STR);
+        $stat->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'classe\User');
+        $stat->execute();
+    
+        // Récupérer l'utilisateur sous forme d'objet
+        $user = $stat->fetch();
+        $BD->deconnexion();
+    
+        return $user;
+    }
 
-        // Exécuter la requête
+    // Modifier un utilisateur (email et mot de passe)
+    public function updateUser($pseudo, $newEmail, $newPassword) {
+        $BD = new GestionBD();
+        $BD->connexion();
+    
+        // Utiliser "password" au lieu de "mot_de_passe"
+        $sql = 'UPDATE utilisateurs SET email = :email, password = :password WHERE pseudo = :pseudo';
+        $stat = $BD->pdo->prepare($sql);
+        $stat->bindParam(':email', $newEmail, PDO::PARAM_STR);
+        $stat->bindParam(':password', $newPassword, PDO::PARAM_STR);
+        $stat->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
+        
         $result = $stat->execute();
         $BD->deconnexion();
-
+        
+        return $result;
+    }
+    
+    // Mettre à jour uniquement l'email d'un utilisateur
+    public function updateUserEmail($pseudo, $newEmail) {
+        $BD = new GestionBD();
+        $BD->connexion();
+    
+        $sql = 'UPDATE utilisateurs SET email = :email WHERE pseudo = :pseudo';
+        $stat = $BD->pdo->prepare($sql);
+        $stat->bindParam(':email', $newEmail, PDO::PARAM_STR);
+        $stat->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
+        
+        $result = $stat->execute();
+        $BD->deconnexion();
+        
         return $result;
     }
 
@@ -120,5 +156,4 @@ class User {
         return $isAdmin;
     }
 }
-
 ?>
