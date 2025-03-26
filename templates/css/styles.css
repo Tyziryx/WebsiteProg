@@ -49,8 +49,3 @@ main {
     background-color: var(--white);
     flex-grow: 1;
 }
-
-h3 {
-    font-family: 'Felipa', sans-serif;
-    font-size: 2rem;
-}
