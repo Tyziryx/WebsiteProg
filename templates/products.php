@@ -9,9 +9,7 @@ $pierreModel = new \bd\Pierre();
 $pierresCommunes = $pierreModel->getPierresByRarete('commune');
 
 // Assurez-vous que $racine_path est défini
-if (!isset($racine_path)) {
-    $racine_path = './';
-}
+
 ?>
 
 <section class="fixed-section">

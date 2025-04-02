@@ -12,7 +12,7 @@ $faqs = $pierreModel->getFAQs();
 <main>
     <section id="faq" class="faq-section">
         <div class="container">
-            <h2 class="faq-title">Foire Aux Questions (FAQ)</h2>
+            <h2 class="faq-title">Foire Aux Questions (FAQ) </h2>
             <p class="faq-subtitle">Voici quelques réponses aux questions fréquemment posées. Si vous avez d'autres questions, n'hésitez pas à nous contacter !</p>
 
             <?php if (empty($faqs)): ?>
@@ -27,6 +27,7 @@ $faqs = $pierreModel->getFAQs();
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
+            
         </div>
     </section>
 </main>

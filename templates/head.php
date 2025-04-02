@@ -8,7 +8,7 @@
     <meta name="description" content="Brève description de votre site pour les moteurs de recherche.">
     <meta name="author" content="Votre Nom">
     <link rel="icon" type="image/png" href="<?php echo $racine_path.'/public/images/favicon.png';?>">
-    <link rel="stylesheet" href="<?php echo $racine_path.'templates/css/styles.css';?>">
+    <link rel="stylesheet" href="<?php echo $racine_path.'/templates/css/styles.css';?>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

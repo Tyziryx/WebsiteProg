@@ -6,8 +6,8 @@ RewriteEngine on
 RewriteRule ^$ index.php
 
 # URLS ACCUEIL 
-RewriteRule contact control/contact.php
-RewriteRule faq control/faq.php
+RewriteRule ^contact/?$ control/contact.php [L]
+RewriteRule ^faq/?$ control/faq.php [L]
 
 # URLS GEODEX
 RewriteRule ^app$ app/index.php 
