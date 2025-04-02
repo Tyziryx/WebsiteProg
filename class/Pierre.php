@@ -14,37 +14,19 @@ class Pierre {
         $this->image = $image;
         $this->rarete = $rarete;
     }
-
-    public function getNomPierre() {
-        return $this->nom_pierre;
+    public function __get($property) {
+        if (property_exists($this, $property)) {
+            return $this->$property;
+        }
+        throw new Exception("Propriété '$property' introuvable.");
     }
 
-    public function setNomPierre($val) {
-        $this->nom_pierre = $val;
-    }
-    
-    public function getDescription() {
-        return $this->description;
-    }
-
-    public function setDescription($val) {
-        $this->description = $val;
-    }
-    
-    public function getRarete() {
-        return $this->rarete;
-    }
-
-    public function setRarete($val) {
-        $this->rarete = $val;
-    }
-    
-    public function getImage() {
-        return $this->image;
-    }
-
-    public function setImage($val) {
-        $this->image = $val;
+    public function __set($property, $value) {
+        if (property_exists($this, $property)) {
+            $this->$property = $value;
+        } else {
+            throw new Exception("Propriété '$property' introuvable.");
+        }
     }
 }
 ?>

@@ -1,0 +1,25 @@
+# Specifie l'utilisation de la réécriture des URL
+RewriteEngine on
+
+# RewriteRule URLdanslenavigateur URLsurleserveur
+# va chercher URLsurleserveur qui correspond à URLdanslenavigateur
+RewriteRule ^$ index.php
+
+# URLS ACCUEIL 
+RewriteRule contact control/contact.php
+RewriteRule faq control/faq.php
+
+# URLS GEODEX
+RewriteRule ^app$ app/index.php 
+
+
+# ici au lieu d'avoir dans la barre du navigateur : https://pedago.univ-avignon.fr/~lopezv/control/animal.php?id=2
+# j'aurai https://pedago.univ-avignon.fr/~lopezv/animal-2
+RewriteRule animal-([0-9]*)$ control/animal.php?id=$1
+
+#ou
+# https://pedago.univ-avignon.fr/~lopezv/animal/2
+RewriteRule animal/([0-9]*)$ control/animal.php?id=$1
+
+# ce qui permet de ne pas indiqué où se trouve les fichiers et d'avoir une cohérence dans les URL
+# on peut aussi utiliser des slug unique : https://pedago.univ-avignon.fr/~lopezv/le-lion-1
