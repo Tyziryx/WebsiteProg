@@ -10,8 +10,8 @@
             </button>
             <ul class="nav-links">
                 <li><a href="<?php echo $racine_path.'index.php';?>">Accueil</a></li>
-                <li><a href="<?php echo $racine_path.'contact.php';?>">Contact</a></li>
-                <li><a href="<?php echo $racine_path.'faq.php';?>">FAQ</a></li>
+                <li><a href="<?php echo $racine_path.'contact';?>">Contact</a></li>
+                <li><a href="<?php echo $racine_path.'faq';?>">FAQ</a></li>
 
                 <!--Lien spécifique pour Geodex--> 
                 <li><a href="<?php echo $racine_path . 'app/index.php'; ?>" target="_blank">Geodex</a></li>
