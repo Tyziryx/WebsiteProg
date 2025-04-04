@@ -2,4 +2,4 @@
 $racine_path = './';
 ?>
 
-<?php include($racine_path.'control/home.php');?>
+<?php include('control/home.php');?>

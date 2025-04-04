@@ -11,8 +11,8 @@ if(isset($_POST['accept_cookies'])) {
 }
 ?>
 
-<?php include($racine_path.'templates/head.php'); ?>
-<?php include($racine_path.'templates/header.php'); ?>
-<?php include($racine_path.'templates/cookies.php'); ?>
-<?php include($racine_path.'templates/main.php'); ?>
-<?php include($racine_path.'templates/footer.php'); ?>
+<?php include('templates/head.php'); ?>
+<?php include('templates/header.php'); ?>
+<?php include('templates/cookies.php'); ?>
+<?php include('templates/main.php'); ?>
+<?php include('templates/footer.php'); ?>
