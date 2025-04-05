@@ -7,7 +7,7 @@ if (!isset($_SESSION['email'])) {
     exit;
 }
 
-$racine_path = '../';
+$racine_path = './';
 
 // Inclure les fichiers nécessaires
 require_once __DIR__ . '/../../config/Users.php';
@@ -32,7 +32,7 @@ unset($_SESSION['profile_errors']);
 unset($_SESSION['success_message']);
 
 // Inclure les templates pour l'affichage
-include $racine_path . 'templates/head.php';
-include $racine_path . 'templates/sidebar.php';
-include $racine_path . 'templates/profil.php';
+include $racine_path . '../templates/head.php';
+include $racine_path . '../templates/sidebar.php';
+include $racine_path . '../templates/profil.php';
 ?>

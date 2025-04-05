@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         
         $racine_path = '../';
-        header("Location: " . $racine_path . "control/dashboard.php");
+        header("Location: " . $racine_path . "dashboard");
         exit;
     } else {
         // Message d'erreur de connexion

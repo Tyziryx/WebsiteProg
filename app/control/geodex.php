@@ -11,6 +11,7 @@ require_once __DIR__ . '/../../config/Pierre.php';
 $racine_path = './';
 
 if (isset($_GET['id'])) {
+    $racine_path = '../';
     include '../templates/description.php';
 } else {
     include '../templates/head.php';
