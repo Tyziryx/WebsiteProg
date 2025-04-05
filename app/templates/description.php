@@ -34,5 +34,5 @@ if (!$stone) {
         <p class="image-description">Description : <?php echo nl2br(htmlspecialchars($stone->description)); ?></p>
     </div>
 
-    <a href="geodex.php" class="back-link">Retour</a>
+    <a href="../geodex" class="back-link">Retour</a>
 </div>
