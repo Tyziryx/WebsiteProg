@@ -56,7 +56,8 @@ require_once __DIR__ . '/../../config/Pierre.php';
                         // Formatage du numéro comme dans Pokémon (ex: #001)
                         $formattedNumber = sprintf("#%03d", $i);
                         
-                        echo '<div class="' . $cardClass . '">';
+                        // Ajouter l'attribut data-rarity pour le style CSS
+                        echo '<div class="' . $cardClass . '"' . ($discovered ? ' data-rarity="'.$stone->rarete.'"' : '') . '>';
                         echo '  <div class="stone-image-container">';
                         // Utiliser l'image réelle pour toutes les pierres, mais appliquer un style CSS pour les non-découvertes
                         if ($discovered) {
@@ -72,7 +73,7 @@ require_once __DIR__ . '/../../config/Pierre.php';
                         if ($discovered) {
                             echo '    <h3 class="stone-name">' . $stone->nom_pierre . '</h3>';
                             // Afficher plus d'informations pour les pierres découvertes si désiré
-                            echo '    <p class="stone-rarity">' . $stone->rarete . '</p>';
+                            echo '    <span class="stone-rarity  ' . $stone->rarete . '">' . $stone->rarete . '</span>';
                         } else {
                             // Masquer le nom pour les pierres non découvertes
                             echo '    <h3 class="stone-name">???</h3>';

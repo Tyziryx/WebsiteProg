@@ -1,9 +1,8 @@
 <footer class="footer">
         <div class="container">
             <div class="footer-links">
-                <a href="#about" class="footer-link">À propos</a>
-                <a href="#services" class="footer-link">Services</a>
-                <a href="#contact" class="footer-link">Contact</a>
+                <a href="#services" class="footer-link">Mentions-légales</a>
+                <a href="contact" class="footer-link">Contact</a>
             </div>
 
             <div class="footer-socials">
@@ -17,7 +16,7 @@
             </div>
         </div>
     </footer>
-    <script src="<?php echo $racine_path.'templates/js/script.js';?>"></script>
+    <script src='templates/js/script.js'></script>
 
 </body>
 

@@ -7,7 +7,7 @@
             <li><a href="manage_users">Modifier Users</a></li>
             <li><a href="manage_faq">Modifier FAQ Users</a></li>
             <li><a href="faq">FAQ</a></li>
-            <li><a href="../models/logout.php">Déconnexion</a></li>
+            <li><a href="models/logout.php">Déconnexion</a></li>
         </ul>
     </nav>
 </aside>

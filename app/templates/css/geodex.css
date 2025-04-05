@@ -60,7 +60,7 @@
     margin: 0 auto;
 }
 
-/* Style de chaque élément de la grille */
+/* Style de base pour les cartes */
 .stone-card {
     background-color: var(--white);
     border-radius: 10px;
@@ -71,12 +71,104 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;  /* Assurer une hauteur à 100% */
 }
 
-.stone-card:hover {
+/* Style pour les cartes en fonction de leur rareté */
+.stone-card[data-rarity="commune"] {
+    border-color: #A0A0A0;
+    background-color: #f8f8f8;
+}
+
+.stone-card[data-rarity="rare"] {
+    border-color: #4169E1;
+    background-color: #f0f5ff;
+    box-shadow: 0 4px 10px rgba(65, 105, 225, 0.2);
+}
+
+.stone-card[data-rarity="epique"] {
+    border-color: #9932CC;
+    background: linear-gradient(to bottom, #f9f0ff, #f0e0ff);
+    box-shadow: 0 4px 12px rgba(153, 50, 204, 0.3);
+}
+
+.stone-card[data-rarity="legendaire"] {
+    border-color: #FFD700;
+    background: linear-gradient(to bottom, #fffbf0, #fff6e0);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+/* Effet de hover amélioré pour chaque rareté */
+.stone-card[data-rarity="commune"]:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    border-color: var(--main-color);
+}
+
+.stone-card[data-rarity="rare"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(65, 105, 225, 0.4);
+}
+
+.stone-card[data-rarity="epique"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(153, 50, 204, 0.5);
+}
+
+.stone-card[data-rarity="legendaire"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+}
+
+/* Couleurs de fond pour les infos selon la rareté */
+.stone-card[data-rarity="commune"] .stone-info {
+    background: linear-gradient(45deg, #7fba00, #95d600);
+    color: white;
+}
+
+.stone-card[data-rarity="rare"] .stone-info {
+    background: linear-gradient(45deg, #1E90FF, #4169E1);
+    color: white;
+}
+
+.stone-card[data-rarity="epique"] .stone-info {
+    background: linear-gradient(45deg, #9932CC, #8A2BE2);
+    color: white;
+}
+
+.stone-card[data-rarity="legendaire"] .stone-info {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #442700;
+}
+
+/* Animation pour les cartes de haute rareté */
+.stone-card[data-rarity="epique"] {
+    animation: subtle-pulse-purple 3s infinite alternate;
+}
+
+.stone-card[data-rarity="legendaire"] {
+    animation: subtle-pulse-gold 2s infinite alternate;
+}
+
+@keyframes subtle-pulse-purple {
+    0% { box-shadow: 0 4px 12px rgba(153, 50, 204, 0.3); }
+    100% { box-shadow: 0 4px 20px rgba(153, 50, 204, 0.6); }
+}
+
+@keyframes subtle-pulse-gold {
+    0% { box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); }
+    100% { box-shadow: 0 4px 25px rgba(255, 215, 0, 0.7); }
+}
+
+/* Style pour les cartes non découvertes */
+.stone-card.undiscovered {
+    border-color: #C0C0C0;
+    opacity: 0.8;
+    background-color: #f0f0f0;
+}
+
+.stone-card.undiscovered .stone-info {
+    background-color: #808080;
+    background-image: none;
 }
 
 .stone-image-container {
@@ -96,12 +188,18 @@
     padding: 10px;
 }
 
+/* Pour assurer que la partie info occupe toujours le même espace */
 .stone-info {
     width: 100%;
     padding: 0.8rem;
     text-align: center;
     background-color: var(--secondary-color);
     color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;  /* Pour étirer la zone d'info */
+    min-height: 80px;  /* Hauteur minimale pour uniformiser */
 }
 
 .stone-number {
@@ -124,6 +222,48 @@
 
 .undiscovered .stone-info {
     background-color: var(--grey);
+}
+
+/* Style pour les différentes raretés */
+.stone-card[data-rarity="commune"] {
+    border-color: #A0A0A0;
+}
+.stone-card[data-rarity="rare"] {
+    border-color: #4169E1;
+}
+.stone-card[data-rarity="epique"] {
+    border-color: #9932CC;
+    box-shadow: 0 4px 12px rgba(153, 50, 204, 0.3);
+}
+.stone-card[data-rarity="legendaire"] {
+    border-color: #FFD700;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+/* Couleurs de fond pour les infos selon la rareté */
+.stone-card[data-rarity="commune"] .stone-info {
+    background-color: #A0A0A0;
+}
+.stone-card[data-rarity="rare"] .stone-info {
+    background-color: #4169E1;
+}
+.stone-card[data-rarity="epique"] .stone-info {
+    background-color: #9932CC;
+    background-image: linear-gradient(45deg, #9932CC, #8A2BE2);
+}
+.stone-card[data-rarity="legendaire"] .stone-info {
+    background-color: #FFA500;
+    background-image: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #442700;
+}
+
+/* Style pour les cartes non découvertes */
+.stone-card.undiscovered {
+    border-color: #C0C0C0;
+    opacity: 0.8;
+}
+.stone-card.undiscovered .stone-info {
+    background-color: #808080;
 }
 
 /* Responsive */
@@ -371,18 +511,18 @@
 }
 
 .rarity.commune {
-    background-color: #A0A0A0;
+    background-color: #7fba00;
     color: white;
 }
 
 .rarity.rare {
-    background-color: #4169E1;
+    background: linear-gradient(45deg, #1E90FF, #4169E1);
     color: white;
     box-shadow: 0 0 10px rgba(65, 105, 225, 0.5);
 }
 
 .rarity.epique {
-    background-color: #9932CC;
+    background: linear-gradient(45deg, #9932CC, #8A2BE2);
     color: white;
     box-shadow: 0 0 15px rgba(153, 50, 204, 0.6);
     animation: glow 2s infinite alternate;
@@ -393,6 +533,7 @@
     color: #442700;
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
     animation: glow 1.5s infinite alternate;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 @keyframes glow {
@@ -504,7 +645,7 @@
 }
 
 .rarity.commune {
-    background-color: #A0A0A0;
+    background-color: #7fba00;
     color: white;
 }
 

@@ -26,4 +26,4 @@
     </div>
 </div>
 
-<script src="templates/js/login.js"></script>
+<script src="templates/js/geode.js"></script>

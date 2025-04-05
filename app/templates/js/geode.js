@@ -9,7 +9,7 @@ const resultRarity = document.getElementById("result-rarity");
 const resultContainer = document.getElementById("result-container");
 
 // Définir le chemin d'image correct et uniforme
-const imagePath = "../../images/";
+const imagePath = "../images/";
 
 // Cache pour stocker les images préchargées
 const imageCache = {};
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
     preloadCriticalAssets();
     
     // Ensuite, récupérer la liste des pierres à précharger
-    fetch('../control/get_all_stones.php')
+    fetch('control/get_all_stones.php')
         .then(response => response.json())
         .then(data => {
             pierresToPreload = data;
@@ -118,6 +118,19 @@ function preloadAnimation() {
 imgElement.addEventListener("click", function () {
     // Éviter les clics multiples pendant l'animation
     if (cardElement.classList.contains("animating")) return;
+    
+    // Empêcher le clic si la carte est déjà ouverte (pierre déjà découverte)
+    if (cardElement.classList.contains("opened")) {
+        // Ajouter un effet visuel pour indiquer que l'utilisateur doit utiliser le bouton
+        cardElement.classList.add("shake");
+        setTimeout(() => cardElement.classList.remove("shake"), 500);
+        
+        // Attirer l'attention sur le bouton "Découvrir une autre géode"
+        tryAgainButton.classList.add("highlight");
+        setTimeout(() => tryAgainButton.classList.remove("highlight"), 1500);
+        
+        return; // Ne rien faire d'autre
+    }
 
     // Masquer le résultat précédent s'il était visible
     resultContainer.style.display = "none";
@@ -126,7 +139,7 @@ imgElement.addEventListener("click", function () {
     cardElement.classList.add("animating");
     imgElement.src = imageCache["geode_trans.gif"] ? imageCache["geode_trans.gif"].src : imagePath + "geode_trans.gif";
 
-    fetch('../control/draw_stone.php', {
+    fetch('control/draw_stone.php', {
         method: 'POST'
     })
         .then(response => {
