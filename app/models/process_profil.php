@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // S'il y a des erreurs, rediriger vers la page de profil avec des messages d'erreur
     if (!empty($errors)) {
         $_SESSION['profile_errors'] = $errors;
-        header("Location: ../index.php?page=profil");
+        header("Location: ../");
         exit;
     }
     
@@ -80,15 +80,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // On recrée une session pour passer le message de succès
         session_start();
         $_SESSION['login_message'] = "Votre profil a été mis à jour. Veuillez vous reconnecter.";
-        header("Location: ../index.php?page=login");
+        header("Location: ../");
         exit;
     } else {
         $_SESSION['profile_errors'] = ["Une erreur s'est produite lors de la mise à jour de votre profil."];
-        header("Location: ../index.php?page=profil");
+        header("Location: ../");
         exit;
     }
 }
 
 // Si ce n'est pas une requête POST, rediriger vers la page d'accueil
-header("Location: ../index.php");
+header("Location: ../");
 exit;

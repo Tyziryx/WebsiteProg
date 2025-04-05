@@ -19,7 +19,7 @@ $userModel = new \bd\User();
 $user = $userModel->getUserByEmail($_SESSION['email']);
 
 if (!$user) {
-    header("Location: ../index.php?page=login");
+    header("Location: ../");
     exit;
 }
 
