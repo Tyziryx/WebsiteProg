@@ -1,25 +1,25 @@
-# Specifie l'utilisation de la réécriture des URL
-RewriteEngine on
+# Active la réécriture d'URL
+RewriteEngine On
 
-# RewriteRule URLdanslenavigateur URLsurleserveur
-# va chercher URLsurleserveur qui correspond à URLdanslenavigateur
-RewriteRule ^$ index.php
+# Redirige la racine vers index.php
+RewriteRule ^$ index.php [L]
 
-# URLS ACCUEIL 
+# ----------- URLS ACCUEIL -------------
 RewriteRule ^contact/?$ control/contact.php [L]
+RewriteRule ^confirmation$ control/confirmation.php [QSA,L]
 RewriteRule ^faq/?$ control/faq.php [L]
 
-# URLS GEODEX
-RewriteRule ^app$ app/index.php 
+# ----------- URLS GEODEX --------------
+RewriteRule ^app$ app/index.php [L]
+RewriteRule ^app/dashboard$ app/control/dashboard.php [L]
+RewriteRule ^app/geodex$ app/control/geodex.php [L]
+RewriteRule ^app/geodex/([a-zA-Z0-9_-]+)$ app/control/geodex.php?id=$1 [L,QSA]
+RewriteRule ^app/profil$ app/control/profil.php [L]
 
-
-# ici au lieu d'avoir dans la barre du navigateur : https://pedago.univ-avignon.fr/~lopezv/control/animal.php?id=2
-# j'aurai https://pedago.univ-avignon.fr/~lopezv/animal-2
-RewriteRule animal-([0-9]*)$ control/animal.php?id=$1
-
-#ou
-# https://pedago.univ-avignon.fr/~lopezv/animal/2
-RewriteRule animal/([0-9]*)$ control/animal.php?id=$1
-
-# ce qui permet de ne pas indiqué où se trouve les fichiers et d'avoir une cohérence dans les URL
-# on peut aussi utiliser des slug unique : https://pedago.univ-avignon.fr/~lopezv/le-lion-1
+# ----------- URLS ADMIN ---------------
+RewriteRule ^admin$ admin/index.php [L]
+RewriteRule ^admin/manage_home$ admin/control/manage_home.php [L]
+RewriteRule ^admin/manage_geodex$ admin/control/manage_geodex.php [L]
+RewriteRule ^admin/manage_faq$ admin/control/manage_faq.php [L]
+RewriteRule ^admin/manage_users$ admin/control/manage_users.php [L]
+RewriteRule ^admin/faq$ admin/control/faq.php [L]

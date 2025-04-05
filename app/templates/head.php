@@ -8,7 +8,7 @@
     <meta name="description" content="Brève description de votre site pour les moteurs de recherche.">
     <meta name="author" content="Votre Nom">
     <link rel="icon" type="image/png" href="<?php echo $racine_path.'../public/images/favicon.png';?>">
-    <link rel="stylesheet" href="<?php echo $racine_path.'templates/css/styles.css';?>">
+    <link rel="stylesheet" href="<?php echo $racine_path . "templates/css/styles.css" ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
     <?php if (isset($_GET['page']) && $_GET['page'] === 'edit_profil'): ?>

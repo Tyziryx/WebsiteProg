@@ -4,7 +4,7 @@
     
     <div class="game-wrapper">
         <div class="card">
-            <img id="geode" src="../../images/geode.gif" alt="Géode à ouvrir">
+            <img id="geode" src="../images/geode.gif" alt="Géode à ouvrir">
         </div>
 
         <div id="result-container" style="display: none;">
@@ -26,4 +26,4 @@
     </div>
 </div>
 
-<script src="<?php echo $racine_path . 'templates/js/geode.js'; ?>"></script>
+<script src="templates/js/login.js"></script>

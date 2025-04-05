@@ -2,7 +2,7 @@
 // La session est déjà démarrée dans index.php
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['email'])) {
-    header("Location: templates/login.php");
+    header("Location: ./");
     exit;
 }
 

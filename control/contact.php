@@ -10,9 +10,8 @@ if(isset($_POST['accept_cookies'])) {
     exit;
 }
 ?>
-
-<?php include('head.php'); ?>
-<?php include('templates/header.php'); ?>
-<?php include('templates/cookies.php'); ?>
-<?php include('templates/contact.php'); ?>
-<?php include('templates/footer.php'); ?>
+<?php include('../templates/head.php'); ?>
+<?php include('../templates/header.php'); ?>
+<?php include('../templates/cookies.php'); ?>
+<?php include('../templates/contact.php'); ?>
+<?php include('../templates/footer.php'); ?>

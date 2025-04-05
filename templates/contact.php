@@ -13,7 +13,7 @@
                 <div class="success-message"><?php echo htmlspecialchars($_GET['success']); ?></div>
             <?php endif; ?>
 
-            <form action="../models/process_contact.php" method="POST" class="contact-form">
+            <form action="./models/process_contact.php" method="POST" class="contact-form">
                 <div class="form-group">
                     <label for="name">Nom</label>
                     <input type="text" id="name" name="name" placeholder="Votre nom" required>

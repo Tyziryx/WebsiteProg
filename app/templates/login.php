@@ -80,6 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<script src="<?php echo $racine_path . 'templates/js/login.js'; ?>"></script>
+<script src="templates/js/login.js"></script>
 </body>
 </html>

@@ -25,14 +25,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Validation simple des données
     if (empty($name) || empty($email) || empty($message)) {
         $error_message = "Tous les champs sont requis.";
-        header("Location: ../control/contact.php?error=" . urlencode($error_message));
+        header("Location: ../contact?error=" . urlencode($error_message));
         exit;
     }
     
     // Vérification de l'email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error_message = "Format d'email invalide.";
-        header("Location: ../control/contact.php?error=" . urlencode($error_message));
+        header("Location: ../contact?error=" . urlencode($error_message));
         exit;
     }
 
@@ -90,16 +90,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if($mail_result) {
         // Rediriger avec un message de succès
-        header("Location: ../control/confirmation.php?success=" . urlencode("Votre message a été envoyé avec succès. Nous vous contacterons bientôt."));
+        header("Location: ../confirmation?success=" . urlencode("Votre message a été envoyé avec succès. Nous vous contacterons bientôt."));
         exit;
     } else {
         // En cas d'erreur, rediriger avec un message d'erreur
-        header("Location: ../control/contact.php?error=" . urlencode("Une erreur est survenue lors de l'envoi du message. Veuillez réessayer."));
+        header("Location: ../contact?error=" . urlencode("Une erreur est survenue lors de l'envoi du message. Veuillez réessayer."));
         exit;
     }
 } else {
     // Rediriger vers la page de contact si l'accès au script est direct
-    header("Location: ../control/contact.php");
+    header("Location: ../contact");
     exit;
 }
 ?>

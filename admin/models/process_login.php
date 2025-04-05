@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['admin'] = TRUE;
             
             $racine_path = '../';
-            header("Location: " . $racine_path . "control/manage_home.php");
+            header("Location: ../manage_home");
             exit;
         } else {
             // L'utilisateur est authentifié mais n'est pas admin
