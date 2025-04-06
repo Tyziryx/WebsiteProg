@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+if (empty($_SESSION['csrf_token'])) $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+?>
+
 <main>
     <section id="contact" class="contact-section">
         <div class="container">
@@ -14,6 +19,8 @@
             <?php endif; ?>
 
             <form action="./models/process_contact.php" method="POST" class="contact-form">
+                <!-- CSRF Token -->
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
                 <div class="form-group">
                     <label for="name">Nom</label>
                     <input type="text" id="name" name="name" placeholder="Votre nom" required>

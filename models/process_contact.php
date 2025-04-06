@@ -1,3 +1,11 @@
+<?php 
+session_start();
+
+if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+    header('Location: ../index.php?error=Erreur de sécurité. Veuillez réessayer.');
+    exit();
+}
+?>
 <?php
 // Fonction pour journaliser les messages
 function logMessage($status, $name, $email, $message) {
