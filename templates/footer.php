@@ -1,7 +1,7 @@
 <footer class="footer">
         <div class="container">
             <div class="footer-links">
-                <a href="#services" class="footer-link">Mentions-légales</a>
+                <a href="mentions_legales" class="footer-link">Mentions-légales</a>
                 <a href="contact" class="footer-link">Contact</a>
             </div>
 

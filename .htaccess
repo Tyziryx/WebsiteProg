@@ -8,6 +8,8 @@ RewriteRule ^$ index.php [L]
 RewriteRule ^contact/?$ control/contact.php [L]
 RewriteRule ^confirmation$ control/confirmation.php [QSA,L]
 RewriteRule ^faq/?$ control/faq.php [L]
+RewriteRule ^mentions_legales/?$ control/mention_legal.php [L]
+
 
 # ----------- URLS GEODEX --------------
 RewriteRule ^app$ app/index.php [L]
