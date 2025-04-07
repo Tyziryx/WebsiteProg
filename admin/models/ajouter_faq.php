@@ -11,18 +11,23 @@
 
 
 require_once __DIR__ . '/../../config/Pierre.php';
+require_once __DIR__ . '/../../config/notifications.php';
+
+session_start();
 
 header('Content-Type: application/json');
 
 // Vérifier si la requête est en POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(['success' => false, 'message' => 'Méthode non autorisée.']);
+    setNotification('error', 'Méthode non autorisée.');
+    header('Location: ../manage_faq');
     exit;
 }
 
 // Vérifier que les champs nécessaires sont présents
 if (empty($_POST['question']) || empty($_POST['reponse'])) {
-    echo json_encode(['success' => false, 'message' => 'Veuillez remplir tous les champs.']);
+    setNotification('error', 'Veuillez remplir tous les champs.');
+    header('Location: ../manage_faq');
     exit;
 }
 
@@ -33,18 +38,20 @@ $reponse = htmlspecialchars(trim(urldecode($_POST['reponse'])));
 $reponse = html_entity_decode($reponse);
 $admin = false;
 
-echo ($question);
-
 try {
     $faq = new \bd\Pierre();
 
     // Ajouter la FAQ à la base de données
     if ($faq->ajouterFaq($question, $reponse, $admin)) {
-        header("Location: ../manage_faq?success=1");
+        setNotification('success', 'FAQ ajoutée avec succès !');
     } else {
-        header("Location: ../manage_faq?error=1");
+        setNotification('error', 'Une erreur est survenue lors de l\'ajout de la FAQ.');
     }
+    header('Location: ../manage_faq');
+    exit;
 } catch (Exception $e) {
-    echo json_encode(['success' => false, 'message' => 'Erreur : ' . $e->getMessage()]);
+    setNotification('error', 'Erreur : ' . $e->getMessage());
+    header('Location: ../manage_faq');
+    exit;
 }
 ?>

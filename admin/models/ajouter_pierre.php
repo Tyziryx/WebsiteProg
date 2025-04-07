@@ -9,8 +9,12 @@
  */
 
 
-// Inclure la classe Pierre et la gestion de la base de données
+// Inclure les fichiers nécessaires
+require_once __DIR__ . '/../../config/GestionBD.php';
 require_once __DIR__ . '/../../config/Pierre.php';
+require_once __DIR__ . '/../../config/notifications.php';
+
+session_start();
 
 header('Content-Type: application/json');
 
@@ -20,9 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Vérifier si les champs nécessaires sont envoyés
+// Vérifier si tous les champs sont remplis
 if (empty($_POST['nom']) || empty($_POST['description'])) {
-    echo json_encode(['success' => false, 'message' => 'Veuillez remplir tous les champs.']);
+    setNotification('error', 'Veuillez remplir tous les champs.');
+    header('Location: ../manage_geodex');
     exit;
 }
 
@@ -35,18 +40,22 @@ try {
 
     // Vérifier si la pierre existe déjà
     if ($pierre->getPierreByNom($nom)) {
-        echo json_encode(['success' => false, 'message' => 'Cette pierre existe déjà.']);
+        setNotification('error', 'Cette pierre existe déjà.');
+        header('Location: ../manage_geodex');
         exit;
     }
 
     // Ajouter la pierre via la méthode de la classe
     if ($pierre->ajouterPierreAvecRarete($nom, $description, $rarete)) {
-        header('Location: ../manage_geodex?status=success&message=Pierre ajoutée avec succès !');
-        exit;
+        setNotification('success', 'Pierre ajoutée avec succès !');
     } else {
-        header('Location: ../manage_geodex?status=error&message=Erreur lors de l\'ajout de la pierre.');
-        exit;
+        setNotification('error', 'Une erreur est survenue lors de l\'ajout de la pierre.');
     }
+    header('Location: ../manage_geodex');
+    exit;
 } catch (Exception $e) {
-    echo json_encode(['success' => false, 'message' => 'Erreur : ' . $e->getMessage()]);
+    setNotification('error', 'Erreur : ' . $e->getMessage());
+    header('Location: ../manage_geodex');
+    exit;
 }
+?>

@@ -14,18 +14,21 @@
 
 // Inclure la classe Pierre
 require_once __DIR__ . '/../../config/Pierre.php';
+require_once __DIR__ . '/../../config/notifications.php';
 
-header('Content-Type: application/json');
+session_start();
 
 // Vérifier si la requête est en GET
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
-    echo json_encode(['success' => false, 'message' => 'Méthode non autorisée.']);
+    setNotification('error', 'Méthode non autorisée.');
+    header('Location: ../manage_faq');
     exit;
 }
 
 // Vérifier que le champ nécessaire est présent
 if (empty($_GET['question'])) {
-    echo json_encode(['success' => false, 'message' => 'Veuillez fournir une question à supprimer.']);
+    setNotification('error', 'Veuillez fournir une question à supprimer.');
+    header('Location: ../manage_faq');
     exit;
 }
 
@@ -36,7 +39,6 @@ $question = html_entity_decode($question);
 
 // Restaurer les ' en remplaçant les ! par '
 $question = str_replace("!", "'", $question);
-echo ($question);
 
 try {
     $faq = new \bd\Pierre();
@@ -44,13 +46,16 @@ try {
     // Supprimer la FAQ de la base de données
     if ($faq->supprimerFaq($question)) {
         // Redirection vers la page FAQ avec un message de succès
-        header("Location: ../manage_faq?success=1");
-        exit;
+        setNotification('success', 'FAQ supprimée avec succès !');
     } else {
         // Redirection avec un message d'erreur si la suppression a échoué
-        header("Location: ../manage_faq?error=1");
-        exit;
+        setNotification('error', 'Une erreur est survenue lors de la suppression de la FAQ.');
     }
+    header('Location: ../manage_faq');
+    exit;
 } catch (Exception $e) {
-    echo json_encode(['success' => false, 'message' => 'Erreur : ' . $e->getMessage()]);
+    setNotification('error', 'Erreur : ' . $e->getMessage());
+    header('Location: ../manage_faq');
+    exit;
 }
+?>

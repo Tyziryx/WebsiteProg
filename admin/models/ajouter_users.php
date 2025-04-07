@@ -12,16 +12,21 @@
 // Inclure les fichiers nécessaires
 require_once __DIR__ . '/../../config/GestionBD.php';
 require_once __DIR__ . '/../../config/Users.php';
+require_once __DIR__ . '/../../config/notifications.php';
+
+session_start();
 
 // Vérifier si la requête est bien en POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../manage_users?status=error&message=Méthode non autorisée.');
+    setNotification('error', 'Méthode non autorisée.');
+    header('Location: ../manage_users');
     exit;
 }
 
 // Vérifier si tous les champs sont remplis
 if (empty($_POST['pseudo']) || empty($_POST['email']) || empty($_POST['password'])) {
-    header('Location: ../manage_users?status=error&message=Veuillez remplir tous les champs.');
+    setNotification('error', 'Veuillez remplir tous les champs.');
+    header('Location: ../manage_users');
     exit;
 }
 
@@ -33,7 +38,8 @@ $admin = isset($_POST['admin']) ? (int)$_POST['admin'] : 0;
 
 // Valider l'email
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header('Location: ../manage_users?status=error&message=Format d\'email invalide.');
+    setNotification('error', 'Format d\'email invalide.');
+    header('Location: ../manage_users');
     exit;
 }
 
@@ -42,13 +48,15 @@ try {
     
     // Vérifier si le pseudo existe déjà
     if ($userModel->getUserByPseudo($pseudo)) {
-        header('Location: ../manage_users?status=error&message=Ce pseudo existe déjà.');
+        setNotification('error', 'Ce pseudo existe déjà.');
+        header('Location: ../manage_users');
         exit;
     }
     
     // Vérifier si l'email existe déjà
     if ($userModel->getUserByEmail($email)) {
-        header('Location: ../manage_users?status=error&message=Cet email est déjà utilisé.');
+        setNotification('error', 'Cet email est déjà utilisé.');
+        header('Location: ../manage_users');
         exit;
     }
     
@@ -58,14 +66,17 @@ try {
     // Ajouter l'utilisateur
     if ($userModel->ajouterUtilisateur($pseudo, $email, $hashed_password, $admin)) {
         // Redirection en cas de succès avec notification
-        header('Location: ../manage_users?status=success&message=Utilisateur ajouté avec succès !');
+        setNotification('success', 'Utilisateur ajouté avec succès !');
+        header('Location: ../manage_users');
         exit;
     } else {
-        header('Location: ../manage_users?status=error&message=Erreur lors de l\'ajout.');
+        setNotification('error', 'Erreur lors de l\'ajout.');
+        header('Location: ../manage_users');
         exit;
     }
 } catch (Exception $e) {
-    header('Location: ../manage_users?status=error&message=Erreur : ' . urlencode($e->getMessage()));
+    setNotification('error', 'Erreur : ' . $e->getMessage());
+    header('Location: ../manage_users');
     exit;
 }
 ?>

@@ -17,6 +17,9 @@
 // Inclure les fichiers nécessaires
 require_once __DIR__ . '/../../config/GestionBD.php';
 require_once __DIR__ . '/../../config/Users.php';
+require_once __DIR__ . '/../../config/notifications.php';
+
+session_start();
 
 /**
  * Vérification de la méthode de la requête.
@@ -27,7 +30,8 @@ require_once __DIR__ . '/../../config/Users.php';
  * @return void
  */
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../manage_users?status=error&message=Méthode non autorisée.');
+    setNotification('error', 'Méthode non autorisée.');
+    header('Location: ../manage_users');
     exit;
 }
 
@@ -40,7 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
  * @return void
  */
 if (empty($_POST['originalPseudo']) || empty($_POST['email'])) {
-    header('Location: ../manage_users?status=error&message=Données incomplètes.');
+    setNotification('error', 'Données incomplètes.');
+    header('Location: ../manage_users');
     exit;
 }
 
@@ -59,7 +64,8 @@ $admin = isset($_POST['admin']) ? (int)$_POST['admin'] : 0;
  * @return void
  */
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header('Location: ../manage_users?status=error&message=Format d\'email invalide.');
+    setNotification('error', 'Format d\'email invalide.');
+    header('Location: ../manage_users');
     exit;
 }
 
@@ -69,7 +75,8 @@ try {
     // Récupérer l'utilisateur actuel
     $originalUser = $userModel->getUserByPseudo($originalPseudo);
     if (!$originalUser) {
-        header('Location: ../manage_users?status=error&message=Utilisateur non trouvé.');
+        setNotification('error', 'Utilisateur non trouvé.');
+        header('Location: ../manage_users');
         exit;
     }
     
@@ -77,7 +84,8 @@ try {
     if ($originalUser->email !== $email) {
         $existingUserByEmail = $userModel->getUserByEmail($email);
         if ($existingUserByEmail && $existingUserByEmail->pseudo !== $originalPseudo) {
-            header('Location: ../manage_users?status=error&message=Cet email est déjà utilisé.');
+            setNotification('error', 'Cet email est déjà utilisé.');
+            header('Location: ../manage_users');
             exit;
         }
     }
@@ -95,14 +103,17 @@ try {
     
     // Mettre à jour l'utilisateur
     if ($userModel->modifierUtilisateur($originalPseudo, $userData)) {
-        header('Location: ../manage_users?status=success&message=Utilisateur modifié avec succès !');
+        setNotification('success', 'Utilisateur modifié avec succès !');
+        header('Location: ../manage_users');
         exit;
     } else {
-        header('Location: ../manage_users?status=error&message=Erreur lors de la modification.');
+        setNotification('error', 'Erreur lors de la modification.');
+        header('Location: ../manage_users');
         exit;
     }
 } catch (Exception $e) {
-    header('Location: ../manage_users?status=error&message=Erreur : ' . urlencode($e->getMessage()));
+    setNotification('error', 'Erreur : ' . $e->getMessage());
+    header('Location: ../manage_users');
     exit;
 }
 ?>

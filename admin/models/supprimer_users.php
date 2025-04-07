@@ -17,10 +17,14 @@
 // Inclure les fichiers nécessaires
 require_once __DIR__ . '/../../config/GestionBD.php';
 require_once __DIR__ . '/../../config/Users.php';
+require_once __DIR__ . '/../../config/notifications.php';
+
+session_start();
 
 // Vérifier si un pseudo est spécifié
 if (!isset($_GET['pseudo']) || empty($_GET['pseudo'])) {
-    header('Location: ../manage_users?status=error&message=Aucun utilisateur spécifié pour la suppression.');
+    setNotification('error', 'Aucun utilisateur spécifié pour la suppression.');
+    header('Location: ../manage_users');
     exit;
 }
 
@@ -35,14 +39,17 @@ try {
     
     // Vérifier si la suppression a réussi
     if ($result) {
-        header('Location: ../manage_users?status=success&message=L\'utilisateur \'' . urlencode($pseudo) . '\' a été supprimé avec succès.');
+        setNotification('success', 'L\'utilisateur \'' . $pseudo . '\' a été supprimé avec succès.');
+        header('Location: ../manage_users');
         exit;
     } else {
-        header('Location: ../manage_users?status=error&message=Une erreur est survenue lors de la suppression de l\'utilisateur \'' . urlencode($pseudo) . '\'.');
+        setNotification('error', 'Une erreur est survenue lors de la suppression de l\'utilisateur \'' . $pseudo . '\'.');
+        header('Location: ../manage_users');
         exit;
     }
 } catch (Exception $e) {
-    header('Location: ../manage_users?status=error&message=Erreur : ' . urlencode($e->getMessage()));
+    setNotification('error', 'Erreur : ' . $e->getMessage());
+    header('Location: ../manage_users');
     exit;
 }
 ?>

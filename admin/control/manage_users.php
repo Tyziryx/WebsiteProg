@@ -7,6 +7,8 @@ if (!isset($_SESSION['email'])) {
 
 $racine_path = '../';
 
+require_once __DIR__ . '/../../config/notifications.php';
+
 if (isset($_GET['id'])) {
     include $racine_path . 'templates/description.php';
 } else {
@@ -17,29 +19,9 @@ if (isset($_GET['id'])) {
     echo "<title>Gestion des Utilisateurs</title>";
 
     // Afficher la notification si elle existe
-    if (isset($_GET['status']) && isset($_GET['message'])) {
-        $status = $_GET['status'] === 'success' ? 'success' : 'error';
-        $message = htmlspecialchars($_GET['message']);
-        echo "<div class='notification {$status}' id='notification'>{$message}</div>";
-        
-        // Ajouter un script pour faire disparaître la notification après 5 secondes
-        echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const notification = document.getElementById('notification');
-                if (notification) {
-                    setTimeout(function() {
-                        notification.classList.add('fade-out');
-                        setTimeout(function() {
-                            notification.style.display = 'none';
-                        }, 500);
-                    }, 5000);
-                }
-            });
-        </script>";
-    }
+    displayNotification();
 
     // Inclure le template pour les utilisateurs
     require_once __DIR__ . '/../templates/users.php';
-
 }
 ?>
