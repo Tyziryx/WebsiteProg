@@ -10,6 +10,8 @@ $racine_path = '../';
 require_once __DIR__ . '/../../config/notifications.php';
 
 include $racine_path . 'templates/head.php';
+include('../templates/cookies.php');
+
 include $racine_path . 'templates/sidebar.php';
 
 // Afficher la notification si elle existe

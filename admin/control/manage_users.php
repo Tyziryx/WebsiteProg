@@ -13,6 +13,8 @@ if (isset($_GET['id'])) {
     include $racine_path . 'templates/description.php';
 } else {
     include $racine_path . 'templates/head.php';
+    include('../templates/cookies.php');
+
     include $racine_path . 'templates/sidebar.php';
 
     // Titre de la page

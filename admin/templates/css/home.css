@@ -1,6 +1,4 @@
-
-
-    body {
+body {
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
         margin: 0;
@@ -18,14 +16,19 @@
         color: #333;
         font-weight: bold;
     }
+    /* Styles pour le conteneur principal */
     .container {
-        max-width: 900px;
-        margin: auto;
+        max-width: 1200px;
+        margin: 0 auto; /* Centre horizontalement */
         background: white;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         margin-top: 20px;
+        box-sizing: border-box; /* Important pour le calcul correct des dimensions */
+        width: calc(100% - 40px); /* Tenir compte du padding du body */
+        position: relative; /* Pour que le positionnement fonctionne correctement */
+        left: 0; /* Réinitialiser tout décalage */
     }
     h2 {
         text-align: left;
@@ -43,9 +46,15 @@
     .add:hover {
         background-color: #0056b3;
     }
+    /* Style amélioré pour les tables */
     table {
         width: 100%;
         border-collapse: collapse;
+        margin: 20px 0;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        table-layout: fixed; /* Améliore la stabilité de la mise en page */
     }
     th, td {
         border: 1px solid #ddd;
@@ -78,3 +87,41 @@
     .delete:hover {
         background-color: #c82333;
     }
+
+/* Ajustements pour écrans moyens - tenir compte de la sidebar */
+@media screen and (min-width: 992px) {
+    .container {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        /* Ajustement pour compenser la sidebar quand elle est visible */
+        transform: translateX(100px);
+    }
+}
+
+/* Ajustements pour grands écrans */
+@media screen and (min-width: 1400px) {
+    .container {
+        max-width: 70%;
+        transform: translateX(100px); /* Décalage pour compenser la sidebar */
+    }
+}
+
+/* Écrans très larges */
+@media screen and (min-width: 1800px) {
+    .container {
+        max-width: 60%;
+        transform: translateX(100px); /* Décalage pour compenser la sidebar */
+    }
+}
+
+/* Pour les écrans en mode mobile où la sidebar est cachée */
+@media screen and (max-width: 768px) {
+    .container {
+        width: calc(100% - 20px);
+        max-width: none;
+        transform: none; /* Pas de décalage sur mobile */
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
