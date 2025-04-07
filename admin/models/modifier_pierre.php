@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($ajoute) {
             // Rediriger vers une page de confirmation ou vers la liste des pierres
-            header("Location: ../control/manage_home.php");  
+            header("Location: ../manage_home");  
             exit;
         } else {
             echo "Une erreur est survenue lors de l'ajout de la pierre.";

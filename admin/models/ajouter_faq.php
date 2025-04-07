@@ -9,7 +9,7 @@
  * @package Gestion des FAQ
  */
 
- 
+
 require_once __DIR__ . '/../../config/Pierre.php';
 
 header('Content-Type: application/json');
@@ -40,9 +40,9 @@ try {
 
     // Ajouter la FAQ à la base de données
     if ($faq->ajouterFaq($question, $reponse, $admin)) {
-        header("Location: ../control/manage_faq.php?success=1");
+        header("Location: ../manage_faq?success=1");
     } else {
-        header("Location: ../control/manage_faq.php?error=1");
+        header("Location: ../manage_faq?error=1");
     }
 } catch (Exception $e) {
     echo json_encode(['success' => false, 'message' => 'Erreur : ' . $e->getMessage()]);

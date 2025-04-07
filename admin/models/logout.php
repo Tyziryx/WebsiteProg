@@ -15,6 +15,6 @@ session_start();
 session_destroy();
 
 // Redirige l'utilisateur vers la page d'accueil
-header("Location: ../index.php");
+header("Location: ../");
 exit;
 ?>

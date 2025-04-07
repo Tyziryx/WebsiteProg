@@ -8,10 +8,10 @@
     <title>Geodex</title>
     <meta name="description" content="Brève description de votre site pour les moteurs de recherche.">
     <meta name="author" content="Votre Nom">
-    <link rel="icon" type="image/png" href="<?php echo $racine_path.'../public/images/favicon.png';?>">
+    <link rel="icon" type="image/png" href="../public/images/favicon.png">
     <link rel="stylesheet" href="templates/css/styles.css">
 
-    <script src="<?php echo $racine_path.'templates/js/script.js';?>"></script>
+    <script src="templates/js/script.js"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
 

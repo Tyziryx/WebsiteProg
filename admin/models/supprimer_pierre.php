@@ -12,7 +12,7 @@
  * @package Gestion des pierres
  */
 
- 
+
 // Inclure la classe Pierre
 require_once __DIR__ . '/../../config/Pierre.php';
 
@@ -29,7 +29,7 @@ if (isset($_GET['nom_pierre']) && !empty($_GET['nom_pierre'])) {
     if ($result) {
         echo "La pierre '$nom_pierre' a été supprimée avec succès.";
         // Rediriger après 2 secondes vers la page principale
-        header("refresh:2;url=../control/manage_home.php");
+        header("refresh:2;url=../manage_home");
     } else {
         echo "Une erreur est survenue lors de la suppression de la pierre '$nom_pierre'.";
     }

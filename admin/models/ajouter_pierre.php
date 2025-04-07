@@ -41,10 +41,10 @@ try {
 
     // Ajouter la pierre via la méthode de la classe
     if ($pierre->ajouterPierreAvecRarete($nom, $description, $rarete)) {
-        header('Location: ../control/manage_geodex.php?status=success&message=Pierre ajoutée avec succès !');
+        header('Location: ../manage_geodex?status=success&message=Pierre ajoutée avec succès !');
         exit;
     } else {
-        header('Location: ../control/manage_geodex.php?status=error&message=Erreur lors de l\'ajout de la pierre.');
+        header('Location: ../manage_geodex?status=error&message=Erreur lors de l\'ajout de la pierre.');
         exit;
     }
 } catch (Exception $e) {
