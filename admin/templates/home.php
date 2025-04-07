@@ -25,7 +25,7 @@ if (empty($allStones)) {
             <h2>Ajouter une pierre</h2>
             
             <!-- Formulaire d'ajout -->
-            <form id="addStoneForm" method="POST" action="../models/ajouter_pierre.php">
+            <form id="addStoneForm" method="POST" action="models/ajouter_pierre.php">
                 <label for="nom">Nom de la pierre :</label>
                 <input type="text" id="nom" name="nom" required>
 
@@ -44,7 +44,7 @@ if (empty($allStones)) {
             <h2>Modifier une pierre</h2>
             
             <!-- Formulaire de modification -->
-            <form id="editStoneForm" method="post" action="../models/modifier_pierre.php">
+            <form id="editStoneForm" method="post" action="models/modifier_pierre.php">
                 <input type="hidden" id="editNom" name="nom_pierre">
                 
                 <label for="editNomInput">Nom de la pierre :</label>
@@ -76,7 +76,7 @@ if (empty($allStones)) {
                         data-description="<?php echo htmlspecialchars($stone->description); ?>">
                         Modifier
                     </button>
-                    <button class="delete" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cette pierre?')) window.location.href='../models/supprimer_pierre.php?nom_pierre=<?php echo urlencode($stone->nom_pierre); ?>'">Supprimer</button>
+                    <button class="delete" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cette pierre?')) window.location.href='models/supprimer_pierre.php?nom_pierre=<?php echo urlencode($stone->nom_pierre); ?>'">Supprimer</button>
                         </td>
                 </tr>
             <?php endforeach; ?>

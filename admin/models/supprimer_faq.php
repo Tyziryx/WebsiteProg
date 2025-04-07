@@ -31,11 +31,11 @@ try {
     // Supprimer la FAQ de la base de données
     if ($faq->supprimerFaq($question)) {
         // Redirection vers la page FAQ avec un message de succès
-        header("Location: ../control/manage_faq.php?success=1");
+        header("Location: ../manage_faq?success=1");
         exit;
     } else {
         // Redirection avec un message d'erreur si la suppression a échoué
-        header("Location: ../control/manage_faq.php?error=1");
+        header("Location: ../manage_faq?error=1");
         exit;
     }
 } catch (Exception $e) {

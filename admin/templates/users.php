@@ -32,7 +32,7 @@ if (empty($allUsers)) {
             <h2>Ajouter un Utilisateur</h2>
             
             <!-- Formulaire d'ajout -->
-            <form id="addUserForm" method="post" action="../models/ajouter_users.php">
+            <form id="addUserForm" method="post" action="models/ajouter_users.php">
                 <label for="pseudo">Pseudo :</label>
                 <input type="text" id="pseudo" name="pseudo" required>
 
@@ -60,7 +60,7 @@ if (empty($allUsers)) {
             <h2>Modifier l'Utilisateur</h2>
             
             <!-- Formulaire de modification -->
-            <form id="editUserForm" method="post" action="../models/modifier_users.php">
+            <form id="editUserForm" method="post" action="models/modifier_users.php">
                 <!-- Champ caché pour stocker le pseudo original -->
                 <input type="hidden" id="editOriginalPseudo" name="originalPseudo">
                 
@@ -111,10 +111,10 @@ if (empty($allUsers)) {
                         </button>
 
                         <!-- Bouton pour supprimer l'utilisateur -->
-                        <button class="delete" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?')) window.location.href='../models/supprimer_users.php?pseudo=<?php echo urlencode($user->pseudo); ?>'">Supprimer</button>
+                        <button class="delete" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?')) window.location.href='models/supprimer_users.php?pseudo=<?php echo urlencode($user->pseudo); ?>'">Supprimer</button>
 
                         <!-- Bouton pour changer le rôle (admin/non-admin) -->
-                        <button class="toggle-admin" onclick="if(confirm('Êtes-vous sûr de vouloir changer le rôle de cet utilisateur?')) window.location.href='../models/toggle_admin.php?pseudo=<?php echo urlencode($user->pseudo); ?>'">
+                        <button class="toggle-admin" onclick="if(confirm('Êtes-vous sûr de vouloir changer le rôle de cet utilisateur?')) window.location.href='models/toggle_admin.php?pseudo=<?php echo urlencode($user->pseudo); ?>'">
                             <?php echo $user->admin ? 'Retirer Admin' : 'Passer Admin'; ?>
                         </button>
                     </td>

@@ -5,13 +5,13 @@ require_once __DIR__ . '/../../config/Users.php';
 
 // Vérifier si la requête est en POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../control/manage_users.php?status=error&message=Méthode non autorisée.');
+    header('Location: ../manage_users?status=error&message=Méthode non autorisée.');
     exit;
 }
 
 // Vérifier si tous les champs obligatoires sont remplis
 if (empty($_POST['originalPseudo']) || empty($_POST['email'])) {
-    header('Location: ../control/manage_users.php?status=error&message=Données incomplètes.');
+    header('Location: ../manage_users?status=error&message=Données incomplètes.');
     exit;
 }
 
@@ -23,7 +23,7 @@ $admin = isset($_POST['admin']) ? (int)$_POST['admin'] : 0;
 
 // Valider l'email
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header('Location: ../control/manage_users.php?status=error&message=Format d\'email invalide.');
+    header('Location: ../manage_users?status=error&message=Format d\'email invalide.');
     exit;
 }
 
@@ -33,7 +33,7 @@ try {
     // Récupérer l'utilisateur actuel
     $originalUser = $userModel->getUserByPseudo($originalPseudo);
     if (!$originalUser) {
-        header('Location: ../control/manage_users.php?status=error&message=Utilisateur non trouvé.');
+        header('Location: ../manage_users?status=error&message=Utilisateur non trouvé.');
         exit;
     }
     
@@ -41,7 +41,7 @@ try {
     if ($originalUser->email !== $email) {
         $existingUserByEmail = $userModel->getUserByEmail($email);
         if ($existingUserByEmail && $existingUserByEmail->pseudo !== $originalPseudo) {
-            header('Location: ../control/manage_users.php?status=error&message=Cet email est déjà utilisé.');
+            header('Location: ../manage_users?status=error&message=Cet email est déjà utilisé.');
             exit;
         }
     }
@@ -59,14 +59,14 @@ try {
     
     // Mettre à jour l'utilisateur
     if ($userModel->modifierUtilisateur($originalPseudo, $userData)) {
-        header('Location: ../control/manage_users.php?status=success&message=Utilisateur modifié avec succès !');
+        header('Location: ../manage_users?status=success&message=Utilisateur modifié avec succès !');
         exit;
     } else {
-        header('Location: ../control/manage_users.php?status=error&message=Erreur lors de la modification.');
+        header('Location: ../manage_users?status=error&message=Erreur lors de la modification.');
         exit;
     }
 } catch (Exception $e) {
-    header('Location: ../control/manage_users.php?status=error&message=Erreur : ' . urlencode($e->getMessage()));
+    header('Location: ../manage_users?status=error&message=Erreur : ' . urlencode($e->getMessage()));
     exit;
 }
 ?>

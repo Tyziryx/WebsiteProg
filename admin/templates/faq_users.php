@@ -19,7 +19,7 @@ $faqs = $pierreModel->getFAQs();
                     <h2>Ajouter une question/réponse</h2>
                     
                     <!-- Formulaire d'ajout -->
-                    <form id="addStoneForm" method="POST" action="../models/ajouter_faq.php">
+                    <form id="addStoneForm" method="POST" action="models/ajouter_faq.php">
                         <label for="question">Question :</label>
                         <input type="text" id="question" name="question" required>
 
@@ -52,7 +52,7 @@ $faqs = $pierreModel->getFAQs();
                                 <td><?php echo htmlspecialchars($faq['reponse']); ?></td>
                                 <td>
                                 <?php $prepQestion = str_replace("'", "!", $faq['question']); ?>
-                                <a href="../models/supprimer_faq.php?question=<?php echo urlencode($prepQestion); ?>" class="delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette FAQ ?');">Supprimer</a>
+                                <a href="models/supprimer_faq.php?question=<?php echo urlencode($prepQestion); ?>" class="delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette FAQ ?');">Supprimer</a>
                                 <?php endforeach; ?>
                     <?php endif; ?>
                 </tbody>
