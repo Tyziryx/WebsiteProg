@@ -12,12 +12,14 @@
 // Démarre la session si elle n'est pas déjà active
 session_start();
 
-// Détruit la session actuelle, déconnectant ainsi l'utilisateur
+// Détruire la session
 session_destroy();
 
-/**
- * Redirige l'utilisateur vers la page d'accueil après la déconnexion.
- */
-header("Location: ../");
+// Supprimer les cookies de session
+setcookie('session_user', '', time() - 3600, '/');
+setcookie('session_date', '', time() - 3600, '/');
+
+// Redirige l'utilisateur vers la page d'accueil après la déconnexion.
+header("Location: ../../");
 exit;
 ?>
