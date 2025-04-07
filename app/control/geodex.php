@@ -1,5 +1,8 @@
 <?php 
-session_start();
+// Démarrer une session uniquement si elle n'est pas déjà active
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (!isset($_SESSION['email'])) {
     header("Location: ./");
@@ -8,7 +11,6 @@ if (!isset($_SESSION['email'])) {
 
 require_once __DIR__ . '/../../config/Pierre.php';
 require_once __DIR__ . '/../models/auth_check.php';
-
 
 $racine_path = './';
 

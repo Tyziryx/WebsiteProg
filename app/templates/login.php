@@ -1,9 +1,13 @@
 <?php
-session_start();
+// Vérifier si la session n'est pas déjà démarrée avant de la démarrer
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Si l'utilisateur a déjà les cookies de session valides, on le redirige vers le dashboard
 if (isset($_COOKIE['session_user']) && isset($_COOKIE['session_date'])) {
-    echo ('cookie ok');
+    // Supprimer l'echo de debug qui affiche "cookie ok"
+    // echo ('cookie ok'); <- SUPPRIMER CETTE LIGNE
     $sessionDate = strtotime($_COOKIE['session_date']);
     $currentDate = time();
     $thirtyDaysInSeconds = 30 * 24 * 60 * 60;
@@ -30,9 +34,26 @@ displayNotification();
 if (isset($_SESSION['signup_errors']) && !empty($_SESSION['signup_errors'])) {
     echo '<div class="error-container">';
     foreach ($_SESSION['signup_errors'] as $error) {
-        echo '<p class="notification error">' . htmlspecialchars($error) . '</p>';
+        echo '<p class="notification error" id="error-msg-'.md5($error).'">' . htmlspecialchars($error) . '</p>';
     }
     echo '</div>';
+    
+    // Script pour faire disparaître les messages d'erreur
+    echo "<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const errorMsgs = document.querySelectorAll('.error-container .notification');
+        errorMsgs.forEach(function(msg) {
+            setTimeout(function() {
+                msg.classList.add('fade-out');
+                setTimeout(function() {
+                    msg.style.display = 'none';
+                    msg.remove();
+                }, 500);
+            }, 5000);
+        });
+    });
+    </script>";
+    
     unset($_SESSION['signup_errors']);
 }
 ?>

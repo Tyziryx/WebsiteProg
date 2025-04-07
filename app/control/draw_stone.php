@@ -1,10 +1,12 @@
 <?php
-// filepath: c:\xampp\htdocs\WebsiteProg\app\control\draw_stone.php
-session_start();
+// Démarrer une session uniquement si elle n'est pas déjà active
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once __DIR__ . '/../../config/Pierre.php';
 require_once __DIR__ . '/../../config/GestionBD.php';
 require_once __DIR__ . '/../models/auth_check.php';
-
 
 // Créer une instance de la classe Pierre (AVANT de l'utiliser)
 $pierreModel = new \bd\Pierre();

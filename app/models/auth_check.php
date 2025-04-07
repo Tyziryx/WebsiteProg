@@ -1,5 +1,8 @@
 <?php
-session_start();
+// Démarrer une session uniquement si elle n'est pas déjà active
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (!isset($_COOKIE['session_user']) || !isset($_COOKIE['session_date'])) {
     header('Location: /login');

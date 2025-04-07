@@ -9,7 +9,7 @@
  * @return void
  */
 function setNotification($status, $message) {
-    if (!isset($_SESSION)) {
+    if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
     
@@ -26,7 +26,7 @@ function setNotification($status, $message) {
  * @return array|null Tableau contenant le statut et le message, ou null si aucune notification
  */
 function getNotification() {
-    if (!isset($_SESSION)) {
+    if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
     

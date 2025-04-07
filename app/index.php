@@ -1,10 +1,9 @@
 <?php
 $racine_path = './';
-?>
-
-<?php
-// Start the session at the beginning
-session_start();
+// Start the session at the beginning if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $page = $_GET['page'] ?? 'login';
 
