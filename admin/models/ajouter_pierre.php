@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Script pour ajouter une pierre avec une rareté spécifique à la base de données.
+ * Ce script gère la réception des données via une requête POST, valide les champs, et tente d'ajouter une nouvelle pierre dans la base de données.
+ * Si l'ajout réussit, l'utilisateur est redirigé vers la page de gestion des pierres. En cas d'erreur, un message JSON est renvoyé.
+ *
+ * @package Gestion des pierres
+ */
+
+
 // Inclure la classe Pierre et la gestion de la base de données
 require_once __DIR__ . '/../../config/Pierre.php';
 
@@ -31,10 +41,10 @@ try {
 
     // Ajouter la pierre via la méthode de la classe
     if ($pierre->ajouterPierreAvecRarete($nom, $description, $rarete)) {
-        header('Location: ../control/manage_geodex.php?status=success&message=Pierre ajoutée avec succès !');
+        header('Location: ../manage_geodex?status=success&message=Pierre ajoutée avec succès !');
         exit;
     } else {
-        header('Location: ../control/manage_geodex.php?status=error&message=Erreur lors de l\'ajout de la pierre.');
+        header('Location: ../manage_geodex?status=error&message=Erreur lors de l\'ajout de la pierre.');
         exit;
     }
 } catch (Exception $e) {

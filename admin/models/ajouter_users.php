@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Traitement de la création d'un utilisateur.
+ * Ce script traite la soumission d'un formulaire pour ajouter un utilisateur en vérifiant les champs et en ajoutant l'utilisateur à la base de données.
+ * Il gère également les erreurs et redirige l'utilisateur avec des messages appropriés.
+ * 
+ * @package Gestion des utilisateurs
+ */
+
+
 // Inclure les fichiers nécessaires
 require_once __DIR__ . '/../../config/GestionBD.php';
 require_once __DIR__ . '/../../config/Users.php';

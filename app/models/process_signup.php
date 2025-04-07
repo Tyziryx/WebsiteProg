@@ -11,7 +11,13 @@ $pdo = $db->connexion();
 // Initialiser le tableau d'erreurs
 $errors = [];
 
-// Vérifier si le formulaire a été soumis
+/**
+ * Traitement du formulaire d'inscription de l'utilisateur.
+ * Ce script vérifie les données soumises via un formulaire et enregistre un nouvel utilisateur dans la base de données si les données sont valides.
+ * Les étapes incluent la validation des données du formulaire, la vérification de l'existence de l'utilisateur, le hachage du mot de passe et l'insertion des données dans la base de données.
+ * 
+ * @throws PDOException Si une erreur de base de données se produit pendant la requête.
+ */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Récupérer et nettoyer les données du formulaire
@@ -28,6 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     print_r($_POST);
     echo "</pre>";
 
+    /**
+     * Validation des données de l'utilisateur : pseudo, email, mot de passe.
+     * Les erreurs sont stockées dans le tableau $errors.
+     */
     if (empty($pseudo)) {
         $errors[] = "Le pseudo est obligatoire.";
     } elseif (!preg_match('/^[a-zA-Z]/', $pseudo)) {

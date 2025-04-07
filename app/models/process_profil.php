@@ -1,6 +1,17 @@
 <?php
 session_start();
 
+/**
+ * Script permettant à l'utilisateur connecté de mettre à jour son profil.
+ * 
+ * Ce script permet à un utilisateur de modifier son email et son mot de passe. 
+ * L'utilisateur doit être connecté pour accéder à cette page.
+ * Si les données du formulaire sont valides, les informations de l'utilisateur sont mises à jour dans la base de données.
+ * Un message de succès ou d'erreur est affiché en fonction du résultat de l'opération.
+ * 
+ * @throws Exception Si une erreur survient lors de la mise à jour de l'utilisateur.
+ */
+
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['email'])) {
     header("Location: ../index.php?page=login");
@@ -22,7 +33,9 @@ if (!$currentUser) {
     exit;
 }
 
-// Vérifier si le formulaire est soumis
+/**
+ * Vérifier si le formulaire a été soumis pour mettre à jour les informations de l'utilisateur.
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les données du formulaire
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';

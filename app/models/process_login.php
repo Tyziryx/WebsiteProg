@@ -3,6 +3,20 @@
 session_start();
 include __DIR__ . '/../../config/GestionBD.php';
 
+
+/**
+ * Script de gestion de la connexion utilisateur.
+ * 
+ * Ce script traite la soumission d'un formulaire de connexion, vérifie si les informations fournies sont valides,
+ * et si oui, démarre une session pour l'utilisateur et le redirige vers son tableau de bord. 
+ * En cas d'erreur, un message approprié est affiché.
+ * 
+ * La validation se fait via la vérification du mot de passe haché stocké dans la base de données.
+ * 
+ * @throws Exception Si une erreur survient lors de la connexion à la base de données.
+ */
+
+
 // Créer la connexion à la base de données
 
 $db = new \bd\GestionBD();
@@ -41,7 +55,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // Requête pour récupérer l'utilisateur
+    /**
+     * Requête SQL pour récupérer les informations de l'utilisateur en fonction de l'email fourni.
+     * La requête recherche l'email dans la base de données et récupère le mot de passe stocké.
+     */    
     $stmt = $pdo->prepare("SELECT email, password FROM utilisateurs WHERE email = :email");
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch();
@@ -55,7 +72,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  */
     // Vérifier le mot de passe en utilisant password_verify au lieu de comparaison directe
     if ($user && password_verify($password, $user['password'])) {
-        // Utiliser l'email comme identifiant de session au lieu de l'ID
+        /**
+         * Si l'utilisateur est authentifié, on démarre une session et on stocke l'email dans la session.
+         * L'utilisateur est ensuite redirigé vers la page du tableau de bord.
+         */
         $_SESSION['email'] = $user['email'];
 
         

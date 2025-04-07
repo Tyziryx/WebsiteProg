@@ -1,4 +1,15 @@
 <?php
+
+/**
+ * Script de mise à jour des informations d'une pierre.
+ * 
+ * Ce script permet de supprimer une pierre existante et d'ajouter une nouvelle pierre avec des informations mises à jour, 
+ * telles que son nom, sa description et sa rareté. Il s'exécute lorsque le formulaire est soumis en méthode POST.
+ * 
+ * @package Gestion des pierres
+ */
+
+
 // Inclure les fichiers nécessaires
 require_once __DIR__ . '/../../config/Pierre.php';
 
@@ -23,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($ajoute) {
             // Rediriger vers une page de confirmation ou vers la liste des pierres
-            header("Location: ../control/manage_home.php");  
+            header("Location: ../manage_home");  
             exit;
         } else {
             echo "Une erreur est survenue lors de l'ajout de la pierre.";
