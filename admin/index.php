@@ -1,9 +1,10 @@
 <?php
 $racine_path = './';
+session_start();
+require_once __DIR__ . '/../config/notifications.php';
 ?>
 
 <?php
-// session_start();
 
 $page = $_GET['page'] ?? 'login';
 

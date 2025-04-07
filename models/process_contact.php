@@ -1,27 +1,17 @@
-<?php 
+<?php
+require_once __DIR__ . '/../config/notifications.php';
 session_start();
 
-if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
-    header('Location: ../index.php?error=Erreur de sécurité. Veuillez réessayer.');
-    exit();
-}
-?>
-<?php
 /**
- * Journalise un message provenant du formulaire de contact.
+ * Fonction pour enregistrer un message dans un fichier journal.
  *
- * Cette fonction écrit les informations (date, statut, nom, email, message)
- * dans un fichier log situé dans le répertoire /logs.
- * Le dossier est créé s’il n’existe pas.
- *
- * @param string $status  Le statut du message (ex. "success" ou "error").
- * @param string $name    Le nom de l'utilisateur ayant envoyé le message.
- * @param string $email   L'adresse e-mail de l'utilisateur.
+ * @param string $name    Le nom de l'émetteur.
+ * @param string $email   L'adresse email de l'émetteur.
  * @param string $message Le contenu du message.
- *
- * @return bool True si l’écriture dans le fichier a réussi, False sinon.
+ * @param string $status  Le statut de l'envoi ('success' ou 'error').
+ * @return boolean True si l'enregistrement a réussi, False sinon.
  */
-function logMessage($status, $name, $email, $message) {
+function logMessage($name, $email, $message, $status = 'success') {
     $log_dir = __DIR__ . '/../logs';
     if (!file_exists($log_dir)) {
         if (!mkdir($log_dir, 0755, true)) {
@@ -45,15 +35,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Validation simple des données
     if (empty($name) || empty($email) || empty($message)) {
-        $error_message = "Tous les champs sont requis.";
-        header("Location: ../contact?error=" . urlencode($error_message));
+        setNotification('error', "Tous les champs sont requis.");
+        header("Location: ../contact");
         exit;
     }
     
     // Vérification de l'email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error_message = "Format d'email invalide.";
-        header("Location: ../contact?error=" . urlencode($error_message));
+        setNotification('error', "Format d'email invalide.");
+        header("Location: ../contact");
         exit;
     }
 
@@ -69,38 +59,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Corps du message sans la note pour transfert
     $message_body = "Nom: " . $name . "\n";
     $message_body .= "Email: " . $email . "\n\n";
-    $message_body .= "Message:\n" . $message;
+    $message_body .= $message . "\n";
     
-    // En-têtes optimisés
-    $sender_email = "uapv2401411@etud.univ-avignon.fr";
+    // En-têtes pour l'email
+    $headers = 'From: ' . $email . "\r\n" .
+               'Reply-To: ' . $email . "\r\n" .
+               'X-Mailer: PHP/' . phpversion();
     
-    $headers = "From: $sender_email\r\n";
-    $headers .= "Reply-To: " . $email . "\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-    $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-    
-    // Tentative d'envoi du mail
+    // Envoyer l'email
     $mail_result = mail($to, $subject, $message_body, $headers);
     
-    // Débogage avancé
-    $debug_info = "Mail function returned: " . ($mail_result ? "true" : "false") . "\n";
-    $debug_info .= "PHP version: " . phpversion() . "\n";
-    $debug_info .= "Sendmail path: " . ini_get('sendmail_path') . "\n";
-    $debug_info .= "SMTP setting: " . ini_get('SMTP') . "\n";
-    $debug_info .= "smtp_port: " . ini_get('smtp_port') . "\n";
-    $debug_info .= "Headers:\n" . $headers . "\n";
-    $debug_info .= "To: " . $to . "\n";
-    $debug_info .= "Subject: " . $subject . "\n";
-    $debug_info .= "Message ID: " . $message_id . "\n";
-    
-    // Journaliser le message avec infos de débogage
-    $status = $mail_result ? "Email envoyé (selon PHP)" : "Échec d'envoi";
-    logMessage($status . "\n" . $debug_info, $name, $email, $message);
+    // Enregistrer le message dans un fichier journal
+    logMessage($name, $email, $message, $mail_result ? 'success' : 'error');
 
-    // Créer une copie du message dans un fichier séparé pour chaque tentative
+    // Sauvegarder une copie du message dans un dossier messages
     $message_dir = __DIR__ . '/../messages';
-    if (!file_exists($message_dir) && !mkdir($message_dir, 0755, true)) {
+    if (!is_dir($message_dir) && !mkdir($message_dir, 0755, true)) {
         // Continuer même si le dossier ne peut pas être créé
     } else {
         $message_file = $message_dir . '/msg_' . $message_id . '.txt';
@@ -111,11 +85,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if($mail_result) {
         // Rediriger avec un message de succès
-        header("Location: ../confirmation?success=" . urlencode("Votre message a été envoyé avec succès. Nous vous contacterons bientôt."));
+        setNotification('success', "Votre message a été envoyé avec succès. Nous vous contacterons bientôt.");
+        header("Location: ../confirmation");
         exit;
     } else {
         // En cas d'erreur, rediriger avec un message d'erreur
-        header("Location: ../contact?error=" . urlencode("Une erreur est survenue lors de l'envoi du message. Veuillez réessayer."));
+        setNotification('error', "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer.");
+        header("Location: ../contact");
         exit;
     }
 } else {

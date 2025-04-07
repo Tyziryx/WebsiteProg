@@ -14,7 +14,7 @@ session_start();
 
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['email'])) {
-    header("Location: ../index.php?page=login");
+    header("Location: ../");
     exit;
 }
 
@@ -29,7 +29,7 @@ $currentUser = $userModel->getUserByEmail($_SESSION['email']);
 
 if (!$currentUser) {
     $_SESSION['profile_errors'] = ["Utilisateur non trouvé."];
-    header("Location: ../index.php?page=profil");
+    header("Location: ../");
     exit;
 }
 

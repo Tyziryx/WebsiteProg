@@ -15,7 +15,8 @@ function setNotification($status, $message) {
     
     $_SESSION['notification'] = [
         'status' => $status,
-        'message' => $message
+        'message' => $message,
+        'timestamp' => time() // Ajouter un timestamp pour gérer l'expiration
     ];
 }
 
@@ -30,9 +31,14 @@ function getNotification() {
     }
     
     if (isset($_SESSION['notification'])) {
-        $notification = $_SESSION['notification'];
+        // Vérifier si la notification n'est pas trop ancienne (30 secondes max)
+        if ($_SESSION['notification']['timestamp'] > time() - 30) {
+            $notification = $_SESSION['notification'];
+            unset($_SESSION['notification']);
+            return $notification;
+        }
+        // Supprimer les notifications trop anciennes
         unset($_SESSION['notification']);
-        return $notification;
     }
     
     return null;
@@ -50,21 +56,25 @@ function displayNotification() {
         $status = htmlspecialchars($notification['status']);
         $message = htmlspecialchars($notification['message']);
         
-        echo "<div class='notification {$status}' id='notification'>{$message}</div>";
+        echo "<div class='notification {$status}' id='notification-msg'>{$message}</div>";
         
-        // Script pour faire disparaître la notification
+        // Script pour faire disparaître la notification - exécution immédiate
         echo "<script>
+        (function() {
+            // S'exécute immédiatement après le chargement
             document.addEventListener('DOMContentLoaded', function() {
-                const notification = document.getElementById('notification');
+                const notification = document.getElementById('notification-msg');
                 if (notification) {
                     setTimeout(function() {
                         notification.classList.add('fade-out');
                         setTimeout(function() {
                             notification.style.display = 'none';
+                            notification.remove(); // Suppression complète du DOM
                         }, 500);
                     }, 5000);
                 }
             });
+        })();
         </script>";
     }
 }

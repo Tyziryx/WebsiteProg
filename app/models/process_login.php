@@ -2,6 +2,7 @@
 
 session_start();
 include __DIR__ . '/../../config/GestionBD.php';
+require_once __DIR__ . '/../../config/notifications.php';
 
 
 /**
@@ -21,18 +22,6 @@ include __DIR__ . '/../../config/GestionBD.php';
 
 $db = new \bd\GestionBD();
 $pdo = $db->connexion();
-/*
-
-try {
-    $dsn = "pgsql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_NAME;
-    $pdo = new PDO($dsn, DB_USER, DB_PASSWORD);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-} catch(PDOException $e) {
-    die("Erreur de connexion à la base de données: " . $e->getMessage());
-} 
-*/ 
-
 
 
 // Traitement du formulaire de connexion
@@ -40,18 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
-
-    //Debugging
-    /*
-    echo "<h2>Données reçues:</h2>";
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
-*/
-
     // Vérifie que l'email et le mot de passe sont fournis
     if (empty($email) || empty($password)) {
-        echo "Veuillez remplir tous les champs.";
+        setNotification('error', 'Veuillez remplir tous les champs.');
+        header("Location: ../");
         exit;
     }
 
@@ -63,13 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch();
 
-   //   Debugging 
-/*
-    echo "<h3>Données de l'utilisateur trouvées:</h3>";
-    echo "<pre>";
-    print_r($user);
-    echo "</pre>";
- */
     // Vérifier le mot de passe en utilisant password_verify au lieu de comparaison directe
     if ($user && password_verify($password, $user['password'])) {
         /**
@@ -77,22 +51,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          * L'utilisateur est ensuite redirigé vers la page du tableau de bord.
          */
         $_SESSION['email'] = $user['email'];
-
-        
-        $racine_path = '../';
-        header("Location: " . $racine_path . "dashboard");
+        header("Location: ../dashboard");
         exit;
     } else {
         // Message d'erreur de connexion
-        echo "Email ou mot de passe incorrect.";
+        setNotification('error', 'Email ou mot de passe incorrect.');
+        header("Location: ../");
+        exit;
     }
-/*
-        echo "Mot de passe saisi: " . $password
- . "<br>";
-        echo "Mot de passe attendu: " . ($user ? $user['password
-'] : "Utilisateur non trouvé");
-        */
-    }
-        
+}
 
+// Si ce n'est pas une requête POST, rediriger vers la page de login
+setNotification('error', 'Accès non autorisé.');
+header("Location: ../");
+exit;
 ?>

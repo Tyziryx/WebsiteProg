@@ -1,13 +1,20 @@
 <?php
+require_once __DIR__ . '/../../config/notifications.php';
 $racine_path = './';
-?>
 
-<?php if (isset($_SESSION['login_message'])): ?>
-<div id="notification" class="notification success">
-    <?php echo htmlspecialchars($_SESSION['login_message']); ?>
-    <?php unset($_SESSION['login_message']); ?>
-</div>
-<?php endif; ?>
+// Afficher les notifications si existantes
+displayNotification();
+
+// Afficher les erreurs d'inscription si existantes
+if (isset($_SESSION['signup_errors']) && !empty($_SESSION['signup_errors'])) {
+    echo '<div class="error-container">';
+    foreach ($_SESSION['signup_errors'] as $error) {
+        echo '<p class="notification error">' . htmlspecialchars($error) . '</p>';
+    }
+    echo '</div>';
+    unset($_SESSION['signup_errors']);
+}
+?>
 
 <main>
     <section class="forms-section">
