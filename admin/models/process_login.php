@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * Script de gestion de la connexion utilisateur avec vérification des droits d'administrateur.
+ * 
+ * Ce script permet à un utilisateur de se connecter en vérifiant son email et son mot de passe.
+ * Si l'utilisateur est authentifié et possède les droits d'administrateur, une session est créée
+ * et il est redirigé vers la page de gestion de l'administration.
+ * Si l'utilisateur n'a pas les droits d'administrateur, un message d'erreur est affiché.
+ * En cas de mot de passe incorrect, un message d'erreur est aussi affiché.
+ * 
+ * @package Authentification et gestion des utilisateurs
+ */
+
 session_start();
 include __DIR__ . '/../../config/GestionBD.php';
 
@@ -7,8 +19,23 @@ include __DIR__ . '/../../config/GestionBD.php';
 
 $db = new \bd\GestionBD();
 $pdo = $db->connexion();
-/*
 
+/**
+ * Traitement du formulaire de connexion lorsque la méthode de la requête est POST.
+ * 
+ * - Récupère l'email et le mot de passe fournis par l'utilisateur via le formulaire.
+ * - Vérifie que les champs ne sont pas vides.
+ * - Effectue une requête préparée pour récupérer l'utilisateur correspondant à l'email donné.
+ * - Si l'utilisateur est trouvé et que le mot de passe est correct, il est authentifié.
+ * - Si l'utilisateur est un administrateur, une session est créée et l'utilisateur est redirigé vers la page de gestion.
+ * - Si l'utilisateur n'est pas un administrateur, un message d'erreur est affiché.
+ * - Si l'authentification échoue, un message d'erreur est affiché.
+ *
+ * @return void
+ */
+
+ 
+/*
 try {
     $dsn = "pgsql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_NAME;
     $pdo = new PDO($dsn, DB_USER, DB_PASSWORD);

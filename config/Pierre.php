@@ -12,9 +12,19 @@ require_once __DIR__ . '/../class/Pierre.php';
 // pour pouvoir créer la connexion à la BD
 require_once __DIR__ . '/GestionBD.php';
 
-// classe Pierre comme définit sur le diagramme de classe
+/**
+ * Classe Pierre
+ *
+ * Gère les opérations liées aux pierres dans la base de données.
+ * Permet d'ajouter, supprimer, récupérer des pierres et gérer les informations associées.
+ */
 class Pierre {
-
+    
+    /**
+     * Récupère toutes les pierres de la table `pierre`.
+     *
+     * @return array Tableau d'objets Pierre provenant de la base de données.
+     */
     public function listePierre() {
         // Connexion à la bd
         $BD = new GestionBD();
@@ -30,7 +40,12 @@ class Pierre {
 
         return $pierres;
     }
-
+    /**
+     * Récupère une pierre spécifique en fonction de son identifiant.
+     *
+     * @param int $id L'identifiant de la pierre à récupérer.
+     * @return mixed Un objet Pierre si trouvé, sinon false.
+     */
     public function getPierre($id) {
         // Connexion à la bd
         $BD = new GestionBD();
@@ -47,6 +62,12 @@ class Pierre {
         return $pierre;
     }
 
+    /**
+     * Récupère les informations d'une pierre par son nom à partir de la table `geodex`.
+     *
+     * @param string $nom_pierre Le nom de la pierre à chercher.
+     * @return \classe\Pierre|null L'objet Pierre si trouvé, sinon null.
+     */
     public function getPierreByNom($nom_pierre) {
         // Connexion à la base de données
         $BD = new GestionBD();
@@ -78,10 +99,10 @@ class Pierre {
     
     
     /**
-     * Récupère les pierres par rareté
-     * 
-     * @param string $rarete La rareté des pierres à récupérer
-     * @return array Tableau d'objets Pierre
+     * Récupère les pierres correspondant à une rareté donnée.
+     *
+     * @param string $rarete La rareté des pierres à récupérer (ex : "commune", "rare", etc.).
+     * @return array Tableau d'objets Pierre correspondant à la rareté.
      */
     public function getPierresByRarete($rarete) {
         // Connexion à la bd
@@ -187,10 +208,11 @@ class Pierre {
         }
     }
     
-    
-
-
-
+    /**
+     * Récupère les questions-réponses de la FAQ réservées aux administrateurs (admin = true).
+     *
+     * @return array Tableau associatif des FAQs admin sous forme [question => reponse].
+     */
     public function getFAQsAdmin() {
         // Connexion à la bd
         $BD = new GestionBD();
@@ -205,9 +227,13 @@ class Pierre {
         return $faqs;
     }
 
-
-
-
+    /**
+     * Vérifie si un utilisateur possède une pierre spécifique.
+     *
+     * @param string $pseudo Le pseudo de l'utilisateur.
+     * @param string $nom_pierre Le nom de la pierre.
+     * @return bool True si l'utilisateur possède la pierre, sinon false.
+     */
     public function userHasStone($pseudo, $nom_pierre) {
         // Connexion à la bd
         $BD = new GestionBD();
@@ -226,6 +252,13 @@ class Pierre {
         return $count > 0;
     }
 
+    /**
+     * Ajoute une pierre au profil d'un utilisateur.
+     *
+     * @param string $pseudo Le pseudo de l'utilisateur.
+     * @param string $nom_pierre Le nom de la pierre à ajouter.
+     * @return bool True si l'ajout a réussi, false sinon.
+     */
     public function addStoneToUser($pseudo, $nom_pierre) {
         // Connexion à la bd
         $BD = new GestionBD();
@@ -244,7 +277,12 @@ class Pierre {
         return $result;
     }
 
-
+    /**
+     * Récupère le pseudo d'un utilisateur à partir de son adresse email.
+     *
+     * @param string $email L'adresse email de l'utilisateur.
+     * @return string|false Le pseudo de l'utilisateur si trouvé, sinon false.
+     */
     public function getUserPseudoFromEmail($email) {
         // Connexion à la bd
         $BD = new GestionBD();
@@ -264,9 +302,11 @@ class Pierre {
 
 
 
-    /*
-    * Récupère toutes les pierres disponibles 
-    */
+    /**
+     * Récupère toutes les pierres disponibles dans le geodex.
+     *
+     * @return array Tableau d'objets Pierre triés par nom.
+     */
     public function getAllPierres() {
         // Connexion à la bd
         $BD = new GestionBD();
@@ -282,9 +322,12 @@ class Pierre {
         return $pierres;
     }
 
-    /*
-    * Récupère les pierres découvertes par un utilisateur
-    */
+    /**
+     * Récupère les pierres découvertes par un utilisateur.
+     *
+     * @param string $pseudo Le pseudo de l'utilisateur.
+     * @return array Tableau d'objets Pierre découverts par l'utilisateur.
+     */
     public function getUserStones($pseudo) {
         // Connexion à la bd
         $BD = new GestionBD();
@@ -329,6 +372,12 @@ class Pierre {
         return $result;
     }
 
+    /**
+     * Supprime une pierre du geodex par son nom.
+     *
+     * @param string $nom_pierre Le nom de la pierre à supprimer.
+     * @return bool True si la suppression a réussi, false sinon.
+     */
     public function supprimerPierre($nom_pierre) {
         // Connexion à la base de données
         $BD = new GestionBD();

@@ -6,9 +6,19 @@ use bd\GestionBD;
 require_once __DIR__ . '/GestionBD.php';
 require_once __DIR__ . '/../class/Users.php';
 
-
+/**
+ * Classe User
+ * 
+ * Cette classe permet de gérer les utilisateurs dans la base de données. Elle inclut des méthodes pour récupérer, ajouter, modifier, supprimer des utilisateurs,
+ * ainsi que pour gérer leur statut admin.
+ */
 class User {
 
+    /**
+     * Récupère tous les utilisateurs de la base de données.
+     *
+     * @return array Liste des utilisateurs sous forme d'objets.
+     */
     public function getAllUsers() {
         // Connexion à la base de données
         $BD = new GestionBD();
@@ -27,7 +37,12 @@ class User {
         return $users;
     }
 
-    // Récupérer un utilisateur par pseudo
+    /**
+     * Récupère un utilisateur à partir de son pseudo.
+     *
+     * @param string $pseudo Le pseudo de l'utilisateur à rechercher.
+     * @return mixed Un objet utilisateur ou false si non trouvé.
+     */
     public function getUserByPseudo($pseudo) {
         // Connexion à la base de données
         $BD = new GestionBD();
@@ -47,7 +62,12 @@ class User {
         return $user;
     }
 
-    // Récupérer un utilisateur par email
+/**
+     * Récupère un utilisateur à partir de son adresse email.
+     *
+     * @param string $email L'adresse email de l'utilisateur à rechercher.
+     * @return mixed Un objet utilisateur ou false si non trouvé.
+     */
     public function getUserByEmail($email) {
         // Connexion à la base de données
         $BD = new GestionBD();
@@ -67,7 +87,15 @@ class User {
         return $user;
     }
 
-    // Ajouter un utilisateur (NOUVELLE MÉTHODE)
+    /**
+     * Ajoute un nouvel utilisateur dans la base de données.
+     *
+     * @param string  $pseudo   Le pseudo de l'utilisateur.
+     * @param string  $email    L'adresse email de l'utilisateur.
+     * @param string  $password Le mot de passe hashé de l'utilisateur.
+     * @param integer $admin    Statut admin (0 ou 1). Par défaut : 0.
+     * @return bool True si l'insertion a réussi, False sinon.
+     */
     public function ajouterUtilisateur($pseudo, $email, $password, $admin = 0) {
         $BD = new GestionBD();
         $BD->connexion();
@@ -85,8 +113,14 @@ class User {
         return $result;
     }
 
-    // Modifier un utilisateur (NOUVELLE MÉTHODE COMPLÈTE)
-    public function modifierUtilisateur($originalPseudo, $userData) {
+    /**
+     * Modifie les données d'un utilisateur (hors pseudo).
+     *
+     * @param string $originalPseudo Le pseudo d'origine de l'utilisateur.
+     * @param array  $userData       Les nouvelles données à modifier (clé => valeur).
+     * @return bool True si la mise à jour a réussi, False sinon.
+     * @throws \Exception En cas d'erreur d'exécution SQL.
+     */    public function modifierUtilisateur($originalPseudo, $userData) {
         $BD = new GestionBD();
         $BD->connexion();
         
@@ -129,7 +163,14 @@ class User {
         }
     }
 
-    // Modifier un utilisateur (email et mot de passe)
+    /**
+     * Met à jour l'email et le mot de passe d'un utilisateur.
+     *
+     * @param string $pseudo      Le pseudo de l'utilisateur.
+     * @param string $newEmail    Le nouvel email.
+     * @param string $newPassword Le nouveau mot de passe hashé.
+     * @return bool True si la mise à jour a réussi, False sinon.
+     */
     public function updateUser($pseudo, $newEmail, $newPassword) {
         $BD = new GestionBD();
         $BD->connexion();
@@ -147,7 +188,13 @@ class User {
         return $result;
     }
     
-    // Mettre à jour uniquement l'email d'un utilisateur
+    /**
+     * Met à jour uniquement l'email d'un utilisateur.
+     *
+     * @param string $pseudo   Le pseudo de l'utilisateur.
+     * @param string $newEmail Le nouvel email.
+     * @return bool True si la mise à jour a réussi, False sinon.
+     */    
     public function updateUserEmail($pseudo, $newEmail) {
         $BD = new GestionBD();
         $BD->connexion();
@@ -163,12 +210,22 @@ class User {
         return $result;
     }
 
-    // Supprimer un utilisateur (RENOMMER LA MÉTHODE)
+    /**
+     * Supprime un utilisateur (alias de deleteUser).
+     *
+     * @param string $pseudo Le pseudo de l'utilisateur à supprimer.
+     * @return bool True si la suppression a réussi, False sinon.
+     */    
     public function supprimerUtilisateur($pseudo) {
         return $this->deleteUser($pseudo);
     }
 
-    // Supprimer un utilisateur
+    /**
+     * Supprime un utilisateur de la base de données.
+     *
+     * @param string $pseudo Le pseudo de l'utilisateur à supprimer.
+     * @return bool True si la suppression a réussi, False sinon.
+     */    
     public function deleteUser($pseudo) {
         // Connexion à la base de données
         $BD = new GestionBD();
@@ -186,7 +243,13 @@ class User {
         return $result;
     }
 
-    // Mettre à jour le statut admin (NOUVELLE MÉTHODE)
+    /**
+     * Met à jour le statut admin d'un utilisateur.
+     *
+     * @param string  $pseudo      Le pseudo de l'utilisateur.
+     * @param integer $adminStatus 1 pour admin, 0 pour utilisateur simple.
+     * @return bool True si la mise à jour a réussi, False sinon.
+     */    
     public function toggleAdmin($pseudo, $adminStatus) {
         // Connexion à la base de données
         $BD = new GestionBD();
@@ -205,7 +268,12 @@ class User {
         return $result;
     }
 
-    // Passer un utilisateur au rôle admin / non-admin (basculer)
+    /**
+     * Bascule le statut admin d'un utilisateur (admin ↔ non-admin).
+     *
+     * @param string $pseudo Le pseudo de l'utilisateur.
+     * @return bool True si la mise à jour a réussi, False sinon.
+     */    
     public function toggleAdminSwitch($pseudo) {
         // Connexion à la base de données
         $BD = new GestionBD();
@@ -223,7 +291,12 @@ class User {
         return $result;
     }
 
-    // Vérifier si un utilisateur est admin
+    /**
+     * Vérifie si un utilisateur est administrateur.
+     *
+     * @param string $pseudo Le pseudo de l'utilisateur.
+     * @return mixed 1 si admin, 0 si non, false si l'utilisateur n'existe pas.
+     */    
     public function isAdminStatus($pseudo) {
         // Connexion à la base de données
         $BD = new GestionBD();

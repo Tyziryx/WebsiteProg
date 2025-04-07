@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Script pour ajouter une pierre avec une rareté spécifique à la base de données.
+ * Ce script gère la réception des données via une requête POST, valide les champs, et tente d'ajouter une nouvelle pierre dans la base de données.
+ * Si l'ajout réussit, l'utilisateur est redirigé vers la page de gestion des pierres. En cas d'erreur, un message JSON est renvoyé.
+ *
+ * @package Gestion des pierres
+ */
+
+
 // Inclure la classe Pierre et la gestion de la base de données
 require_once __DIR__ . '/../../config/Pierre.php';
 

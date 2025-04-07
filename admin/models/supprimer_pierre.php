@@ -1,4 +1,18 @@
 <?php
+
+/**
+ * Script pour supprimer une pierre.
+ * 
+ * Ce script permet de supprimer une pierre spécifiée par son nom. 
+ * Si un nom de pierre est passé dans l'URL, la pierre correspondante est supprimée 
+ * en appelant la méthode `supprimerPierre` de la classe `Pierre`. 
+ * En cas de succès, un message de confirmation est affiché, et l'utilisateur est redirigé 
+ * vers la page principale après 2 secondes. Si une erreur se produit, un message d'erreur est affiché.
+ * 
+ * @package Gestion des pierres
+ */
+
+ 
 // Inclure la classe Pierre
 require_once __DIR__ . '/../../config/Pierre.php';
 

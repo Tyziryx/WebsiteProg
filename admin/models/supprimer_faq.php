@@ -1,4 +1,17 @@
 <?php
+
+/**
+ * Script pour supprimer une FAQ.
+ * 
+ * Ce script permet de supprimer une question de la FAQ en vérifiant que la requête est en méthode GET
+ * et que le champ nécessaire (question) est fourni. Il nettoie l'entrée pour éviter les attaques XSS
+ * et tente ensuite de supprimer la FAQ en appelant la méthode `supprimerFaq` de la classe `Pierre`.
+ * En cas de succès, une redirection vers la page de gestion de la FAQ est effectuée avec un message de succès,
+ * sinon un message d'erreur est renvoyé.
+ * 
+ * @package Gestion des FAQ
+ */
+
 // Inclure la classe Pierre
 require_once __DIR__ . '/../../config/Pierre.php';
 

@@ -1,4 +1,15 @@
 <?php
+
+/**
+ * Script de mise à jour des informations d'une pierre.
+ * 
+ * Ce script permet de supprimer une pierre existante et d'ajouter une nouvelle pierre avec des informations mises à jour, 
+ * telles que son nom, sa description et sa rareté. Il s'exécute lorsque le formulaire est soumis en méthode POST.
+ * 
+ * @package Gestion des pierres
+ */
+
+
 // Inclure les fichiers nécessaires
 require_once __DIR__ . '/../../config/Pierre.php';
 

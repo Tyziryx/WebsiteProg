@@ -1,15 +1,44 @@
 <?php
+
+/**
+ * Script de modification des informations d'un utilisateur.
+ * 
+ * Ce script permet de modifier les informations d'un utilisateur, y compris son email, son mot de passe et ses droits d'administrateur.
+ * Il vérifie que toutes les données nécessaires sont fournies, valide les informations (comme le format de l'email),
+ * puis met à jour les données de l'utilisateur dans la base de données.
+ * 
+ * Si une erreur survient (mauvais format, email déjà utilisé, utilisateur non trouvé, etc.), l'utilisateur est redirigé
+ * vers la page de gestion avec un message d'erreur.
+ * Si la modification réussit, l'utilisateur est redirigé avec un message de succès.
+ *
+ * @package Gestion des utilisateurs
+ */
+
 // Inclure les fichiers nécessaires
 require_once __DIR__ . '/../../config/GestionBD.php';
 require_once __DIR__ . '/../../config/Users.php';
 
-// Vérifier si la requête est en POST
+/**
+ * Vérification de la méthode de la requête.
+ * 
+ * Ce script ne doit être exécuté que pour une requête POST.
+ * Si la requête n'est pas en POST, redirige l'utilisateur vers la page de gestion avec un message d'erreur.
+ * 
+ * @return void
+ */
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../manage_users?status=error&message=Méthode non autorisée.');
     exit;
 }
 
-// Vérifier si tous les champs obligatoires sont remplis
+/**
+ * Vérification de la présence des données obligatoires.
+ * 
+ * Ce script vérifie que les champs 'originalPseudo' et 'email' sont remplis.
+ * Si l'un de ces champs est vide, l'utilisateur est redirigé avec un message d'erreur.
+ * 
+ * @return void
+ */
 if (empty($_POST['originalPseudo']) || empty($_POST['email'])) {
     header('Location: ../manage_users?status=error&message=Données incomplètes.');
     exit;
@@ -21,7 +50,14 @@ $email = htmlspecialchars(trim($_POST['email']));
 $password = !empty($_POST['password']) ? $_POST['password'] : null;
 $admin = isset($_POST['admin']) ? (int)$_POST['admin'] : 0;
 
-// Valider l'email
+/**
+ * Validation de l'email.
+ * 
+ * Le format de l'email est validé à l'aide de la fonction filter_var.
+ * Si l'email est invalide, l'utilisateur est redirigé avec un message d'erreur.
+ * 
+ * @return void
+ */
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     header('Location: ../manage_users?status=error&message=Format d\'email invalide.');
     exit;

@@ -1,4 +1,19 @@
 <?php
+
+/**
+ * Script pour supprimer un utilisateur.
+ * 
+ * Ce script permet de supprimer un utilisateur spécifié par son pseudo.
+ * 
+ * Il vérifie si un pseudo a été fourni, puis tente de supprimer l'utilisateur
+ * en utilisant la méthode `supprimerUtilisateur` de la classe `User`. 
+ * Si la suppression est réussie, l'utilisateur est redirigé vers la page de gestion des utilisateurs 
+ * avec un message de succès. En cas d'erreur, un message d'erreur est renvoyé.
+ * 
+ * @package Gestion des utilisateurs
+ */
+
+ 
 // Inclure les fichiers nécessaires
 require_once __DIR__ . '/../../config/GestionBD.php';
 require_once __DIR__ . '/../../config/Users.php';

@@ -1,4 +1,15 @@
 <?php
+
+/**
+ * Script pour ajouter une FAQ (question et réponse) dans la base de données.
+ * Ce script vérifie que les champs nécessaires sont envoyés via une requête POST, nettoie les entrées pour éviter les attaques XSS,
+ * et tente d'ajouter la FAQ dans la base de données. Si l'ajout réussit, l'utilisateur est redirigé vers la page de gestion des FAQ.
+ * En cas d'erreur, un message JSON est renvoyé.
+ *
+ * @package Gestion des FAQ
+ */
+
+ 
 require_once __DIR__ . '/../../config/Pierre.php';
 
 header('Content-Type: application/json');

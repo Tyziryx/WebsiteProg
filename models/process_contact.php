@@ -7,7 +7,20 @@ if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST
 }
 ?>
 <?php
-// Fonction pour journaliser les messages
+/**
+ * Journalise un message provenant du formulaire de contact.
+ *
+ * Cette fonction écrit les informations (date, statut, nom, email, message)
+ * dans un fichier log situé dans le répertoire /logs.
+ * Le dossier est créé s’il n’existe pas.
+ *
+ * @param string $status  Le statut du message (ex. "success" ou "error").
+ * @param string $name    Le nom de l'utilisateur ayant envoyé le message.
+ * @param string $email   L'adresse e-mail de l'utilisateur.
+ * @param string $message Le contenu du message.
+ *
+ * @return bool True si l’écriture dans le fichier a réussi, False sinon.
+ */
 function logMessage($status, $name, $email, $message) {
     $log_dir = __DIR__ . '/../logs';
     if (!file_exists($log_dir)) {
