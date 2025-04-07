@@ -6,6 +6,8 @@ if (!isset($_SESSION['email'])) {
     exit;
 }
 
+require_once __DIR__ . '/../models/auth_check.php';
+
 $racine_path = './';
 ?>
 

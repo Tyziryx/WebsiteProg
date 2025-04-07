@@ -5,6 +5,8 @@ if (!isset($_SESSION['email'])) {
     header("Location: ./");
     exit;
 }
+require_once __DIR__ . '/../models/auth_check.php';
+
 
 // Inclure les fichiers nécessaires
 require_once __DIR__ . '/../../class/Users.php';

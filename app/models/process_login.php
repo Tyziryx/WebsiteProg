@@ -50,7 +50,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          * Si l'utilisateur est authentifié, on démarre une session et on stocke l'email dans la session.
          * L'utilisateur est ensuite redirigé vers la page du tableau de bord.
          */
+        // Session classique
         $_SESSION['email'] = $user['email'];
+
+        // Cookie valable 30 jours
+        setcookie('session_user', $user['email'], time() + (86400 * 30), "/");
+        setcookie('session_date', date('Y-m-d H:i:s'), time() + (86400 * 30), "/");
+
+        // Redirection vers dashboard
         header("Location: ../dashboard");
         exit;
     } else {
