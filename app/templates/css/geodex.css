@@ -1,7 +1,7 @@
 .geodex-container {
     padding: 2rem;
-    margin-top: 40px; /* Encore réduit pour monter le contenu */
-    margin-left: 210px; 
+    margin-top: 40px;
+    margin-left: 210px; /* Marge pour desktop uniquement */
     background-color: var(--white);
 }
 
@@ -269,9 +269,11 @@
 /* Responsive */
 @media (max-width: 768px) {
     .geodex-container {
-        margin-left: 0;
+        margin-left: 0; /* Supprimer la marge gauche sur mobile */
         padding: 1rem;
-        margin-top: 60px;
+        width: 100%;
+        margin-top: 60px; /* Plus d'espace en haut pour le bouton burger */
+        overflow-x: hidden; /* Éviter le défilement horizontal */
     }
     
     .geodex-grid {

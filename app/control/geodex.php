@@ -11,6 +11,10 @@ require_once __DIR__ . '/../../config/Pierre.php';
 $racine_path = './';
 
 if (isset($_GET['id'])) {
+    // Décoder l'URL pour récupérer le nom original de la pierre
+    $id = urldecode($_GET['id']);
+    $_GET['id'] = $id; // Mettre à jour la variable GET pour description.php
+    
     $racine_path = '../';
     include '../templates/description.php';
 } else {

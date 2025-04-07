@@ -1,7 +1,7 @@
 <?php 
 require_once __DIR__ . '/../../config/Pierre.php';
 $pierreModel = new \bd\Pierre();
-$nom_pierre = isset($_GET['id']) ? $_GET['id'] : '';
+$nom_pierre = isset($_GET['id']) ? urldecode($_GET['id']) : '';
 
 if (!$nom_pierre) {
     echo '<div class="error-message">Nom de pierre invalide.</div>';

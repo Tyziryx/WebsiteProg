@@ -8,6 +8,8 @@
     top: 0;
     left: 0;
     padding-top: 20px;
+    z-index: 1000; /* Augmenter l'indice z-index */
+    transition: transform 0.3s ease; /* Ajouter une transition fluide */
 }
 
 .sidebar-header {
@@ -79,10 +81,12 @@
     .sidebar {
         transform: translateX(-100%);
         transition: transform 0.3s ease;
+        z-index: 1050; /* Augmenter encore plus pour mobile */
     }
 
     .sidebar.active {
         transform: translateX(0);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Ajouter une ombre pour plus de profondeur */
     }
 
     .sidebar-header .close {

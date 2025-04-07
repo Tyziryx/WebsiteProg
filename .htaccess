@@ -15,7 +15,7 @@ RewriteRule ^mentions_legales/?$ control/mention_legal.php [L]
 RewriteRule ^app$ app/index.php [L]
 RewriteRule ^app/dashboard$ app/control/dashboard.php [L]
 RewriteRule ^app/geodex$ app/control/geodex.php [L]
-RewriteRule ^app/geodex/([a-zA-Z0-9_-]+)$ app/control/geodex.php?id=$1 [L,QSA]
+RewriteRule ^app/geodex/([^/]+)$ app/control/geodex.php?id=$1 [L,QSA]
 RewriteRule ^app/profil$ app/control/profil.php [L]
 
 # ----------- URLS ADMIN ---------------
