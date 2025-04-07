@@ -4,7 +4,7 @@
    SECTION HERO 
    ============================ */
 .hero {
-    background-color: var(--white);    
+    background-color: var(--white);
     margin: 0;
     padding: 0;
     min-width: 100vw;
@@ -68,7 +68,7 @@
     left: -50px;
     width: 200px;
     height: 200px;
-    background: radial-gradient(circle, var(--secondary-color) 0%, rgba(255,255,255,0) 70%);
+    background: radial-gradient(circle, var(--secondary-color) 0%, rgba(255, 255, 255, 0) 70%);
     opacity: 0.1;
     border-radius: 50%;
     z-index: 1;
@@ -81,7 +81,7 @@
     right: -100px;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, var(--main-color) 0%, rgba(255,255,255,0) 70%);
+    background: radial-gradient(circle, var(--main-color) 0%, rgba(255, 255, 255, 0) 70%);
     opacity: 0.1;
     border-radius: 50%;
     z-index: 1;
@@ -128,13 +128,17 @@
    CONTENEUR DE TEXTE - Version améliorée et plus élégante
    ============================ */
 .text-container {
-    width: 45%;  /* Légèrement réduit de 50% à 45% */
+    width: 45%;
+    /* Légèrement réduit de 50% à 45% */
     text-align: left;
     position: relative;
-    max-width: 500px;  /* Réduit de 550px à 500px */
-    padding: 35px;  /* Réduit de 40px à 35px */
+    max-width: 500px;
+    /* Réduit de 550px à 500px */
+    padding: 35px;
+    /* Réduit de 40px à 35px */
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.97), rgba(252, 252, 252, 0.92));
-    border-radius: 16px;  /* Réduit de 20px à 16px */
+    border-radius: 16px;
+    /* Réduit de 20px à 16px */
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06), 0 4px 8px rgba(0, 0, 0, 0.03);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.7);
@@ -162,10 +166,13 @@
    TITRE ET CONTENU - Plus élégant et lisible
    ============================ */
 .title-content {
-    font-size: 2.6rem;  /* Réduit de 3rem à 2.6rem */
-    font-weight: 700;  /* Réduit de 800 à 700 */
+    font-size: 2.6rem;
+    /* Réduit de 3rem à 2.6rem */
+    font-weight: 700;
+    /* Réduit de 800 à 700 */
     color: var(--main-color);
-    margin-bottom: 1.8rem;  /* Réduit de 2rem à 1.8rem */
+    margin-bottom: 1.8rem;
+    /* Réduit de 2rem à 1.8rem */
     position: relative;
     display: inline-block;
     letter-spacing: -0.5px;
@@ -178,9 +185,12 @@
     content: "";
     position: absolute;
     left: 0;
-    bottom: -12px;  /* Réduit de -15px à -12px */
-    width: 100px;  /* Réduit de 120px à 100px */
-    height: 4px;  /* Réduit de 6px à 4px */
+    bottom: -12px;
+    /* Réduit de -15px à -12px */
+    width: 100px;
+    /* Réduit de 120px à 100px */
+    height: 4px;
+    /* Réduit de 6px à 4px */
     background: linear-gradient(90deg, var(--main-color), var(--secondary-color), var(--main-color));
     background-size: 200% 100%;
     animation: gradient-shift 3s linear infinite;
@@ -189,26 +199,35 @@
 }
 
 .content-wrapper.active:hover .title-content::after {
-    width: 120px;  /* Réduit de 140px à 120px */
+    width: 120px;
+    /* Réduit de 140px à 120px */
     opacity: 0.9;
 }
 
 .text-content {
-    font-size: 1.1rem;  /* Réduit de 1.2rem à 1.1rem */
-    line-height: 1.8;  /* Réduit de 1.9 à 1.8 */
+    font-size: 1.1rem;
+    /* Réduit de 1.2rem à 1.1rem */
+    line-height: 1.8;
+    /* Réduit de 1.9 à 1.8 */
     color: var(--black);
-    text-align: left;  /* Changé de justify à left pour une meilleure lisibilité */
-    margin-top: 2rem;  /* Réduit de 2.4rem à 2rem */
+    text-align: left;
+    /* Changé de justify à left pour une meilleure lisibilité */
+    margin-top: 2rem;
+    /* Réduit de 2.4rem à 2rem */
     font-weight: 400;
     position: relative;
-    padding-left: 15px;  /* Réduit de 18px à 15px */
-    border-left: 3px solid var(--secondary-color);  /* Réduit de 4px à 3px */
+    padding-left: 15px;
+    /* Réduit de 18px à 15px */
+    border-left: 3px solid var(--secondary-color);
+    /* Réduit de 4px à 3px */
     text-shadow: none;
 }
 
 .text-content::first-letter {
-    font-size: 1.6em;  /* Réduit de 1.8em à 1.6em */
-    font-weight: 600;  /* Réduit de 700 à 600 */
+    font-size: 1.6em;
+    /* Réduit de 1.8em à 1.6em */
+    font-weight: 600;
+    /* Réduit de 700 à 600 */
     color: var(--main-color);
     margin-right: 2px;
 }
@@ -244,7 +263,7 @@
 /* ============================
    ESPACE POUR SCROLL
    ============================ */
-   .spacer {
+.spacer {
     height: 1000vh;
     margin-top: 100vh;
     background-color: var(--white);
@@ -278,24 +297,25 @@
         height: auto;
         min-height: 100vh;
     }
-    
+
     .image-container {
         width: 400px;
         height: 400px;
         margin-top: 50px;
         margin-right: 0;
     }
-    
+
     .text-container {
-        width: 85%;  /* Modifié de 90% à 85% */
+        width: 85%;
+        /* Modifié de 90% à 85% */
         max-width: 550px;
         padding: 30px;
     }
-    
+
     .title-content {
         font-size: 2.4rem;
     }
-    
+
     .scroll-index {
         position: fixed;
         left: 10px;
@@ -308,21 +328,21 @@
         width: 340px;
         height: 340px;
     }
-    
+
     .text-container {
         padding: 25px;
     }
-    
+
     .title-content {
         font-size: 2.2rem;
     }
-    
+
     .text-content {
         font-size: 1.05rem;
         line-height: 1.7;
         padding-left: 12px;
     }
-    
+
     .index-bar {
         width: 4px;
         height: 25px;
@@ -334,15 +354,15 @@
         width: 300px;
         height: 300px;
     }
-    
+
     .text-container {
         padding: 25px;
     }
-    
+
     .title-content {
         font-size: 2rem;
     }
-    
+
     .text-content {
         font-size: 1rem;
         line-height: 1.6;

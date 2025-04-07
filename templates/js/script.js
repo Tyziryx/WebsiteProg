@@ -1,5 +1,3 @@
-// Version nettoyée - supprime les duplications et garde seulement les fonctionnalités essentielles
-
 // Défilement pour changer les images
 document.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
@@ -33,10 +31,10 @@ document.querySelectorAll(".index-bar").forEach(bar => {
 document.addEventListener("scroll", () => {
     const scrollSection = document.querySelector(".fixed-section");
     if (!scrollSection) return;
-    
+
     const hero = document.querySelector(".hero");
     if (!hero) return;
-    
+
     const heroHeight = hero.offsetHeight;
     const spacer = document.querySelector(".spacer");
     const endFixedPoint = heroHeight + (spacer ? spacer.offsetHeight : 0);
@@ -49,15 +47,15 @@ document.addEventListener("scroll", () => {
 });
 
 // Navigation mobile et header
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const navbar = document.querySelector('.navbar');
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
     const navLinks = document.querySelector('.nav-links');
     const overlay = document.querySelector('.overlay');
-    
+
     if (navbar && mobileNavToggle && navLinks && overlay) {
         let isMenuOpen = false;
-        
+
         // Effet de défilement pour la navbar
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -66,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 navbar.classList.remove('scrolled');
             }
         });
-        
+
         // Toggle du menu mobile
         function toggleMenu() {
             isMenuOpen = !isMenuOpen;
@@ -75,21 +73,21 @@ document.addEventListener("DOMContentLoaded", function() {
             overlay.classList.toggle('active');
             document.body.style.overflow = isMenuOpen ? 'hidden' : '';
         }
-        
+
         mobileNavToggle.addEventListener('click', toggleMenu);
-        
+
         // Fermer le menu mobile sur clic des liens
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 if (isMenuOpen) toggleMenu();
             });
         });
-        
+
         // Fermer le menu avec la touche Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && isMenuOpen) toggleMenu();
         });
-        
+
         // Ajustement pour le redimensionnement de l'écran
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768 && isMenuOpen) {
@@ -97,10 +95,10 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-    
+
     const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(function(question) {
-        question.addEventListener('click', function() {
+    faqQuestions.forEach(function (question) {
+        question.addEventListener('click', function () {
             const faqItem = this.parentElement;
             faqItem.classList.toggle('active');
         });
@@ -108,55 +106,55 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Gestion de la FAQ - modifier pour que le clic fonctionne sur toute la carte
     const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(function(item) {
-        item.addEventListener('click', function() {
+    faqItems.forEach(function (item) {
+        item.addEventListener('click', function () {
             this.classList.toggle('active');
         });
     });
 });
 const navbar = document.querySelector('.navbar');
-        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        const overlay = document.querySelector('.overlay');
-        let isMenuOpen = false;
+const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+const overlay = document.querySelector('.overlay');
+let isMenuOpen = false;
 
-        // Scroll effect
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+// Scroll effect
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
 
-        // Toggle mobile menu
-        function toggleMenu() {
-            isMenuOpen = !isMenuOpen;
-            mobileNavToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = isMenuOpen ? 'hidden' : '';
-        }
+// Toggle mobile menu
+function toggleMenu() {
+    isMenuOpen = !isMenuOpen;
+    mobileNavToggle.classList.toggle('active');
+    navLinks.classList.toggle('active');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+}
 
-        mobileNavToggle.addEventListener('click', toggleMenu);
-        overlay.addEventListener('click', toggleMenu);
+mobileNavToggle.addEventListener('click', toggleMenu);
+overlay.addEventListener('click', toggleMenu);
 
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (isMenuOpen) toggleMenu();
-            });
-        });
+// Close mobile menu when clicking a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (isMenuOpen) toggleMenu();
+    });
+});
 
-        // Close menu on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && isMenuOpen) toggleMenu();
-        });
+// Close menu on escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isMenuOpen) toggleMenu();
+});
 
-        // Prevent scroll when menu is open
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768 && isMenuOpen) {
-                toggleMenu();
-            }
-        });
+// Prevent scroll when menu is open
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && isMenuOpen) {
+        toggleMenu();
+    }
+});
 
