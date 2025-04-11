@@ -18,6 +18,7 @@ RewriteRule ^app/geodex$ app/control/geodex.php [L]
 RewriteRule ^app/geodex/([^/]+)$ app/control/geodex.php?id=$1 [L,QSA]
 RewriteRule ^app/profil$ app/control/profil.php [L]
 
+
 # ----------- URLS ADMIN ---------------
 RewriteRule ^admin$ admin/index.php [L]
 RewriteRule ^admin/manage_home$ admin/control/manage_home.php [L]

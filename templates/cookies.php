@@ -24,7 +24,7 @@ if(isset($_POST['accept_cookies'])) {
         <div class="cookie-buttons">
             <form method="post">
                 <button type="submit" name="accept_cookies" class="cookie-accept">Accepter</button>
-                <a href="control/mention_legal" class="cookie-more">En savoir plus</a>
+                <a href="mentions_legales" class="cookie-more">En savoir plus</a>
             </form>
         </div>
     </div>
