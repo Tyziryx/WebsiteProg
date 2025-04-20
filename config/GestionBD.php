@@ -28,6 +28,12 @@ class GestionBD{
         try{
             $this->pdo = new \PDO("pgsql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_NAME, DB_USER, DB_PASSWORD);
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            
+            // Définir le schéma par défaut
+            if(defined('DB_SCHEMA')) {
+                $this->pdo->exec("SET search_path TO ".DB_SCHEMA);
+            }
+            
             return $this->pdo;
         }catch(\PDOException $e){
             echo 'Exception PDO : '.$e->getMessage();
