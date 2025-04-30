@@ -15,7 +15,7 @@ session_start();
 // Détruire la session
 session_destroy();
 
-// Supprimer les cookies de session
+// Supprimer les cookies de session avec le bon chemin
 setcookie('session_user', '', time() - 3600, '/');
 setcookie('session_date', '', time() - 3600, '/');
 

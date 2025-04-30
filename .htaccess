@@ -12,11 +12,13 @@ RewriteRule ^mentions_legales/?$ control/mention_legal.php [L]
 
 
 # ----------- URLS GEODEX --------------
+RewriteRule ^app/?$ app/index.php [L]
 RewriteRule ^app$ app/index.php [L]
 RewriteRule ^app/dashboard$ app/control/dashboard.php [L]
 RewriteRule ^app/geodex$ app/control/geodex.php [L]
 RewriteRule ^app/geodex/([^/]+)$ app/control/geodex.php?id=$1 [L,QSA]
 RewriteRule ^app/profil$ app/control/profil.php [L]
+RewriteRule ^app/login$ app/index.php?page=login [L,QSA]
 
 
 # ----------- URLS ADMIN ---------------
