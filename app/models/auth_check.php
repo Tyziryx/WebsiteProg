@@ -4,14 +4,19 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Vérifier les cookies et la session
+// Si le cookie existe mais que la session n'est pas définie, récupérer les données du cookie
+if (isset($_COOKIE['session_user']) && !isset($_SESSION['email'])) {
+    $_SESSION['email'] = $_COOKIE['session_user'];
+}
+
+// Vérifier les cookies et la session après avoir essayé de restaurer la session
 if (!isset($_COOKIE['session_user']) || !isset($_COOKIE['session_date']) || !isset($_SESSION['email'])) {
     // Supprimer les cookies qui pourraient être invalides
     setcookie('session_user', '', time() - 3600, '/');
     setcookie('session_date', '', time() - 3600, '/');
     
-    // Utiliser un chemin absolu pour la redirection
-    header('Location: ' . getBaseUrl() . 'app/index.php?page=login');
+    // Redirection en utilisant un chemin relatif plus fiable
+    header('Location: ../index.php?page=login');
     exit();
 }
 
@@ -23,7 +28,7 @@ $thirtyDaysInSeconds = 30 * 24 * 60 * 60;
 if ($currentDate - $sessionDate > $thirtyDaysInSeconds) {
     setcookie('session_user', '', time() - 3600, '/');
     setcookie('session_date', '', time() - 3600, '/');
-    header('Location: ' . getBaseUrl() . 'app/index.php?page=login');
+    header('Location: ../index.php?page=login');
     exit();
 }
 
