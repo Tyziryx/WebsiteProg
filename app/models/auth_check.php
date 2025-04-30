@@ -1,50 +1,52 @@
 <?php
-// Démarrer la session si nécessaire
+// Démarrer la session avec des paramètres explicites
+ini_set('session.cookie_path', '/');
+ini_set('session.use_cookies', 1);
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Pour déboguer: afficher un commentaire indiquant où on est
-// error_log("Auth check - Session: " . json_encode($_SESSION) . " Cookies: " . json_encode($_COOKIE));
-
-// TEMPORAIRE: Bypass d'authentification pour diagnostic
-if (isset($_GET['bypass'])) {
-    $_SESSION['email'] = 'bypass@example.com';
-    echo "Session définie via bypass. <a href='dashboard'>Continuer</a>";
-    exit;
-}
-
-// Si les cookies sont présents mais la session absente
+// CORRECTIF SPÉCIAL IONOS: Restauration forcée de session depuis cookies
 if (isset($_COOKIE['session_user']) && !isset($_SESSION['email'])) {
     $_SESSION['email'] = $_COOKIE['session_user'];
-    // S'assurer que la session est sauvegardée immédiatement
+    
+    // Force-sauvegarder la session
     session_write_close();
     session_start();
+    
+    // Double vérification - si toujours pas défini, utiliser une solution alternative
+    if (!isset($_SESSION['email'])) {
+        // Définir une variable globale si la session échoue
+        define('USER_EMAIL', $_COOKIE['session_user']);
+    }
 }
 
-// Vérification simplifiée sans redirection en boucle
-if (!isset($_SESSION['email'])) {
+// Utiliser la variable de session ou la constante de secours
+$current_user = isset($_SESSION['email']) ? $_SESSION['email'] : (defined('USER_EMAIL') ? USER_EMAIL : null);
+
+// Vérification simplifiée
+if (!$current_user) {
     // Si la page courante n'est pas déjà la page de login
     if (!isset($_GET['page']) || $_GET['page'] !== 'login') {
-        // Supprimer les cookies potentiellement problématiques
+        // Supprimer les cookies
         setcookie('session_user', '', time() - 3600, '/');
         setcookie('session_date', '', time() - 3600, '/');
         
-        // Rediriger vers la page de login
-        header("Location: ./index.php?page=login&reason=no_session");
+        // Redirection vers login avec une redirection explicite (chemin absolu)
+        $base_path = dirname($_SERVER['PHP_SELF']);
+        if (substr($base_path, -1) !== '/') {
+            $base_path .= '/';
+        }
+        header("Location: {$base_path}index.php?page=login&reason=no_session");
         exit;
     }
-    // Sinon, ne rien faire car on est déjà sur la page de login
 }
 
-// Si on arrive ici, l'authentification est réussie
-// Rafraîchir les cookies si nécessaire en utilisant la syntaxe compatible
-if (isset($_SESSION['email'])) {
+// Rafraîchir les cookies avec paramètres explicites
+if ($current_user) {
     $expire = time() + (86400 * 30); // 30 jours
-    $path = "/";
-    
-    // Utiliser la syntaxe compatible pour tous les PHP
-    setcookie('session_user', $_SESSION['email'], $expire, $path);
-    setcookie('session_date', date('Y-m-d H:i:s'), $expire, $path);
+    setcookie('session_user', $current_user, $expire, '/');
+    setcookie('session_date', date('Y-m-d H:i:s'), $expire, '/'); 
 }
 ?>
