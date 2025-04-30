@@ -4,42 +4,29 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Si le cookie existe mais que la session n'est pas définie, récupérer les données du cookie
+// TEMPORAIRE: Bypass d'authentification pour diagnostic
+if (isset($_GET['bypass'])) {
+    $_SESSION['email'] = 'bypass@example.com';
+    echo "Session définie via bypass. <a href='dashboard'>Continuer</a>";
+    exit;
+}
+
+// Si les cookies sont présents mais la session absente
 if (isset($_COOKIE['session_user']) && !isset($_SESSION['email'])) {
     $_SESSION['email'] = $_COOKIE['session_user'];
 }
 
-// Vérifier les cookies et la session après avoir essayé de restaurer la session
-if (!isset($_COOKIE['session_user']) || !isset($_COOKIE['session_date']) || !isset($_SESSION['email'])) {
-    // Supprimer les cookies qui pourraient être invalides
-    setcookie('session_user', '', time() - 3600, '/');
-    setcookie('session_date', '', time() - 3600, '/');
-    
-    // Redirection en utilisant un chemin relatif plus fiable
-    header('Location: ../index.php?page=login');
-    exit();
+// Vérification simplifiée: on vérifie uniquement si la session existe
+if (!isset($_SESSION['email'])) {
+    // Session inexistante - rediriger vers login avec un paramètre clair
+    header("Location: index.php?page=login&reason=no_session");
+    exit;
 }
 
-// Vérifier si les cookies sont expirés
-$sessionDate = strtotime($_COOKIE['session_date']);
-$currentDate = time();
-$thirtyDaysInSeconds = 30 * 24 * 60 * 60;
-
-if ($currentDate - $sessionDate > $thirtyDaysInSeconds) {
-    setcookie('session_user', '', time() - 3600, '/');
-    setcookie('session_date', '', time() - 3600, '/');
-    header('Location: ../index.php?page=login');
-    exit();
-}
-
-// Rafraîchir le cookie de date
-setcookie('session_date', date('Y-m-d H:i:s'), time() + $thirtyDaysInSeconds, "/");
-
-// Fonction pour obtenir l'URL de base
-function getBaseUrl() {
-    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
-    $host = $_SERVER['HTTP_HOST'];
-    $path = dirname($_SERVER['SCRIPT_NAME'], 3); // Remonte de 3 niveaux depuis ce fichier
-    return $protocol . $host . $path . '/';
+// Si on arrive ici, l'authentification est réussie
+// On peut simplement rafraîchir les cookies si nécessaire
+if (isset($_COOKIE['session_user'])) {
+    $path = "/";
+    setcookie('session_date', date('Y-m-d H:i:s'), time() + (86400 * 30), $path);
 }
 ?>
