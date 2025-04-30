@@ -55,11 +55,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Session classique
         $_SESSION['email'] = $user['email'];
 
-        // Cookie valable 30 jours
-        setcookie('session_user', $user['email'], time() + (86400 * 30), "/");
-        setcookie('session_date', date('Y-m-d H:i:s'), time() + (86400 * 30), "/");
+        // Cookie valable 30 jours avec chemin absolu et domaine spécifique
+        $path = "/";
+        $secure = false; // true si HTTPS
+        $httponly = true;
+        
+        // Définir correctement les cookies pour tout le site
+        setcookie('session_user', $user['email'], [
+            'expires' => time() + (86400 * 30),
+            'path' => $path,
+            'secure' => $secure,
+            'httponly' => $httponly,
+            'samesite' => 'Lax'
+        ]);
+        
+        setcookie('session_date', date('Y-m-d H:i:s'), [
+            'expires' => time() + (86400 * 30),
+            'path' => $path,
+            'secure' => $secure,
+            'httponly' => $httponly, 
+            'samesite' => 'Lax'
+        ]);
 
-        // Redirection vers dashboard
+        // Redirection vers dashboard (utilisez un chemin absolu)
         header("Location: ../dashboard");
         exit;
     } else {
