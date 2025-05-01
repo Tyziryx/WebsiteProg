@@ -4,20 +4,26 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Si l'utilisateur a déjà les cookies de session valides, on le redirige vers le dashboard
+// Récupérer la page de destination après login (par défaut: dashboard)
+$destination = isset($_GET['redirect']) ? $_GET['redirect'] : 'dashboard';
+
+// Si l'utilisateur a déjà les cookies de session valides
 if (isset($_COOKIE['session_user']) && isset($_COOKIE['session_date'])) {
-    // Supprimer l'echo de debug qui affiche "cookie ok"
-    // echo ('cookie ok'); <- SUPPRIMER CETTE LIGNE
     $sessionDate = strtotime($_COOKIE['session_date']);
     $currentDate = time();
     $thirtyDaysInSeconds = 30 * 24 * 60 * 60;
 
     if ($currentDate - $sessionDate <= $thirtyDaysInSeconds) {
-        // Optionnel : rafraîchir la date du cookie
+        // Rafraîchir la date du cookie
         setcookie('session_date', date('Y-m-d H:i:s'), time() + $thirtyDaysInSeconds, "/");
+        
+        // Restaurer la session si nécessaire
+        if (!isset($_SESSION['email'])) {
+            $_SESSION['email'] = $_COOKIE['session_user'];
+        }
 
-        // Redirection vers le dashboard
-        header('Location: ./dashboard');
+        // Redirection vers la page demandée ou dashboard par défaut
+        header('Location: ./' . $destination);
         exit();
     }
 }
