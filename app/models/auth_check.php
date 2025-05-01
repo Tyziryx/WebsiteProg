@@ -1,53 +1,56 @@
 <?php
-// Démarrer la session avec des paramètres explicites
-ini_set('session.cookie_path', '/');
-ini_set('session.use_cookies', 1);
+// auth_check.php - Version sécurisée et optimisée
+
+// Configuration session renforcée
+session_name('TYZISESSID');
+session_set_cookie_params([
+    'lifetime' => 86400 * 30, // 30 jours
+    'path' => '/',
+    'domain' => '.tyzi.fr', // Domaine principal et sous-domaines
+    'secure' => true,
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// CORRECTIF SPÉCIAL IONOS: Restauration forcée de session depuis cookies
-if (isset($_COOKIE['session_user']) && !isset($_SESSION['email'])) {
+// Debug des accès
+error_log("=== AUTH CHECK ===");
+error_log("IP: " . $_SERVER['REMOTE_ADDR']);
+error_log("User Agent: " . $_SERVER['HTTP_USER_AGENT']);
+
+// Gestion multi-sources d'authentification
+$current_user = $_SESSION['email'] ?? $_COOKIE['session_user'] ?? null;
+
+// Mécanisme de secours Ionos
+if (!$current_user && isset($_COOKIE['session_user'])) {
     $_SESSION['email'] = $_COOKIE['session_user'];
-    
-    // Force-sauvegarder la session
     session_write_close();
     session_start();
-    
-    // Double vérification - si toujours pas défini, utiliser une solution alternative
-    if (!isset($_SESSION['email'])) {
-        // Définir une variable globale si la session échoue
-        define('USER_EMAIL', $_COOKIE['session_user']);
-    }
+    $current_user = $_SESSION['email'];
+    error_log("Restauration de session depuis cookie Ionos");
 }
 
-// Utiliser la variable de session ou la constante de secours
-$current_user = isset($_SESSION['email']) ? $_SESSION['email'] : (defined('USER_EMAIL') ? USER_EMAIL : null);
-
-// Vérification simplifiée
+// Validation finale
 if (!$current_user) {
-    // Si la page courante n'est pas déjà la page de login
-    if (!isset($_GET['page']) || $_GET['page'] !== 'login') {
-        // Supprimer les cookies
-        setcookie('session_user', '', time() - 3600, '/');
-        setcookie('session_date', '', time() - 3600, '/');
-        
-        // Redirection vers login avec une redirection explicite (chemin absolu)
-        $base_path = dirname($_SERVER['PHP_SELF']);
-        if (substr($base_path, -1) !== '/') {
-            $base_path .= '/';
-        }
-        $current_page = basename($_SERVER['PHP_SELF'], '.php');
-        header("Location: {$base_path}index.php?page=login&from={$current_page}&reason=no_session");
-        exit;
-    }
+    // Nettoyage complet
+    session_unset();
+    session_destroy();
+    setcookie('session_user', '', time() - 3600, '/', '.tyzi.fr');
+    setcookie('session_date', '', time() - 3600, '/', '.tyzi.fr');
+
+    // Redirection sécurisée
+    $request_uri = urlencode($_SERVER['REQUEST_URI']);
+    header("Location: https://tyzi.fr/geodex/app/?page=login&redirect=$request_uri&code=auth_failed");
+    exit;
 }
 
-// Rafraîchir les cookies avec paramètres explicites
-if ($current_user) {
-    $expire = time() + (86400 * 30); // 30 jours
-    setcookie('session_user', $current_user, $expire, '/');
-    setcookie('session_date', date('Y-m-d H:i:s'), $expire, '/'); 
-}
+// Rafraîchissement des cookies
+$expire = time() + 2592000; // 30 jours
+setcookie('session_user', $current_user, $expire, '/', '.tyzi.fr', true, true);
+setcookie('session_date', date('c'), $expire, '/', '.tyzi.fr', true, false);
+
+error_log("Authentification réussie pour : $current_user");
 ?>

@@ -1,29 +1,45 @@
-<?php 
-// Début du fichier
-session_start();
+<?php
+// Configuration session sécurisée
+session_name('TYZISESSID');
+session_set_cookie_params([
+    'lifetime' => 86400 * 30, // 30 jours
+    'path' => '/',
+    'domain' => '.tyzi.fr', // Important pour les sous-domaines
+    'secure' => true,
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
 
-// Solution de secours pour Ionos
-$current_user = isset($_SESSION['email']) ? $_SESSION['email'] : 
-                (isset($_COOKIE['session_user']) ? $_COOKIE['session_user'] : null);
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Utiliser la variable $current_user au lieu de $_SESSION['email']
+// Debug des cookies/session
+error_log("=== DASHBOARD ===");
+error_log("Session ID: " . session_id());
+error_log("Cookies: " . print_r($_COOKIE, true));
+
+// Gestion multi-auth (session + cookie)
+$current_user = $_SESSION['email'] ?? $_COOKIE['session_user'] ?? null;
+
 if (!$current_user) {
-    header("Location: ./index.php?page=login");
+    error_log("Redirection vers login");
+    header("Location: https://tyzi.fr/geodex/app/?page=login");
     exit;
 }
 
-// Pour le reste du script, définir $_SESSION['email'] si nécessaire
-if (!isset($_SESSION['email']) && $current_user) {
-    $_SESSION['email'] = $current_user;
+// Synchronisation cookie -> session
+if (!isset($_SESSION['email']) && isset($_COOKIE['session_user'])) {
+    $_SESSION['email'] = $_COOKIE['session_user'];
+    error_log("Session mise à jour depuis cookie");
 }
 
-// Continuer avec le code existant...
-require_once __DIR__ . '/../models/auth_check.php';
+require_once __DIR__ . '/../../config/Pierre.php';
 
-$racine_path = './';
+// Templates
+include '../templates/head.php';
+include '../templates/sidebar.php';
+include '../templates/game.php';
+
+error_log("=== FIN DASHBOARD ===");
 ?>
-
-<?php include '../templates/head.php'; ?>
-<?php include '../templates/sidebar.php'; ?>
-<?php include '../templates/game.php'; ?>
-

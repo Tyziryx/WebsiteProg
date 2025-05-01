@@ -1,45 +1,48 @@
-<?php 
-// Démarrer une session
+<?php
+// Configuration session
+session_name('TYZISESSID');
+session_set_cookie_params([
+    'lifetime' => 86400 * 30, // 30 jours
+    'path' => '/',
+    'domain' => 'tyzi.fr',
+    'secure' => true,
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// DÉBOGAGE avec information explicite
-error_log("GEODEX.PHP - Démarrage - URI: " . $_SERVER['REQUEST_URI']);
+// Debug
+error_log("=== DEBUT GEODEX.PHP ===");
+error_log("Cookies : " . print_r($_COOKIE, true));
+error_log("Session ID : " . session_id());
+error_log("Session data : " . print_r($_SESSION, true));
 
-// Vérifier la session directement au lieu d'utiliser auth_check.php
+// Vérification authentification
 if (!isset($_SESSION['email'])) {
-    // Si pas de session mais cookie présent, restaurer la session
-    if (isset($_COOKIE['session_user'])) {
+    if (!empty($_COOKIE['session_user'])) {
         $_SESSION['email'] = $_COOKIE['session_user'];
-        error_log("Session restaurée depuis cookie: " . $_COOKIE['session_user']);
+        error_log("Session restaurée depuis cookie");
     } else {
-        error_log("Redirection vers login - Pas de session email");
-        header("Location: ./?page=login&redirect=geodex");
+        error_log("Redirection vers login");
+        header("Location: https://tyzi.fr/geodex/app/?page=login&redirect=geodex");
         exit;
     }
 }
 
 require_once __DIR__ . '/../../config/Pierre.php';
-$racine_path = './';
 
-// Point de contrôle après session
-error_log("GEODEX.PHP - Session OK: " . $_SESSION['email']);
-
-if (isset($_GET['id'])) {
-    // Code pour afficher une pierre spécifique
+// Logique de routage
+if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id = urldecode($_GET['id']);
-    $_GET['id'] = $id;
-    $racine_path = '../';
     include '../templates/description.php';
 } else {
-    // IMPORTANT: Vérifier si les templates sont chargés
-    error_log("GEODEX.PHP - Chargement des templates");
     include '../templates/head.php';
     include '../templates/sidebar.php';
     include '../templates/geodex.php';
 }
 
-// Log de fin d'exécution
-error_log("GEODEX.PHP - Fin d'exécution avec succès");
+error_log("=== FIN GEODEX.PHP ===");
 ?>
