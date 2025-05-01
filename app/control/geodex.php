@@ -4,8 +4,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Débogage pour comprendre le problème de redirection
-error_log("Accès à geodex.php - SESSION: " . json_encode($_SESSION) . " - COOKIES: " . json_encode($_COOKIE));
+// DÉBOGAGE: Afficher où on est redirigé
+error_log("Geodex.php - START - " . $_SERVER['REQUEST_URI']);
 
 if (!isset($_SESSION['email'])) {
     error_log("Redirection vers login - Pas de session email");
@@ -13,23 +13,28 @@ if (!isset($_SESSION['email'])) {
     exit;
 }
 
-// Déplacer require auth_check après la vérification de session
-// pour éviter une redirection en cascade
+// IMPORTANT: Commentez temporairement cette ligne pour tester
+// require_once __DIR__ . '/../models/auth_check.php';
 require_once __DIR__ . '/../../config/Pierre.php';
-require_once __DIR__ . '/../models/auth_check.php';
 
 $racine_path = './';
 
+// DÉBOGAGE: Point de contrôle
+error_log("Geodex.php - AVANT TEMPLATES - Session OK");
+
 if (isset($_GET['id'])) {
-    // Décoder l'URL pour récupérer le nom original de la pierre
+    // Code pour afficher une pierre spécifique
     $id = urldecode($_GET['id']);
-    $_GET['id'] = $id; // Mettre à jour la variable GET pour description.php
-    
+    $_GET['id'] = $id;
     $racine_path = '../';
     include '../templates/description.php';
 } else {
+    // Code pour afficher le geodex complet
     include '../templates/head.php';
     include '../templates/sidebar.php';
     include '../templates/geodex.php';
 }
+
+// DÉBOGAGE: Fin du script
+error_log("Geodex.php - FIN - Succès");
 ?>

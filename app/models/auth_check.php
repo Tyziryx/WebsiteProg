@@ -38,7 +38,8 @@ if (!$current_user) {
         if (substr($base_path, -1) !== '/') {
             $base_path .= '/';
         }
-        header("Location: {$base_path}index.php?page=login&reason=no_session");
+        $current_page = basename($_SERVER['PHP_SELF'], '.php');
+        header("Location: {$base_path}index.php?page=login&from={$current_page}&reason=no_session");
         exit;
     }
 }
