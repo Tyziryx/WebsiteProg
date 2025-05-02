@@ -1,95 +1,72 @@
 <?php
 
 if (session_status() === PHP_SESSION_NONE) {
+    // Configuration spécifique du cookie de session
+    session_set_cookie_params([
+        'lifetime' => 86400 * 30,
+        'path' => '/geodex/app', // Chemin absolu de l'application
+        'domain' => 'tyzi.fr',
+        'secure' => true, // FORCÉ en HTTPS
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
     session_start();
 }
+
 include __DIR__ . '/../../config/GestionBD.php';
 require_once __DIR__ . '/../../config/notifications.php';
-
-
-/**
- * Script de gestion de la connexion utilisateur.
- * 
- * Ce script traite la soumission d'un formulaire de connexion, vérifie si les informations fournies sont valides,
- * et si oui, démarre une session pour l'utilisateur et le redirige vers son tableau de bord. 
- * En cas d'erreur, un message approprié est affiché.
- * 
- * La validation se fait via la vérification du mot de passe haché stocké dans la base de données.
- * 
- * @throws Exception Si une erreur survient lors de la connexion à la base de données.
- */
-
-
-// Créer la connexion à la base de données
 
 $db = new \bd\GestionBD();
 $pdo = $db->connexion();
 
-
-// Traitement du formulaire de connexion
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    // Vérifie que l'email et le mot de passe sont fournis
     if (empty($email) || empty($password)) {
         setNotification('error', 'Veuillez remplir tous les champs.');
-        header("Location: ../");
+        header("Location: https://tyzi.fr/geodex/app/login");
         exit;
     }
 
-    /**
-     * Requête SQL pour récupérer les informations de l'utilisateur en fonction de l'email fourni.
-     * La requête recherche l'email dans la base de données et récupère le mot de passe stocké.
-     */    
-    $stmt = $pdo->prepare("SELECT email, password FROM utilisateurs WHERE email = :email");
-    $stmt->execute(['email' => $email]);
-    $user = $stmt->fetch();
+    // Requête améliorée avec gestion des erreurs
+    try {
+        $stmt = $pdo->prepare("SELECT email, password FROM utilisateurs WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
 
-    // Vérifier le mot de passe en utilisant password_verify au lieu de comparaison directe
-    if ($user && password_verify($password, $user['password'])) {
-        /**
-         * Si l'utilisateur est authentifié, on démarre une session et on stocke l'email dans la session.
-         * L'utilisateur est ensuite redirigé vers la page du tableau de bord.
-         */
-        // Session classique
-        $_SESSION['email'] = $user['email'];
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['email'] = $user['email'];
 
-        // Cookie valable 30 jours avec chemin absolu et domaine spécifique
-        $path = "/";
-        $secure = false; // true si HTTPS
-        $httponly = true;
-        
-        // Définir correctement les cookies pour tout le site
-        setcookie('session_user', $user['email'], [
-            'expires' => time() + (86400 * 30),
-            'path' => $path,
-            'secure' => $secure,
-            'httponly' => $httponly,
-            'samesite' => 'Lax'
-        ]);
-        
-        setcookie('session_date', date('Y-m-d H:i:s'), [
-            'expires' => time() + (86400 * 30),
-            'path' => $path,
-            'secure' => $secure,
-            'httponly' => $httponly, 
-            'samesite' => 'Lax'
-        ]);
+            // Cookies avec paramètres cohérents
+            $cookieOptions = [
+                'expires' => time() + 86400 * 30,
+                'path' => '/geodex/app', // Chemin ABSOLU
+                'domain' => 'tyzi.fr',
+                'secure' => true, // HTTPS obligatoire
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ];
 
-        // Redirection vers dashboard (utilisez un chemin absolu)
-        header("Location: ../dashboard");
-        exit;
-    } else {
-        // Message d'erreur de connexion
-        setNotification('error', 'Email ou mot de passe incorrect.');
-        header("Location: ../");
+            setcookie('session_user', $user['email'], $cookieOptions);
+            setcookie('session_date', date('Y-m-d H:i:s'), $cookieOptions);
+
+            header("Location: https://tyzi.fr/geodex/app/dashboard");
+            exit;
+        } else {
+            setNotification('error', 'Identifiants incorrects');
+            header("Location: https://tyzi.fr/geodex/app/login");
+            exit;
+        }
+    } catch (PDOException $e) {
+        error_log("Erreur de connexion : " . $e->getMessage());
+        setNotification('error', 'Erreur technique');
+        header("Location: https://tyzi.fr/geodex/app/login");
         exit;
     }
 }
 
-// Si ce n'est pas une requête POST, rediriger vers la page de login
-setNotification('error', 'Accès non autorisé.');
-header("Location: ../");
+setNotification('error', 'Accès invalide');
+header("Location: https://tyzi.fr/geodex/app/login");
 exit;
 ?>
