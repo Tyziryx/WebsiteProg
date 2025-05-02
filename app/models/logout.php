@@ -20,6 +20,6 @@ setcookie('session_user', '', time() - 3600, '/');
 setcookie('session_date', '', time() - 3600, '/');
 
 // Redirige l'utilisateur vers la page d'accueil après la déconnexion.
-header("Location: ../../");
+header("Location: ../");
 exit;
 ?>
