@@ -14,24 +14,22 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Debug des cookies/session
+// Débogage des cookies/session
 error_log("=== DASHBOARD ===");
 error_log("Session ID: " . session_id());
 error_log("Cookies: " . print_r($_COOKIE, true));
 
-// Gestion multi-auth (session + cookie)
-$current_user = $_SESSION['email'] ?? $_COOKIE['session_user'] ?? null;
+// Restauration automatique de session depuis les cookies
+if (!isset($_SESSION['email']) && isset($_COOKIE['session_user'])) {
+    $_SESSION['email'] = $_COOKIE['session_user'];
+    error_log("Session restaurée depuis cookie");
+}
 
-if (!$current_user) {
+// Vérification finale
+if (!isset($_SESSION['email'])) {
     error_log("Redirection vers login");
     header("Location: https://tyzi.fr/geodex/app/?page=login");
     exit;
-}
-
-// Synchronisation cookie -> session
-if (!isset($_SESSION['email']) && isset($_COOKIE['session_user'])) {
-    $_SESSION['email'] = $_COOKIE['session_user'];
-    error_log("Session mise à jour depuis cookie");
 }
 
 require_once __DIR__ . '/../../config/Pierre.php';

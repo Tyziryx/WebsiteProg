@@ -68,19 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
             $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
 
-            // Cookies avec vérification de l'écriture
-            $cookieParams = [
-                'expires' => time() + 86400 * 30,
-                'path' => '/geodex/app',
-                'domain' => 'tyzi.fr',
-                'secure' => true,
-                'httponly' => true,
-                'samesite' => 'Lax'
-            ];
-
-            if (!setcookie('session_user', $user['email'], $cookieParams)) {
-                error_log("Échec écriture cookie session_user");
-            }
+            // Utiliser la version compatible pour tous les serveurs PHP
+            $expire = time() + 86400 * 30;
+            $path = "/";  // Chemin racine pour tous les sous-dossiers
+            
+            // Format compatible avec toutes versions de PHP
+            setcookie('session_user', $user['email'], $expire, $path, '', false, true);
+            setcookie('session_date', date('Y-m-d H:i:s'), $expire, $path, '', false, true);
 
             header("Location: https://tyzi.fr/geodex/app/dashboard");
             exit;
