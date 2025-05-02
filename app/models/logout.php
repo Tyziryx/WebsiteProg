@@ -9,39 +9,41 @@
  * @package Déconnexion
  */
 
-// Démarre la session si elle n'est pas déjà active
-// Configuration session IDENTIQUE à login.php
+// Configuration de la session sécurisée
+session_name('TYZISESSID');
 session_set_cookie_params([
-    'lifetime' => 0,
-    'path' => '/geodex/app',
-    'domain' => 'tyzi.fr',
+    'lifetime' => 86400 * 30,
+    'path' => '/',
+    'domain' => '.tyzi.fr',
     'secure' => true,
     'httponly' => true,
     'samesite' => 'Lax'
 ]);
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Destruction complète de la session
-$_SESSION = [];
+// Détruire proprement la session
 session_unset();
 session_destroy();
 
-// Suppression des cookies AVEC LES MÊMES PARAMÈTRES
+// Nettoyer tous les cookies liés à la session
 $cookieOptions = [
     'expires' => time() - 3600,
-    'path' => '/geodex/app',
-    'domain' => 'tyzi.fr',
+    'path' => '/',
+    'domain' => '.tyzi.fr',
     'secure' => true,
     'httponly' => true,
     'samesite' => 'Lax'
 ];
 
+// Supprimer tous les cookies de session
 setcookie('session_user', '', $cookieOptions);
 setcookie('session_date', '', $cookieOptions);
-setcookie(session_name(), '', $cookieOptions); // Supprime le cookie de session PHP
+setcookie(session_name(), '', $cookieOptions);
 
-// Redirection ABSOLUE
+// CORRECTION: URL de redirection complète
 header("Location: https://tyzi.fr/geodex/app/?page=login");
 exit;
 ?>
