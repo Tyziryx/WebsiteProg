@@ -35,21 +35,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     try {
-        // Correction du schéma et nom de colonne
+        // DEBUGGING: Ajouter des logs détaillés
+        error_log("===== TENTATIVE DE CONNEXION =====");
+        error_log("Email: " . $email);
+        
         $stmt = $pdo->prepare("
-            SELECT email, mot_de_passe 
+            SELECT email, password  
             FROM uapv2401411.utilisateurs 
             WHERE email = :email
         ");
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         
         if (!$stmt->execute()) {
-            throw new PDOException("Erreur d'exécution de requête");
+            $errorInfo = $stmt->errorInfo();
+            error_log("Erreur SQL: " . print_r($errorInfo, true));
+            throw new PDOException("Erreur d'exécution: " . $errorInfo[2]);
         }
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // Débogage pour voir si l'utilisateur est trouvé
+        error_log("Utilisateur trouvé: " . ($user ? "OUI" : "NON"));
+        if ($user) {
+            error_log("Hash stocké: " . substr($user['password'], 0, 15) . "...");
+        }
 
-        if ($user && password_verify($password, $user['mot_de_passe'])) {
+        if ($user && password_verify($password, $user['password'])) {
+            error_log("Vérification du mot de passe: RÉUSSIE");
             session_regenerate_id(true);
             
             $_SESSION['email'] = $user['email'];
@@ -74,13 +86,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             exit;
 
         } else {
+            if ($user) {
+                error_log("Vérification du mot de passe: ÉCHEC");
+                // DEBUGGING: Test temporaire du hash pour geodex@geo.fr
+                if ($email === 'geodex@geo.fr') {
+                    $manualCheck = password_verify($password, '$2y$10$Cn7kV6O29wQe7gcCAtYg1eFPBCKGeSNfsYoVNPvWdcqAK7xR5N/Gm');
+                    error_log("Test manuel du hash: " . ($manualCheck ? "RÉUSSI" : "ÉCHEC"));
+                }
+            }
             setNotification('error', 'Email ou mot de passe incorrect');
             header("Location: https://tyzi.fr/geodex/app/?page=login");
             exit;
         }
 
     } catch (PDOException $e) {
-        error_log("PDO Error: " . $e->getMessage());
+        // Amélioration des logs d'erreur
+        error_log("===== ERREUR PDO DÉTAILLÉE =====");
+        error_log("Message: " . $e->getMessage());
+        error_log("Code: " . $e->getCode());
+        error_log("Trace: " . $e->getTraceAsString());
+        
         setNotification('error', 'Erreur de base de données');
         header("Location: https://tyzi.fr/geodex/app/?page=login");
         exit;
