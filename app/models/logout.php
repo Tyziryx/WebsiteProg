@@ -10,16 +10,15 @@
  */
 
 // Démarre la session si elle n'est pas déjà active
-session_start();
-
-// Détruire la session
+$_SESSION = array();
+session_unset();
 session_destroy();
 
-// Supprimer les cookies de session avec le bon chemin
-setcookie('session_user', '', time() - 3600, '/');
-setcookie('session_date', '', time() - 3600, '/');
+// Suppression cookies avec chemin ABSOLU
+setcookie('session_user', '', time() - 3600, '/geodex/app', $domain = 'tyzi.fr', $secure = true);
+setcookie('session_date', '', time() - 3600, '/geodex/app', $domain = 'tyzi.fr', $secure = true);
 
-// Redirige l'utilisateur vers la page d'accueil après la déconnexion.
-header("Location: ../");
+// Redirection ABSOLUE HTTPS
+header("Location: https://tyzi.fr/geodex/app/login");
 exit;
 ?>
