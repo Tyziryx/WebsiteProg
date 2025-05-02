@@ -10,7 +10,7 @@
             <li><a href="<?php echo $racine_path . 'dashboard'; ?>">Dashboard</a></li>
             <li><a href="geodex">Geodex</a></li>
             <li><a href="<?php echo $racine_path . 'profil'; ?>">Profil</a></li>
-            <li><a href="<?php echo $racine_path . '/models/logout.php'; ?>">Déconnexion</a></li>
+            <li><a href="<?php echo $racine_path . 'logout'; ?>">Déconnexion</a></li>
         </ul>
     </nav>
 </aside>
