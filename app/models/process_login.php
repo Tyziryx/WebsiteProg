@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $stmt = $pdo->prepare("
             SELECT email, password  
-            FROM uapv2401411.utilisateurs 
+            FROM utilisateurs 
             WHERE email = :email
         ");
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
