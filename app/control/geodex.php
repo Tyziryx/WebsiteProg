@@ -14,6 +14,12 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// BYPASS TEMPORAIRE POUR DIAGNOSTIC
+if (isset($_GET['bypass'])) {
+    $_SESSION['email'] = $_COOKIE['session_user'] ?? 'debug@example.com';
+    error_log("BYPASS ACTIVÉ - Session forcée avec: " . $_SESSION['email']);
+}
+
 // Debug
 error_log("=== DEBUT GEODEX.PHP ===");
 error_log("Cookies : " . print_r($_COOKIE, true));
