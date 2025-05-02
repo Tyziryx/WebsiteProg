@@ -1,37 +1,53 @@
 <?php
-$racine_path = './';
-// Start the session at the beginning if not already started
+// Configuration ABSOLUE du chemin racine
+$racine_path = __DIR__ . '/';
+
+// Configuration des cookies de session
+session_set_cookie_params([
+    'lifetime' => 86400 * 30,
+    'path' => '/geodex/app',
+    'domain' => 'tyzi.fr',
+    'secure' => true,
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$page = $_GET['page'] ?? 'login';
+// Récupération sécurisée de la page
+$page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING) ?? 'login';
 
-// Liste des pages accessibles uniquement aux utilisateurs connectés
+// Pages protégées
 $protected_pages = ['geodex', 'dashboard', 'profil'];
 
-// Vérifie si l'utilisateur tente d'accéder à une page protégée sans être connecté
-if (in_array($page, $protected_pages) && !isset($_SESSION['email'])) {
-    header("Location: index.php?page=login");
+// Redirection si accès non autorisé
+if (in_array($page, $protected_pages) && empty($_SESSION['email'])) {
+    header("Location: https://tyzi.fr/geodex/app/?page=login");
     exit;
 }
 
-include 'templates/head.php';
-
-$routes = [
-    'login' => 'templates/login.php',
-    'geodex' => 'control/geodex.php',
-    'dashboard' => 'control/dashboard.php',
-    'profil' => 'control/profil_controller.php',
-];
+// Inclusion des templates
+include $racine_path . 'templates/head.php';
 
 if ($page !== 'login') {
-    include 'templates/sidebar.php';
+    include $racine_path . 'templates/sidebar.php';
 }
 
-if (array_key_exists($page, $routes) && file_exists($routes[$page])) {
-    include $routes[$page];
+// Mapping des routes EXISTANTES
+$routes = [
+    'login'    => 'control/login.php',
+    'geodex'   => 'control/geodex.php', 
+    'dashboard' => 'control/dashboard.php',
+    'profil'   => 'control/profil.php' // Garde le nom original
+];
+
+// Gestion de l'inclusion
+$controller_path = $racine_path . ($routes[$page] ?? '');
+
+if ($controller_path && file_exists($controller_path)) {
+    include $controller_path;
 } else {
-    include 'templates/404.php';
+    include $racine_path . 'templates/404.php';
 }
-?>
